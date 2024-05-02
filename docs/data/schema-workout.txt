@@ -1,0 +1,42 @@
+table workout.newActivity
+	- int idActivity --pk
+	- int idUser --fk
+	- string type --aerobico, musculacao
+    - date activityDate
+
+
+table workout.aerobic
+	- int idActivity --fk, pk
+	- time begin
+	- time end
+	- double averageSpeed
+	- double distance
+	- double lostCal -- calculo de perda de calorias baseado no tempo de treinamento (end - begin), type, averageSpeed e distance
+
+
+table workout.bodybuild
+	- int idActivity --fk, pk
+	- text description --treino de perna, superior, braco etc....
+	- time begin
+	- time end
+
+
+view workout.showStats
+    - aerobic 
+        - last week/ month/ year
+            - string type
+            - time time --(end - begin)
+            - double distance
+            - double averageSpeed
+            - double lostCal
+
+    - bodybuild
+        - last week/ month/ year
+            - string type
+            - time time --(end - begin)
+            - text description 
+
+view workout.activePercentage
+        - last week/ month/ year
+            - int frequency -- calculo que conta todas as idActivity registradas entre o prazo determinado
+            - double percentage -- calculo que verifica se está mais ou menos ativo em relação a semana / mes / ano passados 

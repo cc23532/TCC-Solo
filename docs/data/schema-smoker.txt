@@ -1,0 +1,12 @@
+table smoker.habits
+    - int idUser -- pk
+    - int cigsPerDay
+    - int cigsPerPack
+    - double packPrice
+    - int howManyYears --quantos anos sendo um fumante
+
+view smoker.stopSmoking
+    - datetime timeNoSmoking
+    - int avoidedCigs
+    - double moneySaved
+    - double timeSaved -- Tempo Salvo  = Cigarros por Dia × Minutos Perdidos por Cigarro × Dias sem Fumar

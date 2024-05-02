@@ -1,0 +1,12 @@
+table drinker.habits
+    - int idUser -- pk
+    - char type -- 'D' = destilado // 'F' = fermentado
+    - int daysPerWeek
+    - int drinksPerDay
+    - double pricePerDrink
+    - int howManyYears --quantos anos bebendo
+
+view drinker.stopDrinking
+    - datetime timeNoDrinking
+    - int avoidedDrinks
+    - double moneySaved
