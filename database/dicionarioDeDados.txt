@@ -1,0 +1,123 @@
+DICIONÁRIO DE DADOS
+
+Schema: Solo
+
+-- Área de Dados do Usuário 
+    Table User
+    (
+        id int not null identity primary key,
+        nickname varchar (50) not null,
+        password varchar(20) not null,
+        birthday date not null,
+        email varchar(50) not null,
+        phone varchar(12) not null, 
+        weight float not null,
+        height float not null,
+        profile_pic varbinary(max) null
+    )
+
+    Table UserHabits
+    (
+        idUser int not null foreign key references to solo.user(id),
+        workBegin time null,
+        workEnd time null,
+        studyBegin time null,
+        studyEnd time null,
+        sleepBegin time not null,
+        sleepEnd time not null,
+        workoutBegin time null,
+        workoutEnd time null,
+        smoke bit not null
+    )
+
+    Table UserMood
+    (
+        idUser int not null foreign key references to solo.user(id),
+        mood varchar(10) not null,
+        moodDate date not null
+    )
+
+
+-- Agenda
+    Table Scheduling
+    (
+        idSchedule int not null identity primary key,
+        name varchar (100) not null,
+        schedulingDate date not null,
+        timeBegin time not null,
+        timeEnd time not null,
+        description text null,
+        idUser int not null foreign key references to solo.user(id)
+    )
+
+
+-- Treinamentos
+    Table CardioActivity
+    (
+        idActivity int not null identity primary key,
+        idUser int not null foreign key references to solo.user(id),
+        activityDate datetime not null,
+        duration time not null,
+        distance float not null,
+        averageSpeed float not null,
+        lostKCal float not null
+    )
+
+    Table MuscleActivity
+    (
+        idActivity int not null identity primary key,
+        idUser int not null foreign key references to solo.user(id),
+        activityDate datetime not null,
+        duration time not null,
+        trainingType varchar(50) not null
+    )
+
+    Table Muscle_Exercises
+    (
+        idExercise not null identity primary key,
+        idActivity int not null foreign key references solo.MuscleActivity(id),
+        name varchar (50) not null,
+        weight float not null,
+        series int not null,
+        repetition int not null
+    )
+
+
+-- Dieta
+    Table Meal
+    (
+        idMeal int not null identity primary key,
+        idUser int not null foreign key references to solo.user(id),
+        mealDate datetime not null
+    )
+
+    Table Meal_Itens
+    (
+        idItem int not null identity primary key,
+        idMeal int not null foreign key references to solo.Meal(id),
+        food varchar(50) not null,
+        weight float not null
+    )
+
+
+-- Pare de Fumar
+    Table StopSmoking
+    (
+        idUser int not null primary key foreign key references to solo.User(id),
+        cigsPerDay int not null,
+        cigsPerPack int not null,
+        packPrice float not null
+    )
+
+
+--Finanças 
+    Table FinancialActivity
+    (
+        idActivity int not null identity primary key,
+        idUser int not null foreign key references to solo.User(id),
+        typeOf varchar not null,
+        value money not null,
+        activityDate datetime not null,
+        label varchar(50) not null,
+        description text null
+    )

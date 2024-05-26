@@ -1,9 +1,0 @@
-table finances.expenses
-    - int idUser -- pk
-    - int month
-    - char method -- 'C' = credito / 'D' = debito
-    - string type --conta de agua, luz, alimentação, transporte, entre outros
-    - double value 
-
-view finances.stats
-    
