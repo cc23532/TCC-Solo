@@ -19,15 +19,18 @@ Schema: Solo
     Table UserHabits
     (
         idUser int not null foreign key references to solo.user(id),
+	work bit not null,
         workBegin time null,
         workEnd time null,
+	study bit not full,
         studyBegin time null,
         studyEnd time null,
         sleepBegin time not null,
         sleepEnd time not null,
+	workout bit null,
         workoutBegin time null,
-        workoutEnd time null,
-        smoke bit not null
+        workoutEnd time null
+        --smoke bit not null
     )
 
     Table UserMood
