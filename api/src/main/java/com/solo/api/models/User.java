@@ -2,6 +2,10 @@ package com.solo.api.models;
 
 import jakarta.persistence.*;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Objects;
+
 @Entity
 @Table
 public class User {
@@ -16,7 +20,7 @@ public class User {
     private String password;
 
     @Column (length = 10, nullable = false)
-    private String birthday;
+    private Date birthday;
 
     @Column(length = 50, nullable = false)
     private String email;
@@ -34,7 +38,7 @@ public class User {
     @Column
     private byte[] profile_pic;
 
-    public User(Integer userId, String nickname, String password, String birthday, String email, String phone, double weight, double height, byte[] profile_pic){
+    public User(Integer userId, String nickname, String password, Date birthday, String email, String phone, double weight, double height, byte[] profile_pic){
         this.userId = userId;
         this.nickname = nickname;
         this.password = password;
@@ -66,11 +70,11 @@ public class User {
         this.password = password;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -114,5 +118,33 @@ public class User {
         this.profile_pic = profile_pic;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Double.compare(weight, user.weight) == 0 && Double.compare(height, user.height) == 0 && Objects.equals(userId, user.userId) && Objects.equals(nickname, user.nickname) && Objects.equals(password, user.password) && Objects.equals(birthday, user.birthday) && Objects.equals(email, user.email) && Objects.equals(phone, user.phone) && Arrays.equals(profile_pic, user.profile_pic);
+    }
 
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(userId, nickname, password, birthday, email, phone, weight, height);
+        result = 31 * result + Arrays.hashCode(profile_pic);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", nickname='" + nickname + '\'' +
+                ", password='" + password + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", profile_pic=" + Arrays.toString(profile_pic) +
+                '}';
+    }
 }
