@@ -1,7 +1,7 @@
 package com.solo.api.controllers;
 
-import com.solo.api.models.User;
-import com.solo.api.repositories.UserRepository;
+import com.solo.api.models.SoloUser;
+import com.solo.api.repositories.SoloUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,17 +10,22 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class SoloUserController {
     @Autowired
-    private UserRepository repository;
+    private SoloUserRepository repository;
 
-    @GetMapping
-    public List<User> all(){
-        return repository.findAll();
+    @GetMapping("/test")
+    public String testEndPoint(){
+        return "SOLO no ar";
     }
 
+    @GetMapping
+    public List<SoloUser> all(){
+        return repository.findAll();
+    }
+ 
     @GetMapping("/user/{id}")
-    public Optional<User> one(@PathVariable Integer id){
+    public Optional<SoloUser> one(@PathVariable Integer id){
         return repository.findById(id);
     }
 
@@ -30,16 +35,16 @@ public class UserController {
     }
 
     @PostMapping
-    public User save(@RequestBody User newUser){
+    public SoloUser save(@RequestBody SoloUser newUser){
         return repository.save(newUser);
     }
 
     @PutMapping("/user/{id}")
-    public User replace(@RequestBody User newUser, @PathVariable Integer id){
+    public SoloUser replace(@RequestBody SoloUser newUser, @PathVariable Integer id){
         return repository.findById(id)
                 .map(user -> {
                     user.setNickname(newUser.getNickname());
-                    user.setPassword(newUser.getPassword());
+                    user.setPwd(newUser.getPwd());
                     user.setBirthday(newUser.getBirthday());
                     user.setEmail(newUser.getEmail());
                     user.setPhone(newUser.getPhone());

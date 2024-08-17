@@ -7,17 +7,17 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table
-public class User {
+@Table(name = "SoloUser", schema = "appSolo")
+public class SoloUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
+    private int id;
 
     @Column(length = 15, nullable = false)
     private String nickname;
 
     @Column(length = 20, nullable = false)
-    private String password;
+    private String pwd;
 
     @Column (length = 10, nullable = false)
     private Date birthday;
@@ -28,20 +28,24 @@ public class User {
     @Column(length = 11, nullable = false)
     private String phone;
 
-    @Column
+    @Column (nullable = false)
     private double weight;
 
-    @Column
+    @Column (nullable = false)
     private double height;
 
     @Lob
-    @Column
+    @Column (nullable = false)
     private byte[] profile_pic;
 
-    public User(Integer userId, String nickname, String password, Date birthday, String email, String phone, double weight, double height, byte[] profile_pic){
-        this.userId = userId;
+    public SoloUser(){
+
+    }
+
+    public SoloUser(int id, String nickname, String pwd, Date birthday, String email, String phone, double weight, double height, byte[] profile_pic){
+        this.id = id;
         this.nickname = nickname;
-        this.password = password;
+        this.pwd = pwd;
         this.birthday = birthday;
         this.email = email;
         this.phone = phone;
@@ -50,8 +54,8 @@ public class User {
         this.profile_pic = profile_pic;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public int getid() {
+        return id;
     }
 
     public String getNickname() {
@@ -62,12 +66,12 @@ public class User {
         this.nickname = nickname;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     public Date getBirthday() {
@@ -122,13 +126,13 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Double.compare(weight, user.weight) == 0 && Double.compare(height, user.height) == 0 && Objects.equals(userId, user.userId) && Objects.equals(nickname, user.nickname) && Objects.equals(password, user.password) && Objects.equals(birthday, user.birthday) && Objects.equals(email, user.email) && Objects.equals(phone, user.phone) && Arrays.equals(profile_pic, user.profile_pic);
+        SoloUser user = (SoloUser) o;
+        return Double.compare(weight, user.weight) == 0 && Double.compare(height, user.height) == 0 && Objects.equals(id, user.id) && Objects.equals(nickname, user.nickname) && Objects.equals(pwd, user.pwd) && Objects.equals(birthday, user.birthday) && Objects.equals(email, user.email) && Objects.equals(phone, user.phone) && Arrays.equals(profile_pic, user.profile_pic);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(userId, nickname, password, birthday, email, phone, weight, height);
+        int result = Objects.hash(id, nickname, pwd, birthday, email, phone, weight, height);
         result = 31 * result + Arrays.hashCode(profile_pic);
         return result;
     }
@@ -136,15 +140,14 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
+                "id=" + id +
                 ", nickname='" + nickname + '\'' +
-                ", password='" + password + '\'' +
+                ", pwd='" + pwd + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", weight=" + weight +
                 ", height=" + height +
-                ", profile_pic=" + Arrays.toString(profile_pic) +
-                '}';
+                "}";
     }
 }

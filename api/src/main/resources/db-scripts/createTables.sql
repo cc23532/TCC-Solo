@@ -1,20 +1,22 @@
--- CREATE SCHEMA solo;
+-- CREATE SCHEMA appSolo;
 
 -- Área de Dados do Usuário 
-CREATE TABLE solo.SoloUser
+CREATE TABLE appSolo.SoloUser
 (
     id INT NOT NULL IDENTITY PRIMARY KEY,
-    nickname VARCHAR(50) NOT NULL,
-    password VARCHAR(20) NOT NULL,
+    nickname VARCHAR(50) NOT NULL UNIQUE,
     birthday DATE NOT NULL,
-    email VARCHAR(50) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    pwd VARCHAR(255) NOT NULL,
     phone VARCHAR(12) NOT NULL,
     weight FLOAT NOT NULL,
     height FLOAT NOT NULL,
-    profile_pic VARBINARY(MAX) NULL
+    profile_pic VARBINARY(MAX) NULL,
+    created_at TIMESTAMP NOT NULL
 );
 
-CREATE TABLE solo.UserHabits
+
+CREATE TABLE appSolo.UserHabits
 (
     idUser INT NOT NULL,
     work BIT NOT NULL,
@@ -29,19 +31,19 @@ CREATE TABLE solo.UserHabits
     workoutBegin TIME NULL,
     workoutEnd TIME NULL,
     -- smoke BIT NOT NULL,
-    CONSTRAINT FK_UserHabits_SoloUser FOREIGN KEY (idUser) REFERENCES solo.SoloUser(id)
+    CONSTRAINT FK_UserHabits_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 
-CREATE TABLE solo.UserMood
+CREATE TABLE appSolo.UserMood
 (
     idUser INT NOT NULL,
     mood VARCHAR(10) NOT NULL,
     moodDate DATE NOT NULL,
-    CONSTRAINT FK_UserMood_SoloUser FOREIGN KEY (idUser) REFERENCES solo.SoloUser(id)
+    CONSTRAINT FK_UserMood_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 
 -- Agenda
-CREATE TABLE solo.Scheduling
+CREATE TABLE appSolo.Scheduling
 (
     idSchedule INT NOT NULL IDENTITY PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -50,11 +52,11 @@ CREATE TABLE solo.Scheduling
     timeEnd TIME NOT NULL,
     description TEXT NULL,
     idUser INT NOT NULL,
-    CONSTRAINT FK_Scheduling_SoloUser FOREIGN KEY (idUser) REFERENCES solo.SoloUser(id)
+    CONSTRAINT FK_Scheduling_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 
 -- Treinamentos
-CREATE TABLE solo.CardioActivity
+CREATE TABLE appSolo.CardioActivity
 (
     idActivity INT NOT NULL IDENTITY PRIMARY KEY,
     idUser INT NOT NULL,
@@ -63,20 +65,20 @@ CREATE TABLE solo.CardioActivity
     distance FLOAT NOT NULL,
     averageSpeed FLOAT NOT NULL,
     lostKCal FLOAT NOT NULL,
-    CONSTRAINT FK_CardioActivity_SoloUser FOREIGN KEY (idUser) REFERENCES solo.SoloUser(id)
+    CONSTRAINT FK_CardioActivity_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 
-CREATE TABLE solo.MuscleActivity
+CREATE TABLE appSolo.MuscleActivity
 (
     idActivity INT NOT NULL IDENTITY PRIMARY KEY,
     idUser INT NOT NULL,
     activityDate DATETIME NOT NULL,
     duration TIME NOT NULL,
     trainingType VARCHAR(50) NOT NULL,
-    CONSTRAINT FK_MuscleActivity_SoloUser FOREIGN KEY (idUser) REFERENCES solo.SoloUser(id)
+    CONSTRAINT FK_MuscleActivity_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 
-CREATE TABLE solo.Muscle_Exercises
+CREATE TABLE appSolo.Muscle_Exercises
 (
     idExercise INT NOT NULL IDENTITY PRIMARY KEY,
     idActivity INT NOT NULL,
@@ -84,39 +86,39 @@ CREATE TABLE solo.Muscle_Exercises
     weight FLOAT NOT NULL,
     series INT NOT NULL,
     repetition INT NOT NULL,
-    CONSTRAINT FK_Muscle_Exercises_MuscleActivity FOREIGN KEY (idActivity) REFERENCES solo.MuscleActivity(idActivity)
+    CONSTRAINT FK_Muscle_Exercises_MuscleActivity FOREIGN KEY (idActivity) REFERENCES appSolo.MuscleActivity(idActivity)
 );
 
 -- Dieta
-CREATE TABLE solo.Meal
+CREATE TABLE appSolo.Meal
 (
     idMeal INT NOT NULL IDENTITY PRIMARY KEY,
     idUser INT NOT NULL,
     mealDate DATETIME NOT NULL,
-    CONSTRAINT FK_Meal_SoloUser FOREIGN KEY (idUser) REFERENCES solo.SoloUser(id)
+    CONSTRAINT FK_Meal_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 
-CREATE TABLE solo.Meal_Items
+CREATE TABLE appSolo.Meal_Items
 (
     idItem INT NOT NULL IDENTITY PRIMARY KEY,
     idMeal INT NOT NULL,
     food VARCHAR(50) NOT NULL,
     weight FLOAT NOT NULL,
-    CONSTRAINT FK_Meal_Items_Meal FOREIGN KEY (idMeal) REFERENCES solo.Meal(idMeal)
+    CONSTRAINT FK_Meal_Items_Meal FOREIGN KEY (idMeal) REFERENCES appSolo.Meal(idMeal)
 );
 
 -- Pare de Fumar
-CREATE TABLE solo.StopSmoking
+CREATE TABLE appSolo.StopSmoking
 (
     idUser INT NOT NULL PRIMARY KEY,
     cigsPerDay INT NOT NULL,
     cigsPerPack INT NOT NULL,
     packPrice FLOAT NOT NULL,
-    CONSTRAINT FK_StopSmoking_SoloUser FOREIGN KEY (idUser) REFERENCES solo.SoloUser(id)
+    CONSTRAINT FK_StopSmoking_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 
 -- Finanças 
-CREATE TABLE solo.FinancialActivity
+CREATE TABLE appSolo.FinancialActivity
 (
     idActivity INT NOT NULL IDENTITY PRIMARY KEY,
     idUser INT NOT NULL,
@@ -125,5 +127,5 @@ CREATE TABLE solo.FinancialActivity
     activityDate DATETIME NOT NULL,
     label VARCHAR(50) NOT NULL,
     description TEXT NULL,
-    CONSTRAINT FK_FinancialActivity_SoloUser FOREIGN KEY (idUser) REFERENCES solo.SoloUser(id)
+    CONSTRAINT FK_FinancialActivity_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
