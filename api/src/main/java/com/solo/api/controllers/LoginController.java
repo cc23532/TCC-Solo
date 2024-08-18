@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.solo.api.models.SoloUser;
 import com.solo.api.services.SoloUserService;
 
 @RestController
-@RequestMapping("/user/login")
+@RequestMapping("/login")
 public class LoginController {
     @Autowired
     SoloUserService userService;
@@ -33,6 +32,4 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais não correspondem ao usuário. Por favor, revise seus dados.");
         }
     }
-    
-
 }

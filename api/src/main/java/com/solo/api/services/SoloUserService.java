@@ -27,4 +27,13 @@ public class SoloUserService {
         return false;
     }
 
+    public Integer findUserIdForRecoverPwd(String nickname, String email, String phone){
+        return repository.findUserIdForRecoverPwd(nickname, email, phone);
+    }
+
+    public int updatePwd(Integer id, String newPwd){
+        String hash_pwd = BCrypt.hashpw(newPwd, BCrypt.gensalt());
+        return repository.updatePwd(id, hash_pwd);
+    }
+
 }

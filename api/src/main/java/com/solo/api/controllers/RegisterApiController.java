@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.solo.api.services.SoloUserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/register")
 public class RegisterApiController {
     @Autowired
     SoloUserService userService;
 
-    @GetMapping("/register")
+    @GetMapping("/test")
     public String testEndPoint(){
         return "SOLO: Cadastro de Usuário no ar";
     }

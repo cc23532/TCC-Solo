@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@id/imageView4" />
 
     <EditText
-        android:id="@+id/emailEditText"
+        android:id="@+id/email_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -64,10 +64,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailEditText" />
+        app:layout_constraintTop_toBottomOf="@id/email_input" />
 
     <EditText
-        android:id="@+id/confirmNewPasswordEditText"
+        android:id="@+id/pwd_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -81,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailEditText" />
+        app:layout_constraintTop_toBottomOf="@id/email_input" />
 
     <Button
         android:id="@+id/btnReset"
@@ -97,6 +97,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/confirmNewPasswordEditText" />
+        app:layout_constraintTop_toBottomOf="@id/pwd_input" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

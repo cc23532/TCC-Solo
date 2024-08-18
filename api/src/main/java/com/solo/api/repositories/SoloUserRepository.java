@@ -26,6 +26,16 @@ public interface SoloUserRepository extends JpaRepository<SoloUser, Integer> {
 
     @Query(value = "SELECT * FROM appSolo.SoloUser WHERE nickname = :nickname", nativeQuery = true)
     SoloUser findUserByNickname(@Param("nickname") String nickname);
+
+    @Query(value = "SELECT id FROM appSolo.SoloUser WHERE nickname = :nickname AND email = :email AND phone = :phone", nativeQuery = true)
+    Integer findUserIdForRecoverPwd(@Param("nickname") String nickname, 
+                                    @Param("email") String email,
+                                    @Param("phone") String phone);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE appSolo.SoloUser SET pwd = :pwd WHERE id = :id", nativeQuery = true)
+    int updatePwd(@Param("id") Integer id, @Param("pwd") String pwd);
             
 }
 
