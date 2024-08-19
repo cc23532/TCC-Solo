@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_loginFragment_to_recoverPwdFragment"
             app:destination="@id/recoverPwdFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_cadastroFragment"
+            app:destination="@id/cadastroFragment" />
     </fragment>
 
     <fragment
@@ -20,4 +23,18 @@
         android:name="com.example.solo.RecoverPwdFragment"
         android:label="Recover Password Fragment"
         tools:layout="@layout/fragment_recover_pwd" />
+    <fragment
+        android:id="@+id/cadastroFragment"
+        android:name="com.example.solo.CadastroFragment"
+        android:label="fragment_cadastro"
+        tools:layout="@layout/fragment_cadastro" >
+        <action
+            android:id="@+id/action_cadastroFragment_to_habitosFragment"
+            app:destination="@id/habitosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/habitosFragment"
+        android:name="com.example.solo.HabitosFragment"
+        android:label="fragment_habitos"
+        tools:layout="@layout/fragment_habitos" />
 </navigation>
