@@ -7,17 +7,26 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.solo.LoginFragment"
+        android:name="com.example.solo.view.LoginFragment"
         android:label="Login Fragment"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_recoverPwdFragment"
             app:destination="@id/recoverPwdFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/recoverPwdFragment"
-        android:name="com.example.solo.RecoverPwdFragment"
+        android:name="com.example.solo.view.RecoverPwdFragment"
         android:label="Recover Password Fragment"
         tools:layout="@layout/fragment_recover_pwd" />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.solo.view.HomeFragment"
+        android:label="Home Fragment"
+        tools:layout="@layout/fragment_home" />
 </navigation>

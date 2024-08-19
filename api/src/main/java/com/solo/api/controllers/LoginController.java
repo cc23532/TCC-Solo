@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.solo.api.models.LoginResponse;
 import com.solo.api.services.SoloUserService;
 
 @RestController
@@ -22,14 +23,12 @@ public class LoginController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> login(@RequestParam String nickname, @RequestParam String pwd){
-        System.out.println("Login chamado com nickname: " + nickname); // Adicione um log para depuração
-        System.out.println("Login chamado com senha: " + pwd); // Adicione um log para depuração
+    public ResponseEntity<LoginResponse> login(@RequestParam String nickname, @RequestParam String pwd){
         boolean isAuthenticated = userService.checkLogin(nickname, pwd);
         if(isAuthenticated){
-            return ResponseEntity.ok("Login bem-sucedido!");
+            return ResponseEntity.ok(new LoginResponse(true, "Login bem-sucedido!"));
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais não correspondem ao usuário. Por favor, revise seus dados.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, "Credenciais não correspondem ao usuário. Por favor, revise seus dados."));
         }
     }
 }

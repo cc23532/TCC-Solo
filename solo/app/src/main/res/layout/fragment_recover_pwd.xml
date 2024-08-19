@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecoverPwdFragment">
+    tools:context=".view.RecoverPwdFragment">
 
     <ImageView
         android:id="@+id/imageView4"
