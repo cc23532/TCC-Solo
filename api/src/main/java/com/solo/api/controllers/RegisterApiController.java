@@ -41,7 +41,7 @@ public class RegisterApiController {
         //Senha criptografada / hash
         String hash_pwd = BCrypt.hashpw(pwd, BCrypt.gensalt());
 
-        int result = userService.registerNewUser(nickname, birthday, email, hash_pwd, phone, weight, height);
+        int result = userService.registerNewUser(nickname, birthday, email, hash_pwd, phone, weight, height, gender);
 
         if(result != 1){
             return new ResponseEntity<>("Falha ao cadastrar novo usuário...", HttpStatus.BAD_REQUEST);

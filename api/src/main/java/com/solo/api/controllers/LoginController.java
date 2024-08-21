@@ -23,8 +23,8 @@ public class LoginController {
 
     @GetMapping()
     public ResponseEntity<?> login(@RequestParam String nickname, @RequestParam String pwd){
-        System.out.println("Login chamado com nickname: " + nickname); // Adicione um log para depuração
-        System.out.println("Login chamado com senha: " + pwd); // Adicione um log para depuração
+        System.out.println("Login chamado com nickname: " + nickname);
+        System.out.println("Login chamado com senha: " + pwd);
         boolean isAuthenticated = userService.checkLogin(nickname, pwd);
         if(isAuthenticated){
             return ResponseEntity.ok("Login bem-sucedido!");

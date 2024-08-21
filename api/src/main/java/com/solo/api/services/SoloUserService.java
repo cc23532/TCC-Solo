@@ -14,8 +14,8 @@ public class SoloUserService {
     @Autowired
     SoloUserRepository repository;
 
-    public int registerNewUser(String nickname, Date birthday, String email, String pwd, String phone, double weight, double height){
-        return repository.registerNewUser(nickname, birthday, email, pwd, phone, weight, height);
+    public int registerNewUser(String nickname, Date birthday, String email, String pwd, String phone, double weight, double height, String gender){
+        return repository.registerNewUser(nickname, birthday, email, pwd, phone, weight, height, gender);
     }
 
     public boolean checkLogin(String nickname, String pwd){
