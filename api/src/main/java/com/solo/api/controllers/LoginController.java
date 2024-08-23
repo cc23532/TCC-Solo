@@ -3,10 +3,7 @@ package com.solo.api.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.solo.api.services.SoloUserService;
 
@@ -22,7 +19,7 @@ public class LoginController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> login(@RequestParam String nickname, @RequestParam String pwd){
+    public ResponseEntity<?> login(@RequestBody String nickname, @RequestBody String pwd){
         System.out.println("Login chamado com nickname: " + nickname);
         System.out.println("Login chamado com senha: " + pwd);
         boolean isAuthenticated = userService.checkLogin(nickname, pwd);
