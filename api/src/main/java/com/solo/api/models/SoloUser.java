@@ -34,6 +34,9 @@ public class SoloUser {
     @Column (nullable = false)
     private double height;
 
+    @Column(length = 1)
+    private String gender;
+
     @Lob
     @Column (nullable = false)
     private byte[] profile_pic;
@@ -51,6 +54,7 @@ public class SoloUser {
         this.phone = phone;
         this.weight = weight;
         this.height = height;
+        this.gender = gender;
         this.profile_pic = profile_pic;
     }
 
@@ -114,6 +118,14 @@ public class SoloUser {
         this.height = height;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public byte[] getProfile_pic() {
         return profile_pic;
     }
@@ -148,6 +160,7 @@ public class SoloUser {
                 ", phone='" + phone + '\'' +
                 ", weight=" + weight +
                 ", height=" + height +
+                ", gender=" + gender +
                 "}";
     }
 }
