@@ -32,9 +32,10 @@ public class RegisterApiController {
                                             @RequestParam("pwd") String pwd,
                                             @RequestParam("phone") String phone,
                                             @RequestParam("weight") double weight,
-                                            @RequestParam("height") double height)
+                                            @RequestParam("height") double height),
+                                            @RequestParam("gender") String gender;
     {
-        if(nickname.isEmpty() || birthday == null || email.isEmpty() || pwd.isEmpty() || phone.isEmpty() || weight <= 0.0 || height <= 0.0){
+        if(nickname.isEmpty() || birthday == null || email.isEmpty() || pwd.isEmpty() || phone.isEmpty() || weight <= 0.0 || height <= 0.0) || gender.isEmpty(){
             return new ResponseEntity<>("Por favor preencha todos os campos solicitados", HttpStatus.BAD_REQUEST);
         }
 
