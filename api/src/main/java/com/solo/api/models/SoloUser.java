@@ -19,7 +19,7 @@ public class SoloUser {
     @Column(length = 20, nullable = false)
     private String pwd;
 
-    @Column (length = 10, nullable = false)
+    @Column (nullable = false)
     private Date birthday;
 
     @Column(length = 50, nullable = false)
@@ -45,7 +45,7 @@ public class SoloUser {
 
     }
 
-    public SoloUser(int id, String nickname, String pwd, Date birthday, String email, String phone, double weight, double height, byte[] profile_pic){
+    public SoloUser(int id, String nickname, String pwd, Date birthday, String email, String phone, double weight, double height, String gender, byte[] profile_pic){
         this.id = id;
         this.nickname = nickname;
         this.pwd = pwd;
@@ -144,7 +144,7 @@ public class SoloUser {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, nickname, pwd, birthday, email, phone, weight, height);
+        int result = Objects.hash(id, nickname, pwd, birthday, email, phone, weight, height, gender);
         result = 31 * result + Arrays.hashCode(profile_pic);
         return result;
     }

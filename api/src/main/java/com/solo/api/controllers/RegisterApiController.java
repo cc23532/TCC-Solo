@@ -25,28 +25,30 @@ public class RegisterApiController {
         return "SOLO: Cadastro de Usuário no ar";
     }
 
-    @PostMapping("/register")
-    public ResponseEntity registerNewUser(  @RequestParam("nickname") String nickname,
-                                            @RequestParam("birthday") Date birthday,
-                                            @RequestParam("email") String email,
-                                            @RequestParam("pwd") String pwd,
-                                            @RequestParam("phone") String phone,
-                                            @RequestParam("weight") double weight,
-                                            @RequestParam("height") double height),
-                                            @RequestParam("gender") String gender;
-    {
-        if(nickname.isEmpty() || birthday == null || email.isEmpty() || pwd.isEmpty() || phone.isEmpty() || weight <= 0.0 || height <= 0.0) || gender.isEmpty(){
+    @PostMapping
+    public ResponseEntity<String> registerNewUser(
+            @RequestParam("nickname") String nickname,
+            @RequestParam("birthday") Date birthday,
+            @RequestParam("email") String email,
+            @RequestParam("pwd") String pwd,
+            @RequestParam("phone") String phone,
+            @RequestParam("weight") double weight,
+            @RequestParam("height") double height,
+            @RequestParam("gender") String gender) {
+
+        // Validação
+        if (nickname.isEmpty() || birthday == null || email.isEmpty() || pwd.isEmpty() || phone.isEmpty() || weight <= 0.0 || height <= 0.0 || gender.isEmpty()) {
             return new ResponseEntity<>("Por favor preencha todos os campos solicitados", HttpStatus.BAD_REQUEST);
         }
 
-        //Senha criptografada / hash
-        String hash_pwd = BCrypt.hashpw(pwd, BCrypt.gensalt());
+        // Criptografia da senha
+        String hashPwd = BCrypt.hashpw(pwd, BCrypt.gensalt());
 
-        int result = userService.registerNewUser(nickname, birthday, email, hash_pwd, phone, weight, height, gender);
+        // Chamada do serviço
+        int result = userService.registerNewUser(nickname, birthday, email, hashPwd, phone, weight, height, gender);
 
-        if(result != 1){
+        if (result != 1) {
             return new ResponseEntity<>("Falha ao cadastrar novo usuário...", HttpStatus.BAD_REQUEST);
-
         }
 
         return new ResponseEntity<>("Cadastro realizado com sucesso!", HttpStatus.OK);

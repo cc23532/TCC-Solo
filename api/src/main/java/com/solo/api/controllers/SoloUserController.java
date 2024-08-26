@@ -50,6 +50,7 @@ public class SoloUserController {
                     user.setPhone(newUser.getPhone());
                     user.setWeight(newUser.getWeight());
                     user.setHeight(newUser.getHeight());
+                    user.setGender(newUser.getGender());
                     user.setProfile_pic(newUser.getProfile_pic());
                     return repository.save(user);
                 })
