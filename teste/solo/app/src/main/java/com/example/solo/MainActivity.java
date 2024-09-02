@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     // Defina a URL base conforme o ambiente (emulador ou dispositivo real)
-    private static final String BASE_URL = "http://192.168.68.105:3000"; // Para dispositivo real (substitua pelo IP correto)
+    private static final String BASE_URL = "http://10.0.2.2:3000"; // Para dispositivo real (substitua pelo IP correto)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
