@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin;
     private EditText nickname_input, pwd_input;
     private static final String TAG = "MainActivity";
+    // Defina a URL base conforme o ambiente (emulador ou dispositivo real)
+    private static final String BASE_URL = "http://10.0.2.2:3000"; // Para dispositivo real (substitua pelo IP correto)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
