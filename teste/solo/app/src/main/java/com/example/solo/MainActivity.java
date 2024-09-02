@@ -3,34 +3,28 @@ package com.example.solo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.RetryPolicy;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.example.solo.models.SoloUser;
+import com.example.solo.network.ApiClient;
+import com.example.solo.network.ApiService;
 
-import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.io.UnsupportedEncodingException;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private EditText nickname_input, pwd_input;
-    private RequestQueue requestQueue;
     private static final String TAG = "MainActivity";
-
     // Defina a URL base conforme o ambiente (emulador ou dispositivo real)
     private static final String BASE_URL = "http://10.0.2.2:3000"; // Para dispositivo real (substitua pelo IP correto)
 
@@ -39,100 +33,53 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicializa a fila de requisições
-        requestQueue = Volley.newRequestQueue(this);
-
         btnLogin = findViewById(R.id.btnlogin);
         nickname_input = findViewById(R.id.nickname_input);
         pwd_input = findViewById(R.id.pwd_input);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                autenticarUsuario();
-            }
-        });
+        btnLogin.setOnClickListener(view -> autenticarUsuario());
     }
 
     private void autenticarUsuario() {
-        // Validação dos campos
         if (!validarNickname() || !validarSenha()) {
             return;
         }
 
-        String url = BASE_URL + "/login";
+        String nickname = nickname_input.getText().toString().trim();
+        String pwd = pwd_input.getText().toString().trim();
 
-        // Cria o objeto JSON com os parâmetros
-        JSONObject jsonBody = new JSONObject();
-        try {
-            jsonBody.put("nickname", nickname_input.getText().toString().trim());
-            jsonBody.put("pwd", pwd_input.getText().toString().trim());
-        } catch (Exception e) {
-            Log.e(TAG, "Erro ao criar o JSON", e);
-            Toast.makeText(MainActivity.this, "Erro ao criar o JSON.", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        // Cria o mapa com os parâmetros de login
+        Map<String, String> loginData = new HashMap<>();
+        loginData.put("nickname", nickname);
+        loginData.put("pwd", pwd);
 
-        // Cria a requisição POST
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.POST,
-                url,
-                jsonBody,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d(TAG, "Resposta da API: " + response.toString());
-                        try {
-                            String nickname = response.getString("nickname");
-                            String pwd = response.getString("pwd");
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<SoloUser> call = apiService.login(loginData);
 
-                            // Navega para a próxima Activity
-                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                            intent.putExtra("nickname", nickname);
-                            intent.putExtra("pwd", pwd);
-                            startActivity(intent);
-                            finish();
+        call.enqueue(new Callback<SoloUser>() {
+            @Override
+            public void onResponse(Call<SoloUser> call, Response<SoloUser> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    SoloUser user = response.body();
+                    Log.d(TAG, "Login bem-sucedido: " + user.toString());
 
-                        } catch (Exception e) {
-                            Log.e(TAG, "Erro ao processar a resposta JSON", e);
-                            Toast.makeText(MainActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "Erro na requisição: " + error.toString());
-                        String errorMessage = "Ocorreu um erro desconhecido.";
-
-                        // Trata erros específicos
-                        if (error.networkResponse != null) {
-                            String responseBody;
-                            try {
-                                responseBody = new String(error.networkResponse.data, HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
-                                Log.e(TAG, "Resposta de erro do servidor: " + responseBody);
-                                errorMessage = responseBody;
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
-                        } else if (error.getCause() instanceof java.net.ConnectException) {
-                            errorMessage = "Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.";
-                        }
-
-                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                    }
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    intent.putExtra("nickname", user.getNickname());
+                    intent.putExtra("pwd", user.getPwd());
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Log.e(TAG, "Erro na autenticação: " + response.message());
+                    Toast.makeText(MainActivity.this, "Erro na autenticação. Verifique suas credenciais.", Toast.LENGTH_SHORT).show();
                 }
-        );
+            }
 
-        // Adiciona uma política de repetição e timeout
-        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
-                5000, // Timeout em milissegundos
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        ));
-
-        // Adiciona a requisição à fila
-        requestQueue.add(jsonObjectRequest);
+            @Override
+            public void onFailure(Call<SoloUser> call, Throwable t) {
+                Log.e(TAG, "Erro na requisição: " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Erro na conexão com o servidor. Verifique sua conexão e tente novamente.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private boolean validarNickname() {
@@ -141,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
             nickname_input.setError("Nickname não pode ser vazio");
             return false;
         }
-
         nickname_input.setError(null);
         return true;
     }

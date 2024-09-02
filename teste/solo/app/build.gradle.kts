@@ -42,4 +42,7 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation (libs.volley)
     implementation (libs.gson)
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+
 }
