@@ -30,7 +30,7 @@ CREATE TABLE appSolo.UserHabits
     workout BIT NULL,
     workoutBegin TIME NULL,
     workoutEnd TIME NULL,
-    -- smoke BIT NOT NULL,
+    smoke BIT NOT NULL,
     CONSTRAINT FK_UserHabits_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 
