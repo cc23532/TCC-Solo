@@ -33,6 +33,9 @@ public class LoginFragment extends AppCompatActivity {
     // Defina a URL base conforme o ambiente (emulador ou dispositivo real)
     private static final String BASE_URL = "http://10.2.2:3000"; // Para emulador
 
+    // Conectar pelo celular no pc, URL gerada pelo ngrok
+    private static final String BASE_URL = "https://1c9c-143-106-202-236.ngrok-free.app";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,14 @@ public class LoginFragment extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 autenticarUsuario();
+            }
+        });
+
+        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, RegisterUserActivity.class);
+                startActivity(intent);
             }
         });
     }
