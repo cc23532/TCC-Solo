@@ -13,9 +13,20 @@ import org.springframework.stereotype.Service;
 public class SoloUserService {
     @Autowired
     SoloUserRepository repository;
-
-    public int registerNewUser(String nickname, Date birthday, String email, String pwd, String phone, double weight, double height, String gender){
-        return repository.registerNewUser(nickname, birthday, email, pwd, phone, weight, height, gender);
+    
+    public int registerNewUser(String nickname, Date birthday, String email, String pwd, String phone, double weight, double height, String gender) {
+        SoloUser newUser = new SoloUser();
+        newUser.setNickname(nickname);
+        newUser.setBirthday(birthday);
+        newUser.setEmail(email);
+        newUser.setPwd(pwd);
+        newUser.setPhone(phone);
+        newUser.setWeight(weight);
+        newUser.setHeight(height);
+        newUser.setGender(gender);
+        
+        SoloUser savedUser = repository.save(newUser);
+        return savedUser.getId(); // Obtém o ID gerado
     }
 
     public boolean checkLogin(String nickname, String pwd){

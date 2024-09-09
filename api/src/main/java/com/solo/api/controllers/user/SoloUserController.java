@@ -1,4 +1,4 @@
-package com.solo.api.controllers;
+package com.solo.api.controllers.user;
 
 import com.solo.api.models.SoloUser;
 import com.solo.api.repositories.SoloUserRepository;
@@ -24,7 +24,7 @@ public class SoloUserController {
         return repository.findAll();
     }
  
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public Optional<SoloUser> one(@PathVariable Integer id){
         return repository.findById(id);
     }
@@ -39,7 +39,7 @@ public class SoloUserController {
         return repository.save(newUser);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/{id}")
     public SoloUser replace(@RequestBody SoloUser newUser, @PathVariable Integer id){
         return repository.findById(id)
                 .map(user -> {
@@ -51,7 +51,6 @@ public class SoloUserController {
                     user.setWeight(newUser.getWeight());
                     user.setHeight(newUser.getHeight());
                     user.setGender(newUser.getGender());
-                    user.setProfile_pic(newUser.getProfile_pic());
                     return repository.save(user);
                 })
                 .orElseGet(() -> {

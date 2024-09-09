@@ -1,4 +1,4 @@
-package com.solo.api.controllers;
+package com.solo.api.controllers.user;
 
 import java.util.Map;
 

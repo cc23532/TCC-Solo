@@ -16,11 +16,11 @@ public class UserHabitsService {
     public int registerUserHabits(Integer idUser, boolean work, Time workBegin, Time workEnd, boolean study, Time studyBegin, Time studyEnd, Time sleepBegin, Time sleepEnd, boolean workout, Time workoutBegin, Time workoutEnd, boolean smoke){
         return repository.registerUserHabits(idUser, work, workBegin, workEnd, study, studyBegin, studyEnd, sleepBegin, sleepEnd, workout, workoutBegin, workoutEnd, smoke);
     }
-
+/*
     public int updateHabits(Integer idUser, boolean work, Time workBegin, Time workEnd, boolean study, Time studyBegin, Time studyEnd, Time sleepBegin, Time sleepEnd, boolean workout, Time workoutBegin, Time workoutEnd, boolean smoke){
         return repository.updateHabits(idUser, work, workBegin, workEnd, study, studyBegin, studyEnd, sleepBegin, sleepEnd, workout, workoutBegin, workoutEnd, smoke);
     }
-
+*/
     public UserHabits findHabitsById(Integer idUser){
         return repository.findHabitsById(idUser);
     }

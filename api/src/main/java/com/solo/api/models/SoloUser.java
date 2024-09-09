@@ -38,7 +38,7 @@ public class SoloUser {
     private String gender;
 
     @Lob
-    @Column (nullable = false)
+    @Column (nullable = true)
     private byte[] profile_pic;
 
     public SoloUser(){
@@ -58,7 +58,7 @@ public class SoloUser {
         this.profile_pic = profile_pic;
     }
 
-    public int getid() {
+    public int getId() {
         return id;
     }
 

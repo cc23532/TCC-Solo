@@ -1,4 +1,4 @@
-package com.solo.api.controllers;
+package com.solo.api.controllers.user;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -39,7 +39,7 @@ public class RegisterApiController {
         String weightStr = body.get("weight");
         String heightStr = body.get("height");
         String gender = body.get("gender");
-
+    
         Date birthday;
         double weight;
         double height;
@@ -50,24 +50,23 @@ public class RegisterApiController {
         } catch (Exception e) {
             return new ResponseEntity<>("Erro na conversão dos dados", HttpStatus.BAD_REQUEST);
         }
-
+    
         if (nickname.isEmpty() || birthday == null || email.isEmpty() || pwd.isEmpty() || phone.isEmpty() || weight <= 0.0 || height <= 0.0 || gender.isEmpty()) {
             return new ResponseEntity<>("Por favor preencha todos os campos solicitados", HttpStatus.BAD_REQUEST);
         }
-
+    
         String hashPwd = BCrypt.hashpw(pwd, BCrypt.gensalt());
-
+    
         // Chamada ao serviço
         int idUser = userService.registerNewUser(nickname, birthday, email, hashPwd, phone, weight, height, gender);
-
+    
         if (idUser <= 0) {
             return new ResponseEntity<>("Falha ao cadastrar novo usuário...", HttpStatus.BAD_REQUEST);
         }
-
+    
         // Retorna o ID do usuário recém-cadastrado
         return new ResponseEntity<>(Collections.singletonMap("idUser", idUser), HttpStatus.OK);
     }
-
 
     @PostMapping("/habits/{idUser}")
     public ResponseEntity<?> registerHabits(@PathVariable Integer idUser, @RequestBody Map<String, String> body) {

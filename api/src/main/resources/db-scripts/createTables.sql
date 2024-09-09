@@ -15,7 +15,6 @@ CREATE TABLE appSolo.SoloUser
     created_at TIMESTAMP NOT NULL
 );
 
-
 CREATE TABLE appSolo.UserHabits
 (
     idUser INT NOT NULL,
@@ -37,8 +36,8 @@ CREATE TABLE appSolo.UserHabits
 CREATE TABLE appSolo.UserMood
 (
     idUser INT NOT NULL,
-    mood VARCHAR(10) NOT NULL,
-    moodDate DATE NOT NULL,
+    moodDate DATE NOT NULL DEFAULT CAST(GETDATE() AS DATE),
+    mood VARCHAR(15) NOT NULL,
     CONSTRAINT FK_UserMood_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 

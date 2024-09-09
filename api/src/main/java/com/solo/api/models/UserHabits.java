@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import java.sql.Time;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "UserHabits", schema = "appSolo")
 public class UserHabits {
@@ -16,43 +19,59 @@ public class UserHabits {
     @OneToOne
     @MapsId
     @JoinColumn(name = "idUser", referencedColumnName = "id")
+    @JsonIgnore
     private SoloUser user;
 
     @Column(nullable = false)
     private boolean work;
 
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time workBegin;
 
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time workEnd;
 
     @Column(nullable = false)
     private boolean study;
-
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time studyBegin;
-
+    
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time studyEnd;
-
+    
     @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time sleepBegin;
-
+    
     @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time sleepEnd;
 
     @Column(nullable = false)
     private boolean workout;
 
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time workoutBegin;
-
+    
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time workoutEnd;
 
     @Column(nullable = false)
     private boolean smoke;
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
 
     public SoloUser getUser() {
         return user;
@@ -174,7 +193,7 @@ public class UserHabits {
     @Override
     public String toString() {
         return "UserHabits{" +
-                "user=" + user +
+                "user=" + user.getId() +
                 ", work=" + work +
                 ", workBegin=" + workBegin +
                 ", workEnd=" + workEnd +
