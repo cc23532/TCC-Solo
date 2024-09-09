@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.RetryPolicy;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -24,12 +23,12 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginFragment extends AppCompatActivity {
 
     private Button btnLogin;
     private EditText nickname_input, pwd_input;
     private RequestQueue requestQueue;
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "LoginFragment";
 
     // Defina a URL base conforme o ambiente (emulador ou dispositivo real)
     private static final String BASE_URL = "http://10.2.2:3000"; // Para emulador
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             jsonBody.put("pwd", pwd_input.getText().toString().trim());
         } catch (Exception e) {
             Log.e(TAG, "Erro ao criar o JSON", e);
-            Toast.makeText(MainActivity.this, "Erro ao criar o JSON.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginFragment.this, "Erro ao criar o JSON.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                             String pwd = response.getString("pwd");
 
                             // Navega para a próxima Activity
-                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            Intent intent = new Intent(LoginFragment.this, HomeActivity.class);
                             intent.putExtra("nickname", nickname);
                             intent.putExtra("pwd", pwd);
                             startActivity(intent);
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
                         } catch (Exception e) {
                             Log.e(TAG, "Erro ao processar a resposta JSON", e);
-                            Toast.makeText(MainActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginFragment.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -119,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                             errorMessage = "Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.";
                         }
 
-                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginFragment.this, errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 }
         );
