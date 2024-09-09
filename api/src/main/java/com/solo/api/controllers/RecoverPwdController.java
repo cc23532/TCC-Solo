@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,9 +29,9 @@ public class RecoverPwdController {
     }
 
     @GetMapping("/user")
-    public void getUserRecoverPwd(@RequestParam String nickname,
-                                  @RequestParam String email,
-                                  @RequestParam String phone,
+    public void getUserRecoverPwd(@RequestBody String nickname,
+                                  @RequestBody String email,
+                                  @RequestBody String phone,
                                   HttpServletResponse response) throws IOException {
         System.out.println("Nickname: " + nickname);
         System.out.println("Email: " + email);
@@ -48,7 +49,7 @@ public class RecoverPwdController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updatePassword(@PathVariable Integer id, @RequestParam String newPwd){
+    public ResponseEntity<?> updatePassword(@PathVariable Integer id, @RequestBody String newPwd){
         int updated = userService.updatePwd(id, newPwd);
 
     if(updated > 0){

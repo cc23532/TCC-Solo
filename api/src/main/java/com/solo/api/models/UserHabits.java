@@ -9,9 +9,13 @@ import java.util.Objects;
 @Table(name = "UserHabits", schema = "appSolo")
 public class UserHabits {
 
-    @MapsId
+    @Id
+    @Column(name = "idUser")
+    private Integer idUser;
+
     @OneToOne
-    @JoinColumn(name = "id")
+    @MapsId
+    @JoinColumn(name = "idUser", referencedColumnName = "id")
     private SoloUser user;
 
     @Column(nullable = false)
@@ -32,7 +36,7 @@ public class UserHabits {
     @Column
     private Time studyEnd;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Time sleepBegin;
 
     @Column(nullable = false)
@@ -52,6 +56,10 @@ public class UserHabits {
 
     public SoloUser getUser() {
         return user;
+    }
+
+    public void setUser(SoloUser user) {
+        this.user = user;
     }
 
     public boolean isWork() {

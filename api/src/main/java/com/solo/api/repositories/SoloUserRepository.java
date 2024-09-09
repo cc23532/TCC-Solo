@@ -25,6 +25,25 @@ public interface SoloUserRepository extends JpaRepository<SoloUser, Integer> {
                         @Param("height") double height,
                         @Param("gender") String gender);
 
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE appSolo.SoloUser" +
+                    " SET nickname = :nickname,"+
+                    " birthday = :birthday,"+
+                    " email = :email,"+
+                    " phone = :phone,"+
+                    " weight = :weight,"+
+                    " height = :height,"+
+                    " gender = :gender,"+
+                    "WHERE idUser = :idUser", nativeQuery = true)
+    int updateSoloUser(@Param("nickname") String nickname,
+                        @Param("birthday") Date birthday,
+                        @Param("email") String email,
+                        @Param("phone") String phone,
+                        @Param("weight") double weight,
+                        @Param("height") double height,
+                        @Param("gender") String gender);
+
     @Query(value = "SELECT * FROM appSolo.SoloUser WHERE nickname = :nickname", nativeQuery = true)
     SoloUser findUserByNickname(@Param("nickname") String nickname);
 
