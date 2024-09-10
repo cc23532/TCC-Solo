@@ -1,12 +1,12 @@
-package com.solo.api.services;
+package com.solo.api.services.user;
 
 import java.sql.Time;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.solo.api.models.UserHabits;
-import com.solo.api.repositories.UserHabitsRepository;
+import com.solo.api.models.user.UserHabits;
+import com.solo.api.repositories.user.UserHabitsRepository;
 
 @Service
 public class UserHabitsService {

@@ -1,7 +1,7 @@
 package com.solo.api.controllers.user;
 
-import com.solo.api.models.SoloUser;
-import com.solo.api.repositories.SoloUserRepository;
+import com.solo.api.models.user.SoloUser;
+import com.solo.api.repositories.user.SoloUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

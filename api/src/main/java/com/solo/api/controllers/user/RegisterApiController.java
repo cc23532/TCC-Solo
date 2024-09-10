@@ -12,8 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 
-import com.solo.api.services.SoloUserService;
-import com.solo.api.services.UserHabitsService;
+import com.solo.api.services.user.SoloUserService;
+import com.solo.api.services.user.UserHabitsService;
 
 @RestController
 @RequestMapping("/register")

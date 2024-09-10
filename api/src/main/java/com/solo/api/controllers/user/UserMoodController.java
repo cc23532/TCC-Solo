@@ -1,6 +1,5 @@
 package com.solo.api.controllers.user;
 
-import java.sql.Date;
 import java.util.Map;
 import java.util.Optional;
 
@@ -8,14 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.solo.api.models.SoloUser;
-import com.solo.api.models.UserMood;
-import com.solo.api.repositories.SoloUserRepository;
-import com.solo.api.repositories.UserMoodRepository;
-import com.solo.api.services.UserMoodService;
+import com.solo.api.models.user.UserMood;
+import com.solo.api.repositories.user.UserMoodRepository;
+import com.solo.api.services.user.UserMoodService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

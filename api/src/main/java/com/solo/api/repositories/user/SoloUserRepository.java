@@ -1,6 +1,6 @@
-package com.solo.api.repositories;
+package com.solo.api.repositories.user;
 
-import com.solo.api.models.SoloUser;
+import com.solo.api.models.user.SoloUser;
 import jakarta.transaction.Transactional;
 import java.util.Date;
 import org.springframework.data.jpa.repository.JpaRepository;

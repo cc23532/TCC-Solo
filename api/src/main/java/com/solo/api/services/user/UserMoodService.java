@@ -1,9 +1,9 @@
-package com.solo.api.services;
+package com.solo.api.services.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.solo.api.repositories.UserMoodRepository;
+import com.solo.api.repositories.user.UserMoodRepository;
 
 @Service
 public class UserMoodService {

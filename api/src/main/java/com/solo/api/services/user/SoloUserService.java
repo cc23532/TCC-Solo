@@ -1,7 +1,7 @@
-package com.solo.api.services;
+package com.solo.api.services.user;
 
-import com.solo.api.models.SoloUser;
-import com.solo.api.repositories.SoloUserRepository;
+import com.solo.api.models.user.SoloUser;
+import com.solo.api.repositories.user.SoloUserRepository;
 
 import java.util.Date;
 

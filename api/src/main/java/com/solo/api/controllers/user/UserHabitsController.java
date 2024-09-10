@@ -1,23 +1,17 @@
 package com.solo.api.controllers.user;
 
-import java.sql.Time;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.solo.api.models.SoloUser;
-import com.solo.api.models.UserHabits;
-import com.solo.api.repositories.UserHabitsRepository;
-import com.solo.api.services.UserHabitsService;
+import com.solo.api.models.user.UserHabits;
+import com.solo.api.repositories.user.UserHabitsRepository;
+import com.solo.api.services.user.UserHabitsService;
 
 @RestController
 @RequestMapping("/habits")

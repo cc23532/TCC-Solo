@@ -1,11 +1,11 @@
-package com.solo.api.repositories;
+package com.solo.api.repositories.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.solo.api.models.UserMood;
+import com.solo.api.models.user.UserMood;
 
 import jakarta.transaction.Transactional;
 

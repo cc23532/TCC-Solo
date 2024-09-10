@@ -1,11 +1,10 @@
-package com.solo.api.repositories;
+package com.solo.api.repositories.user;
 
-import com.solo.api.models.UserHabits;
+import com.solo.api.models.user.UserHabits;
 
 import jakarta.transaction.Transactional;
 
 import java.sql.Time;
-import java.util.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

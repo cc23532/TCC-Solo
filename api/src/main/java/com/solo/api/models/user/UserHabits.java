@@ -1,4 +1,4 @@
-package com.solo.api.models;
+package com.solo.api.models.user;
 
 import jakarta.persistence.*;
 
