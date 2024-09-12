@@ -2,6 +2,7 @@ package com.example.solo;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -61,6 +62,8 @@ public class RegisterUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registerUser();
+                Intent intent =  new Intent(RegisterUserActivity.this, RegisterHabitsActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -124,43 +127,56 @@ public class RegisterUserActivity extends AppCompatActivity {
         // Criando o objeto JSON com os dados do usuário
         JSONObject userData = new JSONObject();
         try {
-            userData.put("apelido", apelido);
+            userData.put("nickname", apelido);
             userData.put("phone", phone);
             userData.put("email", email);
-            userData.put("dateBorn", dateBorn);
+            userData.put("birthday", dateBorn);
             userData.put("gender", gender);
             userData.put("height", height);
             userData.put("weight", weight);
-            userData.put("password", password);
+            userData.put("pwd", password);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        // URL do ngrok com o endpoint correto
-        String url = "https://1c9c-143-106-202-236.ngrok-free.app/register/register"; // Substitua pela URL gerada pelo ngrok
+        // URL do endpoint correto
+        String url = "http://10.2.2:3000/register/register"; // Substitua pela URL correta
 
         // Criando a requisição POST
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, userData,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(RegisterUserActivity.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-                        // Redirecionar para a MainActivity
-                        startActivity(new Intent(RegisterUserActivity.this, MainActivity.class));
-                        // Limpar os campos após o sucesso
-                        clearFields();
-                        // Finalizar a atividade atual
-                        finish();
+                        try {
+                            // Obtendo o idUser da resposta
+                            String registeredUser = response.getString("idUser");
+
+                            // Salvando o idUser em SharedPreferences
+                            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("idUser", registeredUser);
+                            editor.apply();
+
+                            // Redirecionar para a RegisterHabitsActivity
+                            Intent intent = new Intent(RegisterUserActivity.this, RegisterHabitsActivity.class);
+                            intent.putExtra("idUser", registeredUser); // Passando o idUser como parâmetro
+                            startActivity(intent);
+
+                            // Limpar os campos após o sucesso
+                            clearFields();
+                            finish();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(RegisterUserActivity.this, "Erro ao processar a resposta", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // Log e exibir a mensagem de erro
                         String errorMessage = "Erro ao cadastrar o usuário: " + error.toString();
                         Toast.makeText(RegisterUserActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                         error.printStackTrace();
-                        // Log dos detalhes da requisição
                         Log.e("RegisterUserActivity", "Error details: ", error);
                     }
                 }) {
@@ -175,6 +191,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         // Adicionando a requisição à fila
         requestQueue.add(jsonObjectRequest);
     }
+
 
     private void clearFields() {
         editTextApelido.setText("");

@@ -10,7 +10,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="16dp"
+        tools:layout_editor_absoluteX="171dp"
+        tools:layout_editor_absoluteY="336dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,120 +24,120 @@
                 android:id="@+id/textViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="Cadastro"
                 android:textColor="#000000"
-                android:textSize="24sp"
-                android:fontFamily="@font/inter_semibold"
-                android:layout_marginBottom="16dp"/>
+                android:textSize="24sp" />
 
             <!-- Nome -->
             <TextView
                 android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="Nome"
                 android:textColor="#000000"
-                android:textSize="14sp"
-                android:fontFamily="@font/inter_semibold"
-                android:layout_marginBottom="8dp"/>
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/edit_text_border"
-                android:hint="Nome completo"
-                android:layout_marginBottom="16dp"/>
+                android:hint="Nome completo" />
 
             <!-- E-mail -->
             <TextView
                 android:id="@+id/textViewEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="E-mail"
                 android:textColor="#000000"
-                android:textSize="14sp"
-                android:fontFamily="@font/inter_semibold"
-                android:layout_marginBottom="8dp"/>
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/edit_text_border"
                 android:hint="Seu e-mail"
-                android:inputType="textEmailAddress"
-                android:layout_marginBottom="16dp"/>
+                android:inputType="textEmailAddress" />
 
             <!-- Telefone -->
             <TextView
                 android:id="@+id/textViewPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="Telefone"
                 android:textColor="#000000"
-                android:textSize="14sp"
-                android:fontFamily="@font/inter_semibold"
-                android:layout_marginBottom="8dp"/>
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/editTextPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/edit_text_border"
                 android:hint="Seu telefone"
-                android:inputType="phone"
-                android:layout_marginBottom="16dp"/>
+                android:inputType="phone" />
 
             <!-- Data de Nascimento -->
             <TextView
                 android:id="@+id/textViewDob"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="Data de Nascimento"
                 android:textColor="#000000"
-                android:textSize="14sp"
-                android:fontFamily="@font/inter_semibold"
-                android:layout_marginBottom="8dp"/>
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/editTextDateBorn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:hint="Data de Nascimento"
-                android:inputType="date"
-                android:focusable="false" />
+                android:inputType="date" />
 
             <!-- Gênero -->
             <TextView
                 android:id="@+id/textViewGender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="Gênero"
                 android:textColor="#000000"
-                android:textSize="14sp"
-                android:fontFamily="@font/inter_semibold"
-                android:layout_marginBottom="8dp"/>
+                android:textSize="14sp" />
 
             <RadioGroup
                 android:id="@+id/radioGroupGender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radioButtonMale"
+                    android:id="@+id/rbSmokerTrue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Masculino"
-                    android:layout_marginEnd="16dp"/>
+                    android:layout_marginEnd="16dp"
+                    android:text="Masculino" />
 
                 <RadioButton
-                    android:id="@+id/radioButtonFemale"
+                    android:id="@+id/rbSmokerFalse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Feminino"/>
+                    android:text="Feminino" />
 
             </RadioGroup>
 
@@ -144,71 +146,71 @@
                 android:id="@+id/textViewHeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="Altura"
                 android:textColor="#000000"
-                android:textSize="14sp"
-                android:fontFamily="@font/inter_semibold"
-                android:layout_marginBottom="8dp"/>
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/editTextHeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/edit_text_border"
                 android:hint="Sua altura (ex: 1.75)"
-                android:inputType="numberDecimal"
-                android:layout_marginBottom="16dp"/>
+                android:inputType="numberDecimal" />
 
             <!-- Peso -->
             <TextView
                 android:id="@+id/textViewWeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="Peso"
                 android:textColor="#000000"
-                android:textSize="14sp"
-                android:fontFamily="@font/inter_semibold"
-                android:layout_marginBottom="8dp"/>
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/editTextWeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/edit_text_border"
                 android:hint="Seu peso (ex: 70)"
-                android:inputType="numberDecimal"
-                android:layout_marginBottom="16dp"/>
+                android:inputType="numberDecimal" />
 
             <!-- Senha -->
             <TextView
                 android:id="@+id/textViewPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="Senha"
                 android:textColor="#000000"
-                android:textSize="14sp"
-                android:fontFamily="@font/inter_semibold"
-                android:layout_marginBottom="8dp"/>
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/edit_text_border"
                 android:hint="Senha"
-                android:inputType="textPassword"
-                android:layout_marginBottom="16dp"/>
+                android:inputType="textPassword" />
 
             <!-- Botão de Cadastro -->
             <Button
                 android:id="@+id/buttonRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cadastrar"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#007BFF"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#007BFF"
+                android:text="Cadastrar"
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
 

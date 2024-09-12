@@ -5,13 +5,4 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
-
-    <Button
-        android:id="@+id/btnProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Perfil"
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="294dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".ProfileActivity"/>
