@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterHabitsActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        tools:layout_editor_absoluteX="171dp"
+        tools:layout_editor_absoluteY="336dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Título -->
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Cadastro de Hábitos"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
+            <!-- Nome -->
+            <Switch
+                android:id="@+id/switchWork"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Você trabalha?"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <!-- E-mail -->
+
+            <EditText
+                android:id="@+id/input_workBegin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Horário de ínicio"
+                android:inputType="time"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/input_workEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Horário de término"
+                android:inputType="time"
+                android:textSize="15dp" />
+
+            <Switch
+                android:id="@+id/switchStudy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Você estuda?"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <!-- Telefone -->
+
+            <EditText
+                android:id="@+id/input_studyBegin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Horário de ínicio"
+                android:inputType="time"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/input_studyEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Horário de término"
+                android:inputType="time"
+                android:textSize="15dp" />
+
+            <!-- Data de Nascimento -->
+
+            <!-- Gênero -->
+            <Switch
+                android:id="@+id/switchWorkout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Você treina (cardio e/ou musculação)?"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/input_workoutBegin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Horário de ínicio"
+                android:inputType="time"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/input_workoutEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Horário de término"
+                android:inputType="time"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Regulagem do sono"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/input_sleepBegin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Horário de ínicio"
+                android:inputType="time"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/input_sleepEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Horário de término"
+                android:inputType="time"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/textViewGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Você fuma?"
+                android:textColor="#000000"
+                android:textSize="18dp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupSmoker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbSmokerTrue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="Sim" />
+
+                <RadioButton
+                    android:id="@+id/rbSmokerFalse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Não" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btnRegisterHabits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#007BFF"
+                android:text="Cadastrar"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,11 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout5"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foregroundTint="#FFFFFF"
-    tools:context=".PerfilFragment">
+    tools:context=".ProfileActivity">
 
     <ImageView
         android:id="@+id/imageView4"
@@ -67,70 +66,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
+    
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/tvApelido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="93dp"
         android:layout_marginBottom="11dp"
         android:fontFamily="@font/inter_semibold"
-        android:text="Apelido"
+        android:text="Apelido: " 
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintBottom_toTopOf="@+id/tvEmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="11dp"
         android:layout_marginBottom="11dp"
         android:fontFamily="@font/inter_semibold"
-        android:text="Email"
-        app:layout_constraintBottom_toTopOf="@+id/textView14"
+        android:text="Email: " 
+        app:layout_constraintBottom_toTopOf="@+id/tvAltura"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintTop_toBottomOf="@+id/tvApelido" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/tvAltura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="11dp"
         android:layout_marginBottom="11dp"
         android:fontFamily="@font/inter_semibold"
-        android:text="Altura"
-        app:layout_constraintBottom_toTopOf="@+id/textView16"
+        android:text="Altura: "
+        app:layout_constraintBottom_toTopOf="@+id/tvPeso"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/tvPeso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="11dp"
         android:layout_marginBottom="11dp"
         android:fontFamily="@font/inter_semibold"
-        android:text="Peso"
-        app:layout_constraintBottom_toTopOf="@+id/textView18"
+        android:text="Peso: " 
+        app:layout_constraintBottom_toTopOf="@+id/tvAniversario"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAltura" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/tvAniversario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="11dp"
         android:layout_marginBottom="315dp"
         android:fontFamily="@font/inter_semibold"
-        android:text="Aniversário"
+        android:text="Aniversário: "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPeso" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

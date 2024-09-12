@@ -1,6 +1,7 @@
 package com.example.solo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,16 +31,17 @@ public class MainActivity extends AppCompatActivity {
     private EditText nickname_input, pwd_input;
     private RequestQueue requestQueue;
     private static final String TAG = "MainActivity";
+    //emulador
+    //private static final String Base_URL = "http://10.2.2:3000";
 
-    // Defina a URL base com o ngrok para acesso externo
-    private static final String BASE_URL = "https://1c9c-143-106-202-236.ngrok-free.app"; // URL gerada pelo ngrok
+    // conectar pelo celular no pc, URL gerada pelo ngrok
+    private static final String BASE_URL = "https://cc92-143-106-203-198.ngrok-free.app";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicializa a fila de requisições
         requestQueue = Volley.newRequestQueue(this);
 
         btnLogin = findViewById(R.id.btnlogin);
@@ -57,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Navega para RegisterUserActivity
                 Intent intent = new Intent(MainActivity.this, RegisterUserActivity.class);
                 startActivity(intent);
             }
@@ -65,14 +66,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void autenticarUsuario() {
-        // Validação dos campos
         if (!validarNickname() || !validarSenha()) {
             return;
         }
 
-        String url = BASE_URL + "/login"; // Cria a URL completa para login
+        String url = BASE_URL + "/login";
 
-        // Cria o objeto JSON com os parâmetros
+        // JSON
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("nickname", nickname_input.getText().toString().trim());
@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // Cria a requisição POST
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
@@ -94,12 +93,17 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "Resposta da API: " + response.toString());
                         try {
                             String nickname = response.getString("nickname");
-                            String pwd = response.getString("pwd");
+                            String email = response.getString("email");
+                            int idUser = response.getInt("id");
+                            // o sharedPreferences é para armazenar as info do usuario na sessão
+                            SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("nickname", nickname);
+                            editor.putString("email", email);
+                            editor.putInt("idUser", idUser);
+                            editor.apply();
 
-                            // Navega para a próxima Activity
                             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                            intent.putExtra("nickname", nickname);
-                            intent.putExtra("pwd", pwd);
                             startActivity(intent);
                             finish();
 
@@ -115,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.e(TAG, "Erro na requisição: " + error.toString());
                         String errorMessage = "Ocorreu um erro desconhecido.";
 
-                        // Trata erros específicos
                         if (error.networkResponse != null) {
                             String responseBody;
                             try {
@@ -134,14 +137,12 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        // Adiciona uma política de repetição e timeout
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
-                5000, // Timeout em milissegundos
+                5000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
 
-        // Adiciona a requisição à fila
         requestQueue.add(jsonObjectRequest);
     }
 
