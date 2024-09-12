@@ -1,0 +1,192 @@
+package com.example.solo;
+
+import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+public class RegisterUserActivity extends AppCompatActivity {
+
+    private EditText editTextApelido, editTextPhone, editTextEmail, editTextDateBorn, editTextHeight, editTextWeight, editTextPwd;
+    private RadioGroup radioGroupGender;
+    private Button btnCadastro;
+    private RequestQueue requestQueue;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register_user);
+
+        // Inicializando os campos
+        editTextApelido = findViewById(R.id.editTextName);
+        editTextPhone = findViewById(R.id.editTextPhone);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextDateBorn = findViewById(R.id.editTextDateBorn);
+        editTextHeight = findViewById(R.id.editTextHeight);
+        editTextWeight = findViewById(R.id.editTextWeight);
+        editTextPwd = findViewById(R.id.editTextPassword);
+        radioGroupGender = findViewById(R.id.radioGroupGender);
+        btnCadastro = findViewById(R.id.buttonRegister);
+
+        // Inicializando a fila de requisições
+        requestQueue = Volley.newRequestQueue(this);
+
+        // Configurando o botão de cadastro
+        btnCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerUser();
+            }
+        });
+
+        // Configurando o campo de data de nascimento
+        editTextDateBorn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+    }
+
+    private void showDatePickerDialog() {
+        // Obter a data atual
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Criar um DatePickerDialog
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        // Ajustar o mês (DatePicker fornece o mês de 0 a 11)
+                        monthOfYear = monthOfYear + 1;
+                        // Formatar a data no formato YYYY-MM-DD (ISO)
+                        String date = String.format("%d-%02d-%02d", year, monthOfYear, dayOfMonth);
+                        // Definir a data no EditText
+                        editTextDateBorn.setText(date);
+                    }
+                }, year, month, day);
+
+        // Mostrar o DatePickerDialog
+        datePickerDialog.show();
+    }
+
+    private void registerUser() {
+        // Obtendo os dados dos campos
+        String apelido = editTextApelido.getText().toString().trim();
+        String phone = editTextPhone.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
+        String birthday = editTextDateBorn.getText().toString().trim();
+        String height = editTextHeight.getText().toString().trim();
+        String weight = editTextWeight.getText().toString().trim();
+        String password = editTextPwd.getText().toString().trim();
+
+        // Obtendo o gênero selecionado
+        int selectedGenderId = radioGroupGender.getCheckedRadioButtonId();
+        RadioButton selectedGenderButton = findViewById(selectedGenderId);
+        String gender = selectedGenderButton != null ? selectedGenderButton.getText().toString() : "";
+
+        // Verificando se os campos estão preenchidos
+        if (TextUtils.isEmpty(apelido) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(email) || TextUtils.isEmpty(birthday)
+                || TextUtils.isEmpty(gender) || TextUtils.isEmpty(height) || TextUtils.isEmpty(weight) || TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Todos os campos devem ser preenchidos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Ajustando o gênero para o formato esperado
+        gender = gender.equalsIgnoreCase("Masculino") ? "M" : "F";
+
+        // Criando o objeto JSON com os dados do usuário, compatível com o Postman
+        JSONObject userData = new JSONObject();
+        try {
+            userData.put("nickname", apelido);
+            userData.put("phone", phone);
+            userData.put("email", email);
+            userData.put("birthday", birthday); // Ajustando o campo para "birthday"
+            userData.put("gender", gender); // Ajustando o gênero para "M" ou "F"
+            userData.put("height", Double.parseDouble(height)); // Convertendo para Double
+            userData.put("weight", Double.parseDouble(weight)); // Convertendo para Double
+            userData.put("pwd", password); // Ajustando o campo para "pwd"
+
+            // Printando o JSON no log para conferência
+            Log.d("RegisterUserActivity", "JSON enviado: " + userData.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // URL do ngrok com o endpoint correto
+        String url = "https://cc92-143-106-203-198.ngrok-free.app/register/register";
+
+        // Criando a requisição POST
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, userData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(RegisterUserActivity.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(RegisterUserActivity.this, MainActivity.class));
+                        clearFields();
+                        finish();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String errorMessage = "Erro ao cadastrar o usuário: " + error.toString();
+                        Toast.makeText(RegisterUserActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        error.printStackTrace();
+                        Log.e("RegisterUserActivity", "Error details: ", error);
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+        };
+
+        // Adicionando a requisição à fila
+        requestQueue.add(jsonObjectRequest);
+    }
+
+
+
+    private void clearFields() {
+        editTextApelido.setText("");
+        editTextPhone.setText("");
+        editTextEmail.setText("");
+        editTextDateBorn.setText("");
+        editTextHeight.setText("");
+        editTextWeight.setText("");
+        editTextPwd.setText("");
+        radioGroupGender.clearCheck(); // Limpar a seleção do RadioGroup
+    }
+}
