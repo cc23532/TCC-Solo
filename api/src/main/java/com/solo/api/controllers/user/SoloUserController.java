@@ -44,7 +44,6 @@ public class SoloUserController {
         return repository.findById(id)
                 .map(user -> {
                     user.setNickname(newUser.getNickname());
-                    user.setPwd(newUser.getPwd());
                     user.setBirthday(newUser.getBirthday());
                     user.setEmail(newUser.getEmail());
                     user.setPhone(newUser.getPhone());
