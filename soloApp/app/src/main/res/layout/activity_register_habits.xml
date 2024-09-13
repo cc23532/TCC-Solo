@@ -1,195 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterHabitsActivity">
+    android:padding="16dp">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        tools:layout_editor_absoluteX="171dp"
-        tools:layout_editor_absoluteY="336dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cadastro de Hábitos"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trabalho"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"/>
+
+        <Switch
+            android:id="@+id/switchWork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trabalho"/>
+
+        <EditText
+            android:id="@+id/editTextWorkBegin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:hint="Hora de início do trabalho"
+            android:inputType="time"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"/>
 
-            <!-- Título -->
-            <TextView
-                android:id="@+id/textViewTitle"
+        <EditText
+            android:id="@+id/editTextWorkEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hora de término do trabalho"
+            android:inputType="time"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estudo"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"/>
+
+        <Switch
+            android:id="@+id/switchStudy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estudo"/>
+
+        <EditText
+            android:id="@+id/editTextStudyBegin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hora de início do estudo"
+            android:inputType="time"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/editTextStudyEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hora de término do estudo"
+            android:inputType="time"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exercícios"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"/>
+
+        <Switch
+            android:id="@+id/switchWorkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exercícios"/>
+
+        <EditText
+            android:id="@+id/editTextWorkoutBegin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hora de início do exercício"
+            android:inputType="time"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/editTextWorkoutEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hora de término do exercício"
+            android:inputType="time"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Regulação de Sono"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/editTextSleepBegin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hora de início do sono"
+            android:inputType="time"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/editTextSleepEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hora de término do sono"
+            android:inputType="time"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fumar"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupSmoke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <RadioButton
+                android:id="@+id/radioButtonSmokeYes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/inter_semibold"
-                android:text="Cadastro de Hábitos"
-                android:textColor="#000000"
-                android:textSize="24sp" />
+                android:text="Sim"
+                android:layout_marginEnd="16dp"/>
 
-            <!-- Nome -->
-            <Switch
-                android:id="@+id/switchWork"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Você trabalha?"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <!-- E-mail -->
-
-            <EditText
-                android:id="@+id/input_workBegin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Horário de ínicio"
-                android:inputType="time"
-                android:textSize="15dp" />
-
-            <EditText
-                android:id="@+id/input_workEnd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Horário de término"
-                android:inputType="time"
-                android:textSize="15dp" />
-
-            <Switch
-                android:id="@+id/switchStudy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Você estuda?"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <!-- Telefone -->
-
-            <EditText
-                android:id="@+id/input_studyBegin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Horário de ínicio"
-                android:inputType="time"
-                android:textSize="15dp" />
-
-            <EditText
-                android:id="@+id/input_studyEnd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Horário de término"
-                android:inputType="time"
-                android:textSize="15dp" />
-
-            <!-- Data de Nascimento -->
-
-            <!-- Gênero -->
-            <Switch
-                android:id="@+id/switchWorkout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Você treina (cardio e/ou musculação)?"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/input_workoutBegin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Horário de ínicio"
-                android:inputType="time"
-                android:textSize="15dp" />
-
-            <EditText
-                android:id="@+id/input_workoutEnd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Horário de término"
-                android:inputType="time"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Regulagem do sono"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/input_sleepBegin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Horário de ínicio"
-                android:inputType="time"
-                android:textSize="15dp" />
-
-            <EditText
-                android:id="@+id/input_sleepEnd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Horário de término"
-                android:inputType="time"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/textViewGender"
+            <RadioButton
+                android:id="@+id/radioButtonSmokeNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/inter_semibold"
-                android:text="Você fuma?"
-                android:textColor="#000000"
-                android:textSize="18dp" />
+                android:text="Não"/>
+        </RadioGroup>
 
-            <RadioGroup
-                android:id="@+id/radioGroupSmoker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/rbSmokerTrue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="Sim" />
-
-                <RadioButton
-                    android:id="@+id/rbSmokerFalse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Não" />
-
-            </RadioGroup>
-
-            <Button
-                android:id="@+id/btnRegisterHabits"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="#007BFF"
-                android:text="Cadastrar"
-                android:textColor="#FFFFFF" />
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btnRegisterHabits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrar Hábitos"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+</ScrollView>

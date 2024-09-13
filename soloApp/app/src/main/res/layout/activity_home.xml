@@ -11,7 +11,22 @@
         android:id="@+id/btnProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="348dp"
+        android:layout_marginBottom="151dp"
         android:text="Perfil"
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="294dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnHabitos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnHabitos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Habitos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="395dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

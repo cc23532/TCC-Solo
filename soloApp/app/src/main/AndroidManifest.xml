@@ -30,9 +30,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- Adicione a declaração para a ProfileActivity -->
         <activity
             android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterHabitsActivity"
             android:exported="false" />
         <meta-data
             android:name="preloaded_fonts"
