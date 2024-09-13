@@ -140,7 +140,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         }
 
         // URL do endpoint correto
-        String url = "http://10.2.2:3000/register/register"; // Substitua pela URL correta
+        String url = "http://10.0.2.2:8080/register/register"; // Substitua pela URL correta
 
         // Criando a requisição POST
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, userData,
@@ -152,7 +152,7 @@ public class RegisterUserActivity extends AppCompatActivity {
                             String registeredUser = response.getString("idUser");
 
                             // Salvando o idUser em SharedPreferences
-                            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                            SharedPreferences sharedPreferences = getSharedPreferences("register-session", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("idUser", registeredUser);
                             editor.apply();
@@ -161,6 +161,7 @@ public class RegisterUserActivity extends AppCompatActivity {
                             Intent intent = new Intent(RegisterUserActivity.this, RegisterHabitsActivity.class);
                             intent.putExtra("idUser", registeredUser); // Passando o idUser como parâmetro
                             startActivity(intent);
+                            Log.d("idUser:", registeredUser);
 
                             // Limpar os campos após o sucesso
                             clearFields();

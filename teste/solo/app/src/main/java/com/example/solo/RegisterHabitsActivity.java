@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.android.volley.NetworkResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +31,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterHabitsActivity extends AppCompatActivity {
+
+    private static final String TAG = "RegisterHabitsActivity"; // Tag para logs
 
     private EditText input_workBegin, input_workEnd, input_studyBegin, input_studyEnd, input_workoutBegin, input_workoutEnd, input_sleepBegin, input_sleepEnd;
     private Switch switchWork, switchStudy, switchWorkout;
@@ -63,13 +66,15 @@ public class RegisterHabitsActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         // Obtendo o idUser salvo em SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("register-session", MODE_PRIVATE);
         String idUser = sharedPreferences.getString("idUser", null); // Recupera o idUser salvo
+        Log.d(TAG, "idUser recuperado: " + idUser);
 
         btnRegisterHabits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (idUser != null) {
+                    Log.d(TAG, "Iniciando o registro dos habitos para o idUser: " + idUser);
                     registerUserHabits(idUser);
                 } else {
                     Toast.makeText(RegisterHabitsActivity.this, "Erro: usuário não registrado.", Toast.LENGTH_SHORT).show();
@@ -90,9 +95,12 @@ public class RegisterHabitsActivity extends AppCompatActivity {
         String sleepEnd = input_sleepEnd.getText().toString().trim();
         boolean isSmoker = rbSmokerTrue.isChecked();
 
+        Log.d(TAG, "Dados obtidos: workBegin=" + workBegin + ", workEnd=" + workEnd + ", studyBegin=" + studyBegin + ", studyEnd=" + studyEnd + ", workoutBegin=" + workoutBegin + ", workoutEnd=" + workoutEnd + ", sleepBegin=" + sleepBegin + ", sleepEnd=" + sleepEnd + ", isSmoker=" + isSmoker);
+
         // Verificar se os campos obrigatórios estão preenchidos
         if (TextUtils.isEmpty(sleepBegin) || TextUtils.isEmpty(sleepEnd)) {
             Toast.makeText(this, "Os horários de sono devem ser preenchidos", Toast.LENGTH_SHORT).show();
+            Log.w(TAG, "Campos obrigatórios não preenchidos: sleepBegin ou sleepEnd");
             return;
         }
 
@@ -100,33 +108,43 @@ public class RegisterHabitsActivity extends AppCompatActivity {
         JSONObject habitsData = new JSONObject();
         try {
             habitsData.put("idUser", idUser);
-            habitsData.put("workEnabled", switchWork.isChecked());
+            habitsData.put("work", switchWork.isChecked());
             habitsData.put("workBegin", workBegin);
             habitsData.put("workEnd", workEnd);
-            habitsData.put("studyEnabled", switchStudy.isChecked());
+            habitsData.put("study", switchStudy.isChecked());
             habitsData.put("studyBegin", studyBegin);
             habitsData.put("studyEnd", studyEnd);
-            habitsData.put("workoutEnabled", switchWorkout.isChecked());
+            habitsData.put("workout", switchWorkout.isChecked());
             habitsData.put("workoutBegin", workoutBegin);
             habitsData.put("workoutEnd", workoutEnd);
             habitsData.put("sleepBegin", sleepBegin);
             habitsData.put("sleepEnd", sleepEnd);
-            habitsData.put("smoker", isSmoker);
+            habitsData.put("smoke", isSmoker);
+            Log.d(TAG, "Objeto JSON criado: " + habitsData.toString());
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Erro ao criar os dados de hábitos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Erro ao criar os dados de habitos", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Erro ao criar o objeto JSON", e);
             return;
         }
 
-        // URL do endpoint correto
-        String url = "http://2804:868:d040:7790:9565:a1dc:bf04:9c31:3000/habits/register"; // Substitua pela URL correta
+        // Salvando o idUser em "register-session"
+        SharedPreferences sharedPreferences = getSharedPreferences("register-session", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("idUser", idUser);
+        editor.apply();
+
+        // Construindo a URL com o idUser
+        String url = "http://10.0.2.2:8080/register/habits/" + idUser;
+        Log.d(TAG, "URL da requisição: " + url);
 
         // Criando a requisição POST
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, habitsData,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(RegisterHabitsActivity.this, "Hábitos registrados com sucesso!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterHabitsActivity.this, "Habitos registrados com sucesso!", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "Resposta da requisição: " + response.toString());
                         // Redirecionar para a LoginActivity após o registro
                         Intent intent = new Intent(RegisterHabitsActivity.this, LoginActivity.class);
                         startActivity(intent);
@@ -136,10 +154,10 @@ public class RegisterHabitsActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        String errorMessage = "Erro ao registrar hábitos: " + error.toString();
+                        String errorMessage = "Erro ao registrar habitos: " + error.toString();
                         Toast.makeText(RegisterHabitsActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                         error.printStackTrace();
-                        Log.e("RegisterHabitsActivity", "Error details: ", error);
+                        Log.e(TAG, "Detalhes do erro: ", error);
                     }
                 }) {
             @Override
@@ -153,4 +171,5 @@ public class RegisterHabitsActivity extends AppCompatActivity {
         // Adicionando a requisição à fila
         requestQueue.add(jsonObjectRequest);
     }
+
 }

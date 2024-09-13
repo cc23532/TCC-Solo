@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
 
     // Defina a URL base conforme o ambiente (emulador ou dispositivo real)
-    private static final String BASE_URL = "http://10.2.2:3000"; // Para emulador
+    private static final String BASE_URL = "http://10.0.2.2:8080"; // Para emulador
 
     // Conectar pelo celular no pc, URL gerada pelo ngrok
    // private static final String BASE_URL = "https://1c9c-143-106-202-236.ngrok-free.app";
