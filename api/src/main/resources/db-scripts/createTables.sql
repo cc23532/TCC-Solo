@@ -59,11 +59,11 @@ CREATE TABLE appSolo.CardioActivity
 (
     idActivity INT NOT NULL IDENTITY PRIMARY KEY,
     idUser INT NOT NULL,
-    activityDate DATETIME NOT NULL,
-    duration TIME NOT NULL,
-    distance FLOAT NOT NULL,
-    averageSpeed FLOAT NOT NULL,
-    lostKCal FLOAT NOT NULL,
+    activityDate DATETIME NOT NULL DEFAULT CAST(GETDATE() AS DATETIME),
+    duration TIME NULL,
+    distance FLOAT NULL,
+    averageSpeed FLOAT NULL,
+    lostKCal FLOAT NULL,
     CONSTRAINT FK_CardioActivity_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 
@@ -71,21 +71,30 @@ CREATE TABLE appSolo.MuscleActivity
 (
     idActivity INT NOT NULL IDENTITY PRIMARY KEY,
     idUser INT NOT NULL,
-    activityDate DATETIME NOT NULL,
-    duration TIME NOT NULL,
-    trainingType VARCHAR(50) NOT NULL,
+    activityDate DATETIME NOT NULL DEFAULT CAST(GETDATE() AS DATETIME),
+    duration TIME NULL,
+    --category VARCHAR(50)  NULL,
     CONSTRAINT FK_MuscleActivity_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 
-CREATE TABLE appSolo.Muscle_Exercises
+CREATE TABLE appSolo.MuscleExercises
 (
     idExercise INT NOT NULL IDENTITY PRIMARY KEY,
-    idActivity INT NOT NULL,
+    idUser INT NOT NULL,
     name VARCHAR(50) NOT NULL,
+    CONSTRAINT FK_MuscleExercises_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
+);
+
+CREATE TABLE appSolo.MuscleActivity_Exercises
+(
+    idMuscleActivity_Exercise INT NOT NULL IDENTITY PRIMARY KEY,
+    idActivity INT NOT NULL,
+    idExercise INT NOT NULL,
     weight FLOAT NOT NULL,
     series INT NOT NULL,
     repetition INT NOT NULL,
-    CONSTRAINT FK_Muscle_Exercises_MuscleActivity FOREIGN KEY (idActivity) REFERENCES appSolo.MuscleActivity(idActivity)
+    CONSTRAINT FK_MuscleAcEx_Activity FOREIGN KEY (idActivity) REFERENCES appSolo.MuscleActivity(idActivity),
+    CONSTRAINT FK_MuscleAcEx_Exercise FOREIGN KEY (idExercise) REFERENCES appSolo.MuscleExercise(idExercise)
 );
 
 -- Dieta

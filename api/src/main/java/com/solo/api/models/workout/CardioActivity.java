@@ -19,20 +19,34 @@ public class CardioActivity {
     @JoinColumn(name = "idUser", nullable = false)
     private SoloUser user;
 
-    @Column(nullable = false)
+    @Column
     private LocalDateTime activityDate;
 
-    @Column(nullable = false)
+    @Column
     private Time duration;
 
-    @Column(nullable = false)
+    @Column
     private double distance;
 
-    @Column(nullable = false)
+    @Column
     private double averageSpeed;
 
-    @Column(nullable = false)
+    @Column
     private double lostKCal;
+
+    public CardioActivity(){
+
+    }
+
+    public CardioActivity(Integer idActivity, SoloUser user, LocalDateTime activityDate, Time duration, double distance, double averageSpeed, double lostKCal){
+        this.idActivity = idActivity;
+        this.user = user;
+        this.activityDate = activityDate;
+        this.duration = duration;
+        this.distance = distance;
+        this.averageSpeed = averageSpeed;
+        this.lostKCal = lostKCal;
+    }
 
     public Integer getIdActivity() {
         return idActivity;
