@@ -1,10 +1,12 @@
 package com.example.solo;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class HomeActivity extends AppCompatActivity {
     private Button btnPerfil;
+    private Button btnPopUpWorkout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +44,37 @@ public class HomeActivity extends AppCompatActivity {
 
         }
 
+        btnPopUpWorkout = findViewById(R.id.btnWorkoutHome);
+
+        btnPopUpWorkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void showDialog(){
+        Dialog dialog = new Dialog(this, R.style.DialogStyle);
+        dialog.setContentView(R.layout.activity_popup_workout);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        ImageView btnClose = dialog.findViewById(R.id.imageView);
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 }

@@ -16,6 +16,11 @@
         android:theme="@style/Theme.Solo"
         tools:targetApi="31">
         <activity
+            android:name=".PopUpWorkoutActivity"
+            android:exported="false"
+            android:label="@string/title_activity_pop_up_workout"
+            android:theme="@style/Theme.Solo" />
+        <activity
             android:name=".RegisterHabitsActivity"
             android:exported="false" />
         <activity
