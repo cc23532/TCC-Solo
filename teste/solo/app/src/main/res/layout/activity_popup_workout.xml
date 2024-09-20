@@ -7,8 +7,8 @@
 
     <Button
         android:id="@+id/btnCardioWorkout"
-        android:layout_width="330dp"
-        android:layout_height="56dp"
+        android:layout_width="310dp"
+        android:layout_height="45dp"
         android:layout_marginStart="34dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="34dp"
@@ -16,7 +16,7 @@
         android:backgroundTint="#000000"
         android:fontFamily="@font/inter_medium"
         android:text="Cardio"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/btnWorkoutHome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,24 +24,25 @@
 
     <Button
         android:id="@+id/btnWorkoutHome"
-        android:layout_width="330dp"
-        android:layout_height="56dp"
+        android:layout_width="310dp"
+        android:layout_height="45dp"
         android:layout_marginStart="34dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="34dp"
         android:backgroundTint="#000000"
         android:fontFamily="@font/inter_medium"
         android:text="Musculação"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCardioWorkout" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="48dp"
-        android:layout_height="39dp"
+        android:layout_width="47dp"
+        android:layout_height="33dp"
         app:srcCompat="@drawable/pngegg"
         tools:layout_editor_absoluteX="-5dp"
-        tools:layout_editor_absoluteY="2dp" />
+        tools:layout_editor_absoluteY="2dp"
+        tools:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 </androidx.constraintlayout.widget.ConstraintLayout>
