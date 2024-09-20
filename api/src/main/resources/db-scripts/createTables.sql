@@ -77,7 +77,7 @@ CREATE TABLE appSolo.MuscleActivity
     CONSTRAINT FK_MuscleActivity_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 
-CREATE TABLE appSolo.MuscleExercises
+CREATE TABLE appSolo.MuscleExercise
 (
     idExercise INT NOT NULL IDENTITY PRIMARY KEY,
     idUser INT NOT NULL,

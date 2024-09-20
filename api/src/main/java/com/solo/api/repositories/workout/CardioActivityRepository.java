@@ -23,7 +23,7 @@ public interface CardioActivityRepository extends JpaRepository<CardioActivity, 
     @Query(value = "UPDATE appSolo.CardioActivity " + 
                     "SET duration = :duration, " +
                     "distance = :distance, " +
-                    "averageSpeed = averageSpeed " +
+                    "averageSpeed = :averageSpeed " +
                     "WHERE idActivity = :idActivity", nativeQuery = true)
     int finishCardioActivity(   @Param("duration") Time duration,
                                 @Param("distance") double distance,

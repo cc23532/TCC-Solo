@@ -104,7 +104,6 @@ public class RegisterHabitsActivity extends AppCompatActivity {
             return;
         }
 
-        // Criando o objeto JSON com os dados de hábitos do usuário
         JSONObject habitsData = new JSONObject();
         try {
             habitsData.put("idUser", idUser);

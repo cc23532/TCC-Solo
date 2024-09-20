@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.solo.api.models.workout.MuscleActivity;
@@ -66,7 +65,7 @@ public class MuscleActivityController {
     }
 
     @GetMapping("/my-activities/{idUser}")
-    public List<MuscleActivity> findActivitiesByUser(@RequestParam Integer idUser) {
+    public List<MuscleActivity> findActivitiesByUser(@PathVariable Integer idUser) {
         return service.findActivitiesByUser(idUser);
     }
 

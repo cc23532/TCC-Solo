@@ -2,13 +2,15 @@ package com.solo.api.models.workout;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
 import jakarta.persistence.ForeignKey;
 
-
-
+@Entity
+@Table(name = "MuscleActivity_Exercises", schema = "appSolo")
 public class MuscleActivity_Exercises {
 
     @EmbeddedId

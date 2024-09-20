@@ -19,7 +19,6 @@ import com.solo.api.services.workout.CardioActivityService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -63,8 +62,8 @@ public class CardioActivityController {
                 return new ResponseEntity<>("Falha finalizar atividade. Resultado da atualização: " + result, HttpStatus.BAD_REQUEST);
             }
     
-            service.setLostKCal(idActivity);
-            return new ResponseEntity<>("Atividade finalizada com sucesso com sucesso", HttpStatus.OK);
+            int lostKCal = service.setLostKCal(idActivity);
+            return new ResponseEntity<>("Atividade finalizada com sucesso com sucesso! Você queimou " + lostKCal + " calorias, parabéns!", HttpStatus.OK);
             
         } catch (Exception e) {
             return new ResponseEntity<>("Erro ao processar a requisição: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -72,7 +71,7 @@ public class CardioActivityController {
     }
 
     @GetMapping("/my-activities/{idUser}")
-    public List<CardioActivity> findActivitiesByUser(@RequestParam Integer idUser) {
+    public List<CardioActivity> findActivitiesByUser(@PathVariable Integer idUser) {
         return service.findActivitiesByUser(idUser);
     }
 
