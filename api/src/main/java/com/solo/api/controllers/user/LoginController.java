@@ -24,24 +24,28 @@ public class LoginController {
     public String testEndPoint(){
         return "SOLO: Login de Usuário no ar";
     }
-
     @PostMapping
     public ResponseEntity<?> login(@RequestBody Map<String, String> body) {
         String nickname = body.get("nickname");
         String pwd = body.get("pwd");
-        
+    
         System.out.println("Login chamado com nickname: " + nickname);
         System.out.println("Login chamado com senha: " + pwd);
-        
-        boolean isAuthenticated = userService.checkLogin(nickname, pwd);
-        
-        if (isAuthenticated) {
-            // Retorne os dados do usuário se o login for bem-sucedido
-            SoloUser user = repository.findUserByNickname(nickname);
-            return ResponseEntity.ok(user);
+    
+        SoloUser user = repository.findUserByNickname(nickname);
+    
+        if (user != null && userService.checkLogin(nickname, pwd)) {
+            // Retornar os dados do usuário, incluindo o ID, se o login for bem-sucedido
+            System.out.println("Login bem-sucedido para o usuário com ID: " + user.getId());
+            return ResponseEntity.ok(Map.of(
+                "message", "Login bem-sucedido",
+                "userId", user.getId(), 
+                "nickname", user.getNickname()
+            ));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais não correspondem ao usuário. Por favor, revise seus dados.");
         }
     }
+    
 
 }

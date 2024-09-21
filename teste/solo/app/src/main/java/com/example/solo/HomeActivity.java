@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,7 +28,8 @@ public class HomeActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
         int idUser = sharedPreferences.getInt("idUser", -1); // -1 é um valor padrão caso o id não seja encontrado
         String nickname = sharedPreferences.getString("nickname", null);
-
+        Log.d("HomeActivity", sharedPreferences.toString());
+        Log.d("HomeActivity", "idUser: " + idUser + ", nickname: " + nickname);
 
         if (idUser != -1) {
             // O id foi recuperado com sucesso, prossiga com a lógica
@@ -41,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
 
             });
             // O id não foi encontrado, talvez o usuário não esteja autenticado
+            Log.e("HomeActivity", "ID nulo, tente novamente");
 
         }
 

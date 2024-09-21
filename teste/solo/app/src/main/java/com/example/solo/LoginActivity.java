@@ -70,31 +70,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void onResponse(JSONObject response) {
-        Log.d(TAG, "Resposta da API: " + response.toString());
-        try {
-            // Captura o ID do usuário e outros dados retornados
-            int idUser = response.getInt("id");
-            String nickname = response.getString("nickname");
-
-            // Salva os dados do usuário no SharedPreferences
-            SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("id", idUser);
-            editor.putString("nickname", nickname);
-            editor.apply();
-
-            // Navega para a próxima Activity (HomeActivity)
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-
-        } catch (Exception e) {
-            Log.e(TAG, "Erro ao processar a resposta JSON", e);
-            Toast.makeText(LoginActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
 
     private void autenticarUsuario() {
         // Validação dos campos
@@ -123,15 +98,25 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, "Resposta da API: " + response.toString());
                         try {
-                            String nickname = response.getString("nickname");
-                            String pwd = response.getString("pwd");
+                            Log.d(TAG, "Resposta da API: " + response.toString());
 
-                            // Navega para a próxima Activity
+                            // Captura o ID do usuário e outros dados retornados
+                            int idUser = response.getInt("userId");  // Aqui certifique-se de que o nome da chave no JSON seja 'userId'
+                            String nickname = response.getString("nickname");
+                            Log.d("LoginActivity", "idUser salvo: " + idUser);
+
+
+                            // Salva os dados do usuário no SharedPreferences
+                            SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt("idUser", idUser);  // Use a chave 'idUser' para salvar o ID corretamente
+                            editor.putString("nickname", nickname);
+                            editor.apply();
+                            Toast.makeText(LoginActivity.this, "Usuário salvo com sucesso", Toast.LENGTH_SHORT).show();
+
+                            // Navega para a próxima Activity (HomeActivity)
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                            intent.putExtra("nickname", nickname);
-                            intent.putExtra("pwd", pwd);
                             startActivity(intent);
                             finish();
 
@@ -140,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
                         }
                     }
+
                 },
                 new Response.ErrorListener() {
                     @Override
