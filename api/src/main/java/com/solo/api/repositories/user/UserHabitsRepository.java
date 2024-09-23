@@ -33,37 +33,5 @@ public interface UserHabitsRepository extends JpaRepository<UserHabits, Integer>
 
     @Query(value = "SELECT * FROM appSolo.UserHabits WHERE idUser = :idUser", nativeQuery = true)
     UserHabits findHabitsById(@Param("idUser") Integer idUser);
-/*
-    @Transactional
-    @Modifying
-    @Query(value =  "UPDATE appSolo.UserHabits" +
-                    " SET idUser = :idUser,"+
-                    " work = :work,"+
-                    " workBegin = :workBegin,"+
-                    " workEnd = :workEnd,"+
-                    " study = :study,"+
-                    " studyBegin = :studyBegin,"+
-                    " studyEnd = :studyEnd,"+
-                    " sleepBegin = :sleepBegin,"+
-                    " sleepEnd = :sleepEnd,"+
-                    " workout = :workout,"+
-                    " workoutBegin = :workoutBegin,"+
-                    " workoutEnd = :workoutEnd,"+
-                    " smoke = :smoke" + 
-                    "WHERE idUser = :idUser", nativeQuery = true)
-    int updateHabits(   @Param("idUser") Integer idUser,
-                        @Param("work") boolean work,
-                        @Param("workBegin") Time workBegin,
-                        @Param("workEnd") Time workEnd,
-                        @Param("study") boolean study,
-                        @Param("studyBegin") Time studyBegin,
-                        @Param("studyEnd") Time studyEnd,
-                        @Param("sleepBegin") Time sleepBegin,
-                        @Param("sleepEnd") Time sleepEnd,
-                        @Param("workout") boolean workout,
-                        @Param("workoutBegin") Time workoutBegin,
-                        @Param("workoutEnd") Time workoutEnd,
-                        @Param("smoke") boolean smoke);
-*/
 
 }

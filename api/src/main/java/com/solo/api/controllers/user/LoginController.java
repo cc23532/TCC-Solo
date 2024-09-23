@@ -39,7 +39,7 @@ public class LoginController {
             System.out.println("Login bem-sucedido para o usuário com ID: " + user.getId());
             return ResponseEntity.ok(Map.of(
                 "message", "Login bem-sucedido",
-                "userId", user.getId(), 
+                "idUser", user.getId(), 
                 "nickname", user.getNickname()
             ));
         } else {

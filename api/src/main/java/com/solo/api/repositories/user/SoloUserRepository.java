@@ -3,6 +3,8 @@ package com.solo.api.repositories.user;
 import com.solo.api.models.user.SoloUser;
 import jakarta.transaction.Transactional;
 import java.util.Date;
+import java.util.Map;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -34,6 +36,13 @@ public interface SoloUserRepository extends JpaRepository<SoloUser, Integer> {
     // Busca um usuário por apelido
     @Query(value = "SELECT * FROM appSolo.SoloUser WHERE nickname = :nickname", nativeQuery = true)
     SoloUser findUserByNickname(@Param("nickname") String nickname);
+
+    @Query(value = "SELECT * FROM appSolo.UserDetails WHERE idUser = :idUser", nativeQuery = true)
+    Map<String, Object> findUserDetailsByIdUser(@Param("idUser") Integer idUser);
+
+    @Query(value = "SELECT nickname, email, phone, birthday, gender, height, weight FROM appSolo.SoloUser WHERE id = :id")
+    Object[] findUserForUpdate(@Param("id") Integer id);
+
 
     // Encontra o ID de um usuário para recuperação de senha com base em nome, e-mail e telefone
     @Query(value = "SELECT id FROM appSolo.SoloUser WHERE nickname = :nickname AND email = :email AND phone = :phone", nativeQuery = true)

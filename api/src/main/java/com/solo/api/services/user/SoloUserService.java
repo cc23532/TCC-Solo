@@ -4,6 +4,7 @@ import com.solo.api.models.user.SoloUser;
 import com.solo.api.repositories.user.SoloUserRepository;
 
 import java.util.Date;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -40,6 +41,14 @@ public class SoloUserService {
 
     public Integer findUserIdForRecoverPwd(String nickname, String email, String phone){
         return repository.findUserIdForRecoverPwd(nickname, email, phone);
+    }
+
+    public Map<String, Object> findUserDetailsByIdUser(Integer idUser){
+        return repository.findUserDetailsByIdUser(idUser);
+    }
+
+    public Object[] findUserForUpdate(Integer idUser){
+        return repository.findUserForUpdate(idUser);
     }
 
     public int updatePwd(Integer id, String newPwd){
