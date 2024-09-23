@@ -9,11 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,7 +26,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.android.volley.NetworkResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,23 +33,25 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterHabitsActivity extends AppCompatActivity {
+public class UpdateHabitsActivity extends AppCompatActivity {
 
-    private static final String TAG = "RegisterHabitsActivity"; // Tag para logs
+    private static final String TAG = "UpdateHabitsActivity"; // Tag para logs
 
     private EditText input_workBegin, input_workEnd, input_studyBegin, input_studyEnd, input_workoutBegin, input_workoutEnd, input_sleepBegin, input_sleepEnd;
     private Switch switchWork, switchStudy, switchWorkout;
-    private RadioButton rbSmokerTrue, rbSmokerFalse;
-    private Button btnRegisterHabits;
+    private RadioGroup radioGroupSmoker;
+    private Button btnUpdateHabits, btnCancel;
     private RequestQueue requestQueue;
+    private int idUser;
+
+    private String BASE_URL = "http://10.0.2.2:8080";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_register_habits);
+        setContentView(R.layout.activity_update_habits);
 
-        // Inicializando os campos
         switchWork = findViewById(R.id.switchWork);
         input_workBegin = findViewById(R.id.input_workBegin);
         input_workEnd = findViewById(R.id.input_workEnd);
@@ -58,32 +63,115 @@ public class RegisterHabitsActivity extends AppCompatActivity {
         input_workoutEnd = findViewById(R.id.input_workoutEnd);
         input_sleepBegin = findViewById(R.id.input_sleepBegin);
         input_sleepEnd = findViewById(R.id.input_sleepEnd);
-        rbSmokerTrue = findViewById(R.id.rbSmokerTrue);
-        rbSmokerFalse = findViewById(R.id.rbSmokerFalse);
-        btnRegisterHabits = findViewById(R.id.btnRegisterHabits);
+        radioGroupSmoker = findViewById(R.id.radioGroupSmoker);
+        btnUpdateHabits = findViewById(R.id.btnUpdateHabits);
+        btnCancel = findViewById(R.id.btnCancel);
 
         // Inicializando a fila de requisições
         requestQueue = Volley.newRequestQueue(this);
 
         // Obtendo o idUser salvo em SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("register-session", MODE_PRIVATE);
-        int idUser = sharedPreferences.getInt("idUser", -1); // Recupera o idUser salvo
+        idUser = sharedPreferences.getInt("idUser", -1); // Recupera o idUser salvo
         Log.d(TAG, "idUser recuperado: " + idUser);
 
-        btnRegisterHabits.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (idUser != -1) {
-                    Log.d(TAG, "Iniciando o registro dos habitos para o idUser: " + idUser);
-                    registerUserHabits(idUser);
-                } else {
-                    Toast.makeText(RegisterHabitsActivity.this, "Erro: usuário não registrado.", Toast.LENGTH_SHORT).show();
+        if(idUser != -1){
+            fetchUserHabits(idUser);
+
+            btnUpdateHabits.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateHabits(idUser);
+                    finish();
                 }
-            }
-        });
+            });
+            btnCancel.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    finish();
+                }
+            });
+        }
     }
 
-    private void registerUserHabits(int idUser) {
+    private void fetchUserHabits(int idUser){
+        String url = BASE_URL + "/habits/" + idUser;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String isWork = response.getString("isWork");
+                            String workBegin = response.getString("workBegin");
+                            String workEnd = response.getString("workEnd");
+                            String isStudy = response.getString("isStudy");
+                            String studyBegin = response.getString("studyBegin");
+                            String studyEnd = response.getString("studyEnd");
+                            String isWorkout = response.getString("isWorkout");
+                            String workoutBegin = response.getString("workoutBegin");
+                            String workoutEnd = response.getString("workoutEnd");
+                            String sleepBegin = response.getString("sleepBegin");
+                            String sleepEnd = response.getString("sleepEnd");
+                            String isSmoker = response.getString("isSmoker");
+
+                            // Set data to TextViews
+                            input_workBegin.setText(workBegin);
+                            input_workEnd.setText(workEnd);
+                            input_studyBegin.setText(studyBegin);
+                            input_studyEnd.setText(studyEnd);
+                            input_workoutBegin.setText(workoutBegin);
+                            input_workoutEnd.setText(workoutEnd);
+                            input_sleepBegin.setText(sleepBegin);
+                            input_sleepEnd.setText(sleepEnd);
+
+                            if (isWork.equalsIgnoreCase("true")) {
+                                switchWork.setChecked(true);
+                            } else {
+                                switchWork.setChecked(false);
+
+                            }
+
+                            if (isStudy.equalsIgnoreCase("true")) {
+                                switchStudy.setChecked(true);
+                            } else {
+                                switchStudy.setChecked(false);
+                            }
+
+                            if (isWorkout.equalsIgnoreCase("true")) {
+                                switchWorkout.setChecked(true);
+                            } else {
+                                switchWorkout.setChecked(false);
+                            }
+
+                            if (isSmoker.equalsIgnoreCase("true")) {
+                                radioGroupSmoker.check(R.id.rbSmokerTrue);
+                            } else {
+                                radioGroupSmoker.check(R.id.rbSmokerFalse);
+                            }
+
+                        } catch (Exception e) {
+                            Log.e(TAG, "Erro ao processar a resposta JSON", e);
+                            Toast.makeText(UpdateHabitsActivity.this, "Erro ao processar os dados do usuário.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "Erro na requisição: " + error.toString());
+                        Toast.makeText(UpdateHabitsActivity.this, "Erro ao obter os dados do usuário.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void updateHabits(int idUser){
         // Obtendo os dados dos campos
         String workBegin = input_workBegin.getText().toString().trim();
         String workEnd = input_workEnd.getText().toString().trim();
@@ -93,6 +181,7 @@ public class RegisterHabitsActivity extends AppCompatActivity {
         String workoutEnd = input_workoutEnd.getText().toString().trim();
         String sleepBegin = input_sleepBegin.getText().toString().trim();
         String sleepEnd = input_sleepEnd.getText().toString().trim();
+        RadioButton rbSmokerTrue = findViewById(R.id.rbSmokerTrue);
         boolean isSmoker = rbSmokerTrue.isChecked();
 
         Log.d(TAG, "Dados obtidos: workBegin=" + workBegin + ", workEnd=" + workEnd + ", studyBegin=" + studyBegin + ", studyEnd=" + studyEnd + ", workoutBegin=" + workoutBegin + ", workoutEnd=" + workoutEnd + ", sleepBegin=" + sleepBegin + ", sleepEnd=" + sleepEnd + ", isSmoker=" + isSmoker);
@@ -106,7 +195,6 @@ public class RegisterHabitsActivity extends AppCompatActivity {
 
         JSONObject habitsData = new JSONObject();
         try {
-            habitsData.put("idUser", idUser);
             habitsData.put("work", switchWork.isChecked());
             habitsData.put("workBegin", workBegin);
             habitsData.put("workEnd", workEnd);
@@ -121,32 +209,22 @@ public class RegisterHabitsActivity extends AppCompatActivity {
             habitsData.put("smoke", isSmoker);
             Log.d(TAG, "Objeto JSON criado: " + habitsData.toString());
         } catch (JSONException e) {
-            e.printStackTrace();
             Toast.makeText(this, "Erro ao criar os dados de habitos", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Erro ao criar o objeto JSON", e);
             return;
         }
 
-        // Salvando o idUser em "register-session"
-        SharedPreferences sharedPreferences = getSharedPreferences("register-session", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("idUser", idUser);
-        editor.apply();
-
         // Construindo a URL com o idUser
-        String url = "http://10.0.2.2:8080/register/habits/" + idUser;
+        String url = BASE_URL + "/habits/" + idUser;
         Log.d(TAG, "URL da requisição: " + url);
 
         // Criando a requisição POST
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, habitsData,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, habitsData,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(RegisterHabitsActivity.this, "Habitos registrados com sucesso!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateHabitsActivity.this, "Habitos registrados com sucesso!", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Resposta da requisição: " + response.toString());
-                        // Redirecionar para a LoginActivity após o registro
-                        Intent intent = new Intent(RegisterHabitsActivity.this, LoginActivity.class);
-                        startActivity(intent);
                         finish();
                     }
                 },
@@ -154,8 +232,7 @@ public class RegisterHabitsActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         String errorMessage = "Erro ao registrar habitos: " + error.toString();
-                        Toast.makeText(RegisterHabitsActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                        error.printStackTrace();
+                        Toast.makeText(UpdateHabitsActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "Detalhes do erro: ", error);
                     }
                 }) {
@@ -170,5 +247,4 @@ public class RegisterHabitsActivity extends AppCompatActivity {
         // Adicionando a requisição à fila
         requestQueue.add(jsonObjectRequest);
     }
-
 }

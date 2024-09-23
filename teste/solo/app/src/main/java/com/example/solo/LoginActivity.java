@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "Resposta da API: " + response.toString());
 
                             // Captura o ID do usuário e outros dados retornados
-                            int idUser = response.getInt("userId");  // Aqui certifique-se de que o nome da chave no JSON seja 'userId'
+                            int idUser = response.getInt("idUser");  // Aqui certifique-se de que o nome da chave no JSON seja 'userId'
                             String nickname = response.getString("nickname");
                             Log.d("LoginActivity", "idUser salvo: " + idUser);
 
@@ -112,13 +112,16 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putInt("idUser", idUser);  // Use a chave 'idUser' para salvar o ID corretamente
                             editor.putString("nickname", nickname);
-                            editor.apply();
-                            Toast.makeText(LoginActivity.this, "Usuário salvo com sucesso", Toast.LENGTH_SHORT).show();
 
-                            // Navega para a próxima Activity (HomeActivity)
-                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                            startActivity(intent);
-                            finish();
+                            if (editor.commit()){
+                                Toast.makeText(LoginActivity.this, "Usuário salvo com sucesso", Toast.LENGTH_SHORT).show();
+
+                                // Navega para a próxima Activity (HomeActivity) se o idUser for salvo
+                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
 
                         } catch (Exception e) {
                             Log.e(TAG, "Erro ao processar a resposta JSON", e);

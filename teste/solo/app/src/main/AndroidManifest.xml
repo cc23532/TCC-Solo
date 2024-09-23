@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package= "com.example.solo">
+    package="com.example.solo">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Solo"
         tools:targetApi="31">
+        <activity
+            android:name=".UpdateHabitsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateUserActivity"
+            android:exported="false" />
         <activity
             android:name=".PopUpWorkoutActivity"
             android:exported="false"

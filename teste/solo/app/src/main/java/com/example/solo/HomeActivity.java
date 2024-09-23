@@ -40,7 +40,6 @@ public class HomeActivity extends AppCompatActivity {
                     Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                     startActivity(intent);
                 }
-
             });
             // O id não foi encontrado, talvez o usuário não esteja autenticado
             Log.e("HomeActivity", "ID nulo, tente novamente");

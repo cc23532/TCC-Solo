@@ -69,11 +69,11 @@
 
 
     <TextView
-        android:id="@+id/tvApelido"
+        android:id="@+id/tvNickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="93dp"
+        android:layout_marginTop="55dp"
         android:layout_marginBottom="11dp"
         android:fontFamily="@font/inter_semibold"
         android:text="Apelido: "
@@ -91,12 +91,12 @@
         android:layout_marginBottom="11dp"
         android:fontFamily="@font/inter_semibold"
         android:text="Email: "
-        app:layout_constraintBottom_toTopOf="@+id/tvAltura"
+        app:layout_constraintBottom_toTopOf="@+id/tvHeight"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvApelido" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNickname" />
 
     <TextView
-        android:id="@+id/tvAltura"
+        android:id="@+id/tvHeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -104,12 +104,12 @@
         android:layout_marginBottom="11dp"
         android:fontFamily="@font/inter_semibold"
         android:text="Altura: "
-        app:layout_constraintBottom_toTopOf="@+id/tvPeso"
+        app:layout_constraintBottom_toTopOf="@+id/tvWeight"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
 
     <TextView
-        android:id="@+id/tvPeso"
+        android:id="@+id/tvWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -117,21 +117,103 @@
         android:layout_marginBottom="11dp"
         android:fontFamily="@font/inter_semibold"
         android:text="Peso: "
-        app:layout_constraintBottom_toTopOf="@+id/tvAniversario"
+        app:layout_constraintBottom_toTopOf="@+id/tvBirthday"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAltura" />
+        app:layout_constraintTop_toBottomOf="@+id/tvHeight" />
 
     <TextView
-        android:id="@+id/tvAniversario"
+        android:id="@+id/tvBirthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="11dp"
-        android:layout_marginBottom="315dp"
+        android:layout_marginBottom="11dp"
         android:fontFamily="@font/inter_semibold"
         android:text="Aniversário: "
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvWork"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPeso" />
+        app:layout_constraintTop_toBottomOf="@+id/tvWeight" />
 
+    <TextView
+        android:id="@+id/tvWork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="11dp"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Trabalho: "
+        app:layout_constraintBottom_toTopOf="@id/tvStudy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBirthday" />
+
+    <TextView
+        android:id="@+id/tvStudy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="11dp"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Estudos: "
+        app:layout_constraintBottom_toTopOf="@+id/tvWorkout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWork" />
+
+    <TextView
+        android:id="@+id/tvWorkout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="11dp"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Treinamentos: "
+        app:layout_constraintBottom_toTopOf="@+id/tvSleeptime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStudy" />
+
+    <TextView
+        android:id="@+id/tvSleeptime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="11dp"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Tempo de Sono: "
+        app:layout_constraintBottom_toTopOf="@+id/btnGotoUpdateUser"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkout" />
+
+    <Button
+        android:id="@+id/btnGotoUpdateUser"
+        android:layout_width="145dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#FDF6FE"
+        android:text="Alterar dados do Usuário"
+        android:textColor="#2196F3"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSleeptime" />
+
+    <Button
+        android:id="@+id/btnGotoUpdateHabits"
+        android:layout_width="145dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="11dp"
+        android:backgroundTint="#FDF6FE"
+        android:text="Alterar hábitos do Usuário"
+        android:textColor="#2196F3"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSleeptime" />
 </androidx.constraintlayout.widget.ConstraintLayout>
