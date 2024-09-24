@@ -1,6 +1,7 @@
 package com.solo.api.controllers.user;
 
 import com.solo.api.models.user.SoloUser;
+import com.solo.api.projection.UserUpdateProjection;
 import com.solo.api.repositories.user.SoloUserRepository;
 import com.solo.api.services.user.SoloUserService;
 
@@ -45,7 +46,7 @@ public class SoloUserController {
     }
 
     @GetMapping("/update/{id}")
-    public Object[] findUserForUpdate(@PathVariable Integer id){
+    public UserUpdateProjection findUserForUpdate(@PathVariable Integer id){
         return service.findUserForUpdate(id);
     }
 

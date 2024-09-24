@@ -4,6 +4,7 @@ import com.solo.api.models.user.SoloUser;
 import jakarta.transaction.Transactional;
 import java.util.Date;
 import java.util.Map;
+import com.solo.api.projection.UserUpdateProjection;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -40,9 +41,8 @@ public interface SoloUserRepository extends JpaRepository<SoloUser, Integer> {
     @Query(value = "SELECT * FROM appSolo.UserDetails WHERE idUser = :idUser", nativeQuery = true)
     Map<String, Object> findUserDetailsByIdUser(@Param("idUser") Integer idUser);
 
-    @Query(value = "SELECT nickname, email, phone, birthday, gender, height, weight FROM appSolo.SoloUser WHERE id = :id")
-    Object[] findUserForUpdate(@Param("id") Integer id);
-
+    @Query(value = "SELECT nickname, email, phone, birthday, gender, height, weight FROM appSolo.SoloUser WHERE id = :id", nativeQuery = true)
+    UserUpdateProjection findUserForUpdate(@Param("id") Integer id);
 
     // Encontra o ID de um usuário para recuperação de senha com base em nome, e-mail e telefone
     @Query(value = "SELECT id FROM appSolo.SoloUser WHERE nickname = :nickname AND email = :email AND phone = :phone", nativeQuery = true)

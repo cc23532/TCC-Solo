@@ -11,6 +11,7 @@ CREATE TABLE appSolo.SoloUser
     phone VARCHAR(12) NOT NULL,
     weight FLOAT NOT NULL,
     height FLOAT NOT NULL,
+    gender VARCHAR(10) NULL,
     profile_pic VARBINARY(MAX) NULL,
     created_at TIMESTAMP NOT NULL
 );
@@ -32,6 +33,7 @@ CREATE TABLE appSolo.UserHabits
     smoke BIT NOT NULL,
     CONSTRAINT FK_UserHabits_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
+SELECT nickname, email, phone, birthday, gender, height, weight FROM appSolo.SoloUser WHERE id = 1066
 
 CREATE TABLE appSolo.UserMood
 (

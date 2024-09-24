@@ -1,6 +1,7 @@
 package com.solo.api.services.user;
 
 import com.solo.api.models.user.SoloUser;
+import com.solo.api.projection.UserUpdateProjection;
 import com.solo.api.repositories.user.SoloUserRepository;
 
 import java.util.Date;
@@ -47,7 +48,7 @@ public class SoloUserService {
         return repository.findUserDetailsByIdUser(idUser);
     }
 
-    public Object[] findUserForUpdate(Integer idUser){
+    public UserUpdateProjection findUserForUpdate(Integer idUser){
         return repository.findUserForUpdate(idUser);
     }
 
