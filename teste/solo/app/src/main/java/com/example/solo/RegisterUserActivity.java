@@ -44,7 +44,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register_user);
 
         // Inicializando os campos
-        editTextApelido = findViewById(R.id.editTextName);
+        editTextApelido = findViewById(R.id.editTextNickname);
         editTextPhone = findViewById(R.id.editTextPhone);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextDateBorn = findViewById(R.id.editTextDateBorn);

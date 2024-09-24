@@ -94,7 +94,7 @@ public class UpdateUserActivity extends AppCompatActivity {
     }
 
     private void fetchUserData(int idUser){
-        String url = BASE_URL + "/update/" + idUser;
+        String url = BASE_URL + "/user/update/" + idUser;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -207,7 +207,7 @@ public class UpdateUserActivity extends AppCompatActivity {
         }
 
         // URL do endpoint correto
-        String url = BASE_URL + "/update" + idUser; // Substitua pela URL correta
+        String url = BASE_URL + "/user/update/" + idUser; // Substitua pela URL correta
 
         // Criando a requisição POST
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, userData,
@@ -218,7 +218,8 @@ public class UpdateUserActivity extends AppCompatActivity {
                             // Redirecionar para a RegisterHabitsActivity
                             // Limpar os campos após o sucesso
                             clearFields();
-                            finish();
+                            Intent intent = new Intent(UpdateUserActivity.this, ProfileActivity.class);
+                            startActivity(intent);
                         } catch (Exception e) {
                             Log.e(TAG, "Erro ao processar a resposta JSON", e);
                             Toast.makeText(UpdateUserActivity.this, "Erro ao processar a resposta", Toast.LENGTH_SHORT).show();

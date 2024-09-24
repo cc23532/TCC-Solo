@@ -37,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
     // emulador
     private static final String BASE_URL = "http://10.0.2.2:8080";
 
-    private TextView tvNickname, tvEmail, tvHeight, tvWeight, tvBirthday, tvWork, tvStudy, tvWorkout, tvSleeptime;
+    private TextView tvNickname, tvEmail, tvHeight, tvWeight, tvBirthday, tvWork, tvStudy, tvWorkout, tvSleeptime, tvSmoker;
     private Button btnGotoUpdateUser, btnGotoUpdateHabits;
 
     @Override
@@ -54,6 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvStudy = findViewById(R.id.tvStudy);
         tvWorkout = findViewById(R.id.tvWorkout);
         tvSleeptime = findViewById(R.id.tvSleeptime);
+        tvSmoker = findViewById(R.id.tvSmoker);
         btnGotoUpdateUser = findViewById(R.id.btnGotoUpdateUser);
         btnGotoUpdateHabits = findViewById(R.id.btnGotoUpdateHabits);
 
@@ -107,6 +108,7 @@ public class ProfileActivity extends AppCompatActivity {
                             String study = response.getString("studyTime");
                             String workout = response.getString("workoutTime");
                             String sleepTime = response.getString("sleepTime");
+                            String smokeStatus = response.getString("smokeStatus");
 
                             // Set data to TextViews
                             tvNickname.setText("Apelido: " + nickname);
@@ -118,6 +120,12 @@ public class ProfileActivity extends AppCompatActivity {
                             tvStudy.setText("Estudos: " + study);
                             tvWorkout.setText("Treinamentos: " + workout);
                             tvSleeptime.setText("Tempo de Sono: " + sleepTime);
+
+                            if(smokeStatus.equals("Smoker")) {
+                                tvSmoker.setText("Fumante: Sim");
+                            } else {
+                                tvSmoker.setText("Fumante: Não");
+                            }
 
 
                         } catch (Exception e) {

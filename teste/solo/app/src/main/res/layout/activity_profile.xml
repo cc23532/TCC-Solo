@@ -182,9 +182,22 @@
         android:layout_marginBottom="11dp"
         android:fontFamily="@font/inter_semibold"
         android:text="Tempo de Sono: "
-        app:layout_constraintBottom_toTopOf="@+id/btnGotoUpdateUser"
+        app:layout_constraintBottom_toTopOf="@+id/tvSmoker"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvWorkout" />
+
+    <TextView
+        android:id="@+id/tvSmoker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="11dp"
+        android:fontFamily="@font/inter_semibold"
+        android:text="Fumante: "
+        app:layout_constraintBottom_toTopOf="@+id/btnGotoUpdateUser"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSleeptime" />
 
     <Button
         android:id="@+id/btnGotoUpdateUser"
@@ -199,7 +212,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.068"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSleeptime" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSmoker" />
 
     <Button
         android:id="@+id/btnGotoUpdateHabits"
@@ -215,5 +228,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSleeptime" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSmoker" />
 </androidx.constraintlayout.widget.ConstraintLayout>

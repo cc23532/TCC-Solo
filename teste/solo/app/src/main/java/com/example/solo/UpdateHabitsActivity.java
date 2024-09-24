@@ -71,7 +71,7 @@ public class UpdateHabitsActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         // Obtendo o idUser salvo em SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("register-session", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
         idUser = sharedPreferences.getInt("idUser", -1); // Recupera o idUser salvo
         Log.d(TAG, "idUser recuperado: " + idUser);
 
@@ -105,18 +105,18 @@ public class UpdateHabitsActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            String isWork = response.getString("isWork");
+                            String isWork = response.getString("work");
                             String workBegin = response.getString("workBegin");
                             String workEnd = response.getString("workEnd");
-                            String isStudy = response.getString("isStudy");
+                            String isStudy = response.getString("study");
                             String studyBegin = response.getString("studyBegin");
                             String studyEnd = response.getString("studyEnd");
-                            String isWorkout = response.getString("isWorkout");
+                            String isWorkout = response.getString("workout");
                             String workoutBegin = response.getString("workoutBegin");
                             String workoutEnd = response.getString("workoutEnd");
                             String sleepBegin = response.getString("sleepBegin");
                             String sleepEnd = response.getString("sleepEnd");
-                            String isSmoker = response.getString("isSmoker");
+                            String isSmoker = response.getString("smoke");
 
                             // Set data to TextViews
                             input_workBegin.setText(workBegin);
@@ -225,7 +225,8 @@ public class UpdateHabitsActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Toast.makeText(UpdateHabitsActivity.this, "Habitos registrados com sucesso!", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Resposta da requisição: " + response.toString());
-                        finish();
+                        Intent intent = new Intent(UpdateHabitsActivity.this, ProfileActivity.class);
+                        startActivity(intent);
                     }
                 },
                 new Response.ErrorListener() {
