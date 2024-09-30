@@ -39,7 +39,11 @@ public class UpdateUserActivity extends AppCompatActivity {
 
     private static final String TAG = "UpdateUserActivity";
     private RequestQueue requestQueue;
-    private static final String BASE_URL = "http://10.0.2.2:8080";
+    // private static final String BASE_URL = "http://10.0.2.2:8080";
+
+    // ngrok
+    private static final String BASE_URL = "https://2930-143-106-200-95.ngrok-free.app";
+
     private EditText editTextNickname, editTextPhone, editTextEmail, editTextBirthday, editTextHeight, editTextWeight;
     private RadioGroup radioGroupGender;
     private Button btnUpdateUser, btnCancel;

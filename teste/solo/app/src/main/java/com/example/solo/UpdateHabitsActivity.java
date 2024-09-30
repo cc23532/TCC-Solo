@@ -15,9 +15,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -44,7 +41,10 @@ public class UpdateHabitsActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private int idUser;
 
-    private String BASE_URL = "http://10.0.2.2:8080";
+    // private String BASE_URL = "http://10.0.2.2:8080";
+
+    // ngrok
+    private String BASE_URL = "https://2930-143-106-200-95.ngrok-free.app";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -41,7 +41,7 @@
         android:id="@+id/imageView"
         android:layout_width="47dp"
         android:layout_height="33dp"
-        app:srcCompat="@drawable/pngegg"
+        app:srcCompat="@drawable/diet"
         tools:layout_editor_absoluteX="-5dp"
         tools:layout_editor_absoluteY="2dp"
         tools:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />

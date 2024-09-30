@@ -6,14 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,13 +26,8 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";
     private RequestQueue reqUserData;
 
-
-
     // ngrok
-    //private static final String BASE_URL = "https://cc92-143-106-203-198.ngrok-free.app";
-
-    // emulador
-    private static final String BASE_URL = "http://10.0.2.2:8080";
+    private static final String BASE_URL = "https://2930-143-106-200-95.ngrok-free.app";
 
     private TextView tvNickname, tvEmail, tvHeight, tvWeight, tvBirthday, tvWork, tvStudy, tvWorkout, tvSleeptime, tvSmoker;
     private Button btnGotoUpdateUser, btnGotoUpdateHabits;
@@ -44,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
 
         tvNickname = findViewById(R.id.tvNickname);
         tvEmail = findViewById(R.id.tvEmail);
@@ -57,12 +50,22 @@ public class ProfileActivity extends AppCompatActivity {
         tvSmoker = findViewById(R.id.tvSmoker);
         btnGotoUpdateUser = findViewById(R.id.btnGotoUpdateUser);
         btnGotoUpdateHabits = findViewById(R.id.btnGotoUpdateHabits);
+        ImageView imgBack = findViewById(R.id.imgBack);
 
         reqUserData = Volley.newRequestQueue(this);
 
-
         SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
         int idUser = sharedPreferences.getInt("idUser", -1); // -1 é um valor padrão caso o id não seja encontrado
+
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         if (idUser != -1) {
             fetchUserData(idUser);
@@ -84,8 +87,6 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "ID de usuário não encontrado.", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     private void fetchUserData(int idUser) {
@@ -99,6 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            // Capture os dados do usuário do JSON
                             String nickname = response.getString("nickname");
                             String email = response.getString("email");
                             String height = response.getString("height");
@@ -121,12 +123,11 @@ public class ProfileActivity extends AppCompatActivity {
                             tvWorkout.setText("Treinamentos: " + workout);
                             tvSleeptime.setText("Tempo de Sono: " + sleepTime);
 
-                            if(smokeStatus.equals("Smoker")) {
+                            if (smokeStatus.equals("Smoker")) {
                                 tvSmoker.setText("Fumante: Sim");
                             } else {
                                 tvSmoker.setText("Fumante: Não");
                             }
-
 
                         } catch (Exception e) {
                             Log.e(TAG, "Erro ao processar a resposta JSON", e);
@@ -138,11 +139,12 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, "Erro na requisição: " + error.toString());
-                        Toast.makeText(ProfileActivity.this, "Erro ao obter os dados do usuário.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileActivity.this, "Erro ao obter dados do usuário.", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
 
+        // Adiciona a requisição à fila
         reqUserData.add(jsonObjectRequest);
     }
 }
