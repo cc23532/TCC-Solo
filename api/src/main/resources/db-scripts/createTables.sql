@@ -65,6 +65,7 @@ CREATE TABLE appSolo.CardioActivity
     duration TIME NULL,
     distance FLOAT NULL,
     averageSpeed FLOAT NULL,
+    elevationGain FLOAT NULL,
     lostKCal FLOAT NULL,
     CONSTRAINT FK_CardioActivity_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );

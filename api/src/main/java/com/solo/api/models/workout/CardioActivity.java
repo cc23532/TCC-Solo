@@ -32,10 +32,18 @@ public class CardioActivity {
     private double averageSpeed;
 
     @Column
+    private double elevationGain;
+
+    @Column
     private double lostKCal;
 
     public CardioActivity(){
 
+    }
+
+    public CardioActivity(Integer idAcitivity, SoloUser user){
+        this.idActivity = idActivity;
+        this.user = user;
     }
 
     public CardioActivity(Integer idActivity, SoloUser user, LocalDateTime activityDate, Time duration, double distance, double averageSpeed, double lostKCal){
@@ -45,6 +53,7 @@ public class CardioActivity {
         this.duration = duration;
         this.distance = distance;
         this.averageSpeed = averageSpeed;
+        this.elevationGain = elevationGain;
         this.lostKCal = lostKCal;
     }
 
@@ -92,6 +101,14 @@ public class CardioActivity {
         this.averageSpeed = averageSpeed;
     }
 
+    public double getElevationGain() {
+        return elevationGain;
+    }
+
+    public void setElevationGain(double elevationGain) {
+        this.elevationGain = elevationGain;
+    }
+
     public double getLostKCal() {
         return lostKCal;
     }
@@ -122,6 +139,7 @@ public class CardioActivity {
                 ", duration=" + duration +
                 ", distance=" + distance +
                 ", averageSpeed=" + averageSpeed +
+                ", elevationGain=" + elevationGain +
                 ", lostKCal=" + lostKCal +
                 '}';
     }
