@@ -1,4 +1,4 @@
-package com.example.solo;
+package com.example.solo.UserSection;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +18,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.solo.R;
+import com.example.solo.Util.URL;
 
 import org.json.JSONObject;
 
@@ -26,8 +28,13 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";
     private RequestQueue reqUserData;
 
+<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/ProfileActivity.java
     // ngrok
     private static final String BASE_URL = "https://2930-143-106-200-95.ngrok-free.app";
+=======
+    private static final String BASE_URL = new URL().getURL();
+
+>>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/UserSection/ProfileActivity.java
 
     private TextView tvNickname, tvEmail, tvHeight, tvWeight, tvBirthday, tvWork, tvStudy, tvWorkout, tvSleeptime, tvSmoker;
     private Button btnGotoUpdateUser, btnGotoUpdateHabits;

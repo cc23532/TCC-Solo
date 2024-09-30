@@ -1,4 +1,4 @@
-package com.example.solo;
+package com.example.solo.Login_Register;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -23,6 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.solo.R;
+import com.example.solo.Util.URL;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +34,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterUserActivity extends AppCompatActivity {
+
+    private static final String BASE_URL = new URL().getURL();
 
     private EditText editTextApelido, editTextPhone, editTextEmail, editTextDateBorn, editTextHeight, editTextWeight, editTextPwd;
     private RadioGroup radioGroupGender;
@@ -138,11 +142,15 @@ public class RegisterUserActivity extends AppCompatActivity {
         }
 
         // URL do endpoint correto
+<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/RegisterUserActivity.java
         // String url = "http://10.0.2.2:8080/register/register"; // Substitua pela URL correta
 
         // ngrok
 
         String url = "https://2930-143-106-200-95.ngrok-free.app/register/register";
+=======
+        String url = BASE_URL + "/register/register"; // Substitua pela URL correta
+>>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/Login_Register/RegisterUserActivity.java
 
         // Criando a requisição POST
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, userData,

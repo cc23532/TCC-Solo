@@ -4,6 +4,10 @@
     package="com.example.solo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+
 
     <application
         android:allowBackup="true"
@@ -17,36 +21,41 @@
         android:theme="@style/Theme.Solo"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".CardioActivity"
             android:exported="false" />
         <activity
             android:name=".UpdateHabitsActivity"
+=======
+            android:name=".WorkoutSection.CardioNewActivity"
+>>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25
             android:exported="false" />
         <activity
-            android:name=".UpdateUserActivity"
+            android:name=".WorkoutSection.MuscleHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".PopUpWorkoutActivity"
-            android:exported="false"
-            android:label="@string/title_activity_pop_up_workout"
-            android:theme="@style/Theme.Solo" />
-        <activity
-            android:name=".RegisterHabitsActivity"
+            android:name=".WorkoutSection.CardioHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".UserSection.UpdateHabitsActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterUserActivity"
+            android:name=".UserSection.UpdateUserActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterHabitsActivity"
+            android:name=".UserSection.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".UserSection.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Login_Register.RegisterUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Login_Register.RegisterHabitsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Login_Register.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,6 +67,10 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD5VJH1oQILYI_4ko3flAXrBgHm2pYKXho"/>
+
     </application>
 
 </manifest>

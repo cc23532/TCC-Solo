@@ -1,4 +1,4 @@
-package com.example.solo;
+package com.example.solo.UserSection;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -16,9 +16,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -27,6 +24,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.solo.R;
+import com.example.solo.Util.URL;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,11 +38,15 @@ public class UpdateUserActivity extends AppCompatActivity {
 
     private static final String TAG = "UpdateUserActivity";
     private RequestQueue requestQueue;
+<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/UpdateUserActivity.java
     // private static final String BASE_URL = "http://10.0.2.2:8080";
 
     // ngrok
     private static final String BASE_URL = "https://2930-143-106-200-95.ngrok-free.app";
 
+=======
+    private static final String BASE_URL = new URL().getURL();
+>>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/UserSection/UpdateUserActivity.java
     private EditText editTextNickname, editTextPhone, editTextEmail, editTextBirthday, editTextHeight, editTextWeight;
     private RadioGroup radioGroupGender;
     private Button btnUpdateUser, btnCancel;
@@ -224,6 +227,7 @@ public class UpdateUserActivity extends AppCompatActivity {
                             clearFields();
                             Intent intent = new Intent(UpdateUserActivity.this, ProfileActivity.class);
                             startActivity(intent);
+                            finish();
                         } catch (Exception e) {
                             Log.e(TAG, "Erro ao processar a resposta JSON", e);
                             Toast.makeText(UpdateUserActivity.this, "Erro ao processar a resposta", Toast.LENGTH_SHORT).show();

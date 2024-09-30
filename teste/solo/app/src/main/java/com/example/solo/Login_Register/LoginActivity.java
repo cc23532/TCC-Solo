@@ -1,4 +1,4 @@
-package com.example.solo;
+package com.example.solo.Login_Register;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +19,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.solo.UserSection.HomeActivity;
+import com.example.solo.R;
+import com.example.solo.Util.URL;
 
 import org.json.JSONObject;
 
@@ -31,12 +34,16 @@ public class LoginActivity extends AppCompatActivity {
     private EditText nickname_input, pwd_input;
     private RequestQueue requestQueue;
     private static final String TAG = "LoginActivity";
+<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/LoginActivity.java
 
     // Defina a URL base conforme o ambiente (emulador ou dispositivo real)
     // private static final String BASE_URL = "http://10.0.2.2:8080"; // Para emulador
 
     // Conectar pelo celular no pc, URL gerada pelo ngrok
      private static final String BASE_URL = "https://2930-143-106-200-95.ngrok-free.app";
+=======
+    private static final String BASE_URL = new URL().getURL();
+>>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/Login_Register/LoginActivity.java
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             int idUser = response.getInt("idUser");
                             String nickname = response.getString("nickname");
-                            Log.d("LoginActivity", "idUser salvo: " + idUser);
+                            Log.d(TAG, "idUser salvo: " + idUser);
 
 
                             SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
@@ -122,7 +129,6 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                 },
                 new Response.ErrorListener() {
                     @Override
