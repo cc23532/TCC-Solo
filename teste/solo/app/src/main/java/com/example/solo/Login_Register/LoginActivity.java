@@ -1,4 +1,4 @@
-package com.example.solo;
+package com.example.solo.Login_Register;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +19,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.solo.UserSection.HomeActivity;
+import com.example.solo.R;
+import com.example.solo.Util.URL;
 
 import org.json.JSONObject;
 
@@ -31,12 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText nickname_input, pwd_input;
     private RequestQueue requestQueue;
     private static final String TAG = "LoginActivity";
-
-    // Defina a URL base conforme o ambiente (emulador ou dispositivo real)
-    private static final String BASE_URL = "http://10.0.2.2:8080"; // Para emulador
-
-    // Conectar pelo celular no pc, URL gerada pelo ngrok
-   // private static final String BASE_URL = "https://1c9c-143-106-202-236.ngrok-free.app";
+    private static final String BASE_URL = new URL().getURL();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Captura o ID do usuário e outros dados retornados
                             int idUser = response.getInt("idUser");  // Aqui certifique-se de que o nome da chave no JSON seja 'userId'
                             String nickname = response.getString("nickname");
-                            Log.d("LoginActivity", "idUser salvo: " + idUser);
+                            Log.d(TAG, "idUser salvo: " + idUser);
 
 
                             // Salva os dados do usuário no SharedPreferences
@@ -128,7 +126,6 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                 },
                 new Response.ErrorListener() {
                     @Override

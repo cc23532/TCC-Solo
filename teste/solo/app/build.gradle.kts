@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.solo"
-        minSdk = 24
+        minSdk = 30
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -55,8 +55,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
@@ -69,6 +67,13 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation (libs.volley)
     implementation (libs.gson)
+
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
+    implementation(libs.connect.client)
+    implementation(libs.squareup.okhttp) // Para chamadas HTTP
+
+
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)

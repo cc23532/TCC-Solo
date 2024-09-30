@@ -1,4 +1,4 @@
-package com.example.solo;
+package com.example.solo.UserSection;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,9 +16,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.solo.R;
+import com.example.solo.WorkoutSection.CardioHomeActivity;
+import com.example.solo.WorkoutSection.MuscleHomeActivity;
+
 public class HomeActivity extends AppCompatActivity {
-    private Button btnPerfil;
-    private Button btnPopUpWorkout;
+    private Button btnPerfil, btnPopUpWorkout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +46,11 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
             // O id não foi encontrado, talvez o usuário não esteja autenticado
+        } else {
             Log.e("HomeActivity", "ID nulo, tente novamente");
-
         }
 
-        btnPopUpWorkout = findViewById(R.id.btnWorkoutHome);
+        btnPopUpWorkout = findViewById(R.id.btnPopUpWorkout);
 
         btnPopUpWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +66,17 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void showDialog(){
+    private void showDialog() {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         dialog.setContentView(R.layout.activity_popup_workout);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
 
-        ImageView btnClose = dialog.findViewById(R.id.imageView);
+        // Recuperando os botões dentro do Dialog
+        Button btnCardioHome = dialog.findViewById(R.id.btnCardioHome);
+        Button btnMuscleHome = dialog.findViewById(R.id.btnMuscleHome);
 
+        // Manipulando o clique do botão de fechar
+        ImageView btnClose = dialog.findViewById(R.id.imageView);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +84,30 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        dialog.show();
+        // Manipulando os cliques dos botões no Dialog
+        btnCardioHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(HomeActivity.this, "Cardio Home Clicked", Toast.LENGTH_SHORT).show();
+                Log.d("HomeActivity", "CardioHomeClicked");
+                Intent intent = new Intent(HomeActivity.this, CardioHomeActivity.class);
+                startActivity(intent);
+                dialog.dismiss(); // Fecha o Dialog após o clique
+            }
+        });
 
+        btnMuscleHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(HomeActivity.this, "Muscle Home Clicked", Toast.LENGTH_SHORT).show();
+                Log.d("HomeActivity", "MuscleHomeClicked");
+                Intent intent = new Intent(HomeActivity.this, MuscleHomeActivity.class);
+                startActivity(intent);
+                dialog.dismiss(); // Fecha o Dialog após o clique
+            }
+        });
+
+        dialog.show();
     }
+
 }

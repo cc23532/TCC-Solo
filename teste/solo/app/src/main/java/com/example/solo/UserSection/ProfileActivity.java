@@ -1,4 +1,4 @@
-package com.example.solo;
+package com.example.solo.UserSection;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,11 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,6 +17,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.solo.R;
+import com.example.solo.Util.URL;
 
 import org.json.JSONObject;
 
@@ -29,13 +27,8 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";
     private RequestQueue reqUserData;
 
+    private static final String BASE_URL = new URL().getURL();
 
-
-    // ngrok
-    //private static final String BASE_URL = "https://cc92-143-106-203-198.ngrok-free.app";
-
-    // emulador
-    private static final String BASE_URL = "http://10.0.2.2:8080";
 
     private TextView tvNickname, tvEmail, tvHeight, tvWeight, tvBirthday, tvWork, tvStudy, tvWorkout, tvSleeptime, tvSmoker;
     private Button btnGotoUpdateUser, btnGotoUpdateHabits;
