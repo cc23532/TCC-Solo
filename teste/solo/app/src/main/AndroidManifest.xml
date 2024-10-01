@@ -21,14 +21,7 @@
         android:theme="@style/Theme.Solo"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
-            android:name=".CardioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UpdateHabitsActivity"
-=======
             android:name=".WorkoutSection.CardioNewActivity"
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25
             android:exported="false" />
         <activity
             android:name=".WorkoutSection.MuscleHomeActivity"

@@ -137,15 +137,7 @@ public class RegisterHabitsActivity extends AppCompatActivity {
         editor.apply();
 
         // Construindo a URL com o idUser
-<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/RegisterHabitsActivity.java
-        // String url = "http://10.0.2.2:8080/register/habits/" + idUser;
-
-        // ngrok
-        String url = "https://2930-143-106-200-95.ngrok-free.app/register/habits/" + idUser;
-
-=======
         String url = BASE_URL + "/register/habits/" + idUser;
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/Login_Register/RegisterHabitsActivity.java
         Log.d(TAG, "URL da requisição: " + url);
 
         // Criando a requisição POST

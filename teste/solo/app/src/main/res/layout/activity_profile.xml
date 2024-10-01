@@ -48,7 +48,7 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="129dp"
-        android:src="@drawable/diet"
+        android:src="@drawable/pngegg"
         app:layout_constraintEnd_toStartOf="@+id/textView13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

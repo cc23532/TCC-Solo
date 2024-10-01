@@ -142,15 +142,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         }
 
         // URL do endpoint correto
-<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/RegisterUserActivity.java
-        // String url = "http://10.0.2.2:8080/register/register"; // Substitua pela URL correta
-
-        // ngrok
-
-        String url = "https://2930-143-106-200-95.ngrok-free.app/register/register";
-=======
         String url = BASE_URL + "/register/register"; // Substitua pela URL correta
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/Login_Register/RegisterUserActivity.java
 
         // Criando a requisição POST
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, userData,
@@ -158,31 +150,29 @@ public class RegisterUserActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            if (response.has("idUser")) {
-                                String registeredUser = response.getString("idUser");
+                            // Obtendo o idUser da resposta
+                            String registeredUser = response.getString("idUser");
 
-                                // Salvando o idUser em SharedPreferences
-                                SharedPreferences sharedPreferences = getSharedPreferences("register-session", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putInt("idUser", Integer.parseInt(registeredUser)); // Salvar como inteiro
-                                editor.apply();
+                            // Salvando o idUser em SharedPreferences
+                            SharedPreferences sharedPreferences = getSharedPreferences("register-session", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("idUser", registeredUser);
+                            editor.apply();
 
-                                // Redirecionar para a RegisterHabitsActivity
-                                Intent intent = new Intent(RegisterUserActivity.this, RegisterHabitsActivity.class);
-                                intent.putExtra("idUser", registeredUser);
-                                startActivity(intent);
-                                clearFields();
-                                finish();
-                            } else {
-                                Toast.makeText(RegisterUserActivity.this, "Erro: idUser não encontrado na resposta", Toast.LENGTH_SHORT).show();
-                                Log.e("RegisterUserActivity", "Resposta do servidor não contém idUser: " + response.toString());
-                            }
+                            // Redirecionar para a RegisterHabitsActivity
+                            Intent intent = new Intent(RegisterUserActivity.this, RegisterHabitsActivity.class);
+                            intent.putExtra("idUser", registeredUser); // Passando o idUser como parâmetro
+                            startActivity(intent);
+                            Log.d("idUser:", registeredUser);
+
+                            // Limpar os campos após o sucesso
+                            clearFields();
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(RegisterUserActivity.this, "Erro ao processar a resposta", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                 },
                 new Response.ErrorListener() {
                     @Override

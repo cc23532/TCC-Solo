@@ -43,14 +43,7 @@ public class UpdateHabitsActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private int idUser;
 
-<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/UpdateHabitsActivity.java
-    // private String BASE_URL = "http://10.0.2.2:8080";
-
-    // ngrok
-    private String BASE_URL = "https://2930-143-106-200-95.ngrok-free.app";
-=======
     private static final String BASE_URL = new URL().getURL();
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/UserSection/UpdateHabitsActivity.java
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

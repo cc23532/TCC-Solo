@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,22 +29,18 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";
     private RequestQueue reqUserData;
 
-<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/ProfileActivity.java
-    // ngrok
-    private static final String BASE_URL = "https://2930-143-106-200-95.ngrok-free.app";
-=======
     private static final String BASE_URL = new URL().getURL();
 
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/UserSection/ProfileActivity.java
 
     private TextView tvNickname, tvEmail, tvHeight, tvWeight, tvBirthday, tvWork, tvStudy, tvWorkout, tvSleeptime, tvSmoker;
     private Button btnGotoUpdateUser, btnGotoUpdateHabits;
+
+    private ImageView btnVoltar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
 
         tvNickname = findViewById(R.id.tvNickname);
         tvEmail = findViewById(R.id.tvEmail);
@@ -57,22 +54,13 @@ public class ProfileActivity extends AppCompatActivity {
         tvSmoker = findViewById(R.id.tvSmoker);
         btnGotoUpdateUser = findViewById(R.id.btnGotoUpdateUser);
         btnGotoUpdateHabits = findViewById(R.id.btnGotoUpdateHabits);
-        ImageView imgBack = findViewById(R.id.imgBack);
+        btnVoltar = findViewById(R.id.imgBack);
 
         reqUserData = Volley.newRequestQueue(this);
 
+
         SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
         int idUser = sharedPreferences.getInt("idUser", -1); // -1 é um valor padrão caso o id não seja encontrado
-
-
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         if (idUser != -1) {
             fetchUserData(idUser);
@@ -91,9 +79,18 @@ public class ProfileActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+            btnVoltar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
         } else {
             Toast.makeText(this, "ID de usuário não encontrado.", Toast.LENGTH_SHORT).show();
         }
+
+
     }
 
     private void fetchUserData(int idUser) {
@@ -107,7 +104,6 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            // Capture os dados do usuário do JSON
                             String nickname = response.getString("nickname");
                             String email = response.getString("email");
                             String height = response.getString("height");
@@ -130,11 +126,12 @@ public class ProfileActivity extends AppCompatActivity {
                             tvWorkout.setText("Treinamentos: " + workout);
                             tvSleeptime.setText("Tempo de Sono: " + sleepTime);
 
-                            if (smokeStatus.equals("Smoker")) {
+                            if(smokeStatus.equals("Smoker")) {
                                 tvSmoker.setText("Fumante: Sim");
                             } else {
                                 tvSmoker.setText("Fumante: Não");
                             }
+
 
                         } catch (Exception e) {
                             Log.e(TAG, "Erro ao processar a resposta JSON", e);
@@ -146,12 +143,11 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, "Erro na requisição: " + error.toString());
-                        Toast.makeText(ProfileActivity.this, "Erro ao obter dados do usuário.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileActivity.this, "Erro ao obter os dados do usuário.", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
 
-        // Adiciona a requisição à fila
         reqUserData.add(jsonObjectRequest);
     }
 }

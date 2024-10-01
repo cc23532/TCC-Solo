@@ -34,16 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText nickname_input, pwd_input;
     private RequestQueue requestQueue;
     private static final String TAG = "LoginActivity";
-<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/LoginActivity.java
-
-    // Defina a URL base conforme o ambiente (emulador ou dispositivo real)
-    // private static final String BASE_URL = "http://10.0.2.2:8080"; // Para emulador
-
-    // Conectar pelo celular no pc, URL gerada pelo ngrok
-     private static final String BASE_URL = "https://2930-143-106-200-95.ngrok-free.app";
-=======
     private static final String BASE_URL = new URL().getURL();
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/Login_Register/LoginActivity.java
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +70,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void autenticarUsuario() {
+        // Validação dos campos
         if (!validarNickname() || !validarSenha()) {
             return;
         }
 
         String url = BASE_URL + "/login";
 
+        // Cria o objeto JSON com os parâmetros
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("nickname", nickname_input.getText().toString().trim());
@@ -95,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        // Cria a requisição POST
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
@@ -105,19 +99,22 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             Log.d(TAG, "Resposta da API: " + response.toString());
 
-                            int idUser = response.getInt("idUser");
+                            // Captura o ID do usuário e outros dados retornados
+                            int idUser = response.getInt("idUser");  // Aqui certifique-se de que o nome da chave no JSON seja 'userId'
                             String nickname = response.getString("nickname");
                             Log.d(TAG, "idUser salvo: " + idUser);
 
 
+                            // Salva os dados do usuário no SharedPreferences
                             SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putInt("idUser", idUser);
+                            editor.putInt("idUser", idUser);  // Use a chave 'idUser' para salvar o ID corretamente
                             editor.putString("nickname", nickname);
 
                             if (editor.commit()){
                                 Toast.makeText(LoginActivity.this, "Usuário salvo com sucesso", Toast.LENGTH_SHORT).show();
 
+                                // Navega para a próxima Activity (HomeActivity) se o idUser for salvo
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -136,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.e(TAG, "Erro na requisição: " + error.toString());
                         String errorMessage = "Ocorreu um erro desconhecido.";
 
+                        // Trata erros específicos
                         if (error.networkResponse != null) {
                             String responseBody;
                             try {
@@ -154,12 +152,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
         );
 
+        // Adiciona uma política de repetição e timeout
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
                 5000, // Timeout em milissegundos
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
 
+        // Adiciona a requisição à fila
         requestQueue.add(jsonObjectRequest);
     }
 

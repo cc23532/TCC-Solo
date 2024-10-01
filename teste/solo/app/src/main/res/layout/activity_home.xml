@@ -5,12 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
     android:padding="16dp"
-    tools:context=".HomeActivity">
-=======
     tools:context=".UserSection.HomeActivity">
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25
 
     <ImageView
         android:id="@+id/btnProfileIcon"
@@ -26,7 +22,6 @@
         android:id="@+id/cardioText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_marginEnd="8dp"
         android:text="Olá, seuApelido"
         android:textSize="22sp"
@@ -38,21 +33,6 @@
 
     <TextView
         android:id="@+id/interestsTitle"
-=======
-        android:layout_marginStart="153dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="170dp"
-        android:layout_marginBottom="52dp"
-        android:text="Perfil"
-        app:layout_constraintBottom_toTopOf="@+id/btnPopUpWorkout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnPopUpWorkout"
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Seus interesses"
@@ -108,7 +88,7 @@
                     android:layout_width="140dp"
                     android:layout_height="140dp"
                     android:contentDescription="Dieta"
-                    android:src="@drawable/dieta" />
+                    android:src="@drawable/agenda" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -129,7 +109,7 @@
                     android:layout_width="140dp"
                     android:layout_height="140dp"
                     android:contentDescription="Outro"
-                    android:src="@drawable/black" />
+                    android:src="@drawable/messi" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -290,7 +270,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
             android:contentDescription="Outro"
-            android:src="@drawable/black" />
+            android:src="@drawable/messi" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

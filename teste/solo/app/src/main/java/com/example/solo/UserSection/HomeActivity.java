@@ -6,23 +6,24 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.solo.R;
 import com.example.solo.WorkoutSection.CardioHomeActivity;
 import com.example.solo.WorkoutSection.MuscleHomeActivity;
 
 public class HomeActivity extends AppCompatActivity {
-<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/HomeActivity.java
-    private ImageView btnPerfil;
-    private ImageView btnPopUpWorkout;
-=======
-    private Button btnPerfil, btnPopUpWorkout;
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/UserSection/HomeActivity.java
+    private Button btnPopUpWorkout;
+
+    private ImageView btnProfileIcon, btnWorkoutIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,59 +32,52 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
-        int idUser = sharedPreferences.getInt("idUser", -1); // -1 é o valor padrão caso o id não seja encontrado
+        int idUser = sharedPreferences.getInt("idUser", -1); // -1 é um valor padrão caso o id não seja encontrado
         String nickname = sharedPreferences.getString("nickname", null);
         Log.d("HomeActivity", sharedPreferences.toString());
         Log.d("HomeActivity", "idUser: " + idUser + ", nickname: " + nickname);
 
         if (idUser != -1) {
-            btnPerfil = findViewById(R.id.btnProfileIcon);
-            btnPerfil.setOnClickListener(new View.OnClickListener() {
+            // O id foi recuperado com sucesso, prossiga com a lógica
+            btnProfileIcon = findViewById(R.id.btnProfileIcon);
+            btnProfileIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                     startActivity(intent);
                 }
             });
-<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/HomeActivity.java
-=======
             // O id não foi encontrado, talvez o usuário não esteja autenticado
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/UserSection/HomeActivity.java
         } else {
             Log.e("HomeActivity", "ID nulo, tente novamente");
         }
 
-<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/HomeActivity.java
-        btnPopUpWorkout = findViewById(R.id.btnWorkoutIcon);
-=======
-        btnPopUpWorkout = findViewById(R.id.btnPopUpWorkout);
+        btnWorkoutIcon = findViewById(R.id.btnWorkoutIcon);
 
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/UserSection/HomeActivity.java
-        btnPopUpWorkout.setOnClickListener(new View.OnClickListener() {
+        btnWorkoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog();  // Mostra o pop-up de treino
+                showDialog();
             }
+        });
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
         });
     }
 
     private void showDialog() {
-<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/HomeActivity.java
-        Dialog dialog = new Dialog(this);
-=======
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/UserSection/HomeActivity.java
         dialog.setContentView(R.layout.activity_popup_workout);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
 
-<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/HomeActivity.java
-=======
         // Recuperando os botões dentro do Dialog
         Button btnCardioHome = dialog.findViewById(R.id.btnCardioHome);
         Button btnMuscleHome = dialog.findViewById(R.id.btnMuscleHome);
 
         // Manipulando o clique do botão de fechar
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/UserSection/HomeActivity.java
         ImageView btnClose = dialog.findViewById(R.id.imageView);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,13 +86,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD:teste/solo/app/src/main/java/com/example/solo/HomeActivity.java
-        
-
-        dialog.show();
-    }
-}
-=======
         // Manipulando os cliques dos botões no Dialog
         btnCardioHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,4 +113,3 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 }
->>>>>>> 0562a13faf09441a381e1c7bc96690ae3d593b25:teste/solo/app/src/main/java/com/example/solo/UserSection/HomeActivity.java
