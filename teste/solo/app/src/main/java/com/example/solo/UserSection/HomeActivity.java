@@ -101,6 +101,17 @@ public class HomeActivity extends AppCompatActivity {
         btnMuscleHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(HomeActivity.this, "Cardio Home Clicked", Toast.LENGTH_SHORT).show();
+                Log.d("HomeActivity", "MuscleHomeClicked");
+                Intent intent = new Intent(HomeActivity.this, MuscleHomeActivity.class);
+                startActivity(intent);
+                dialog.dismiss(); // Fecha o Dialog após o clique
+            }
+        });
+
+        btnMuscleHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Toast.makeText(HomeActivity.this, "Muscle Home Clicked", Toast.LENGTH_SHORT).show();
                 Log.d("HomeActivity", "MuscleHomeClicked");
                 Intent intent = new Intent(HomeActivity.this, MuscleHomeActivity.class);
