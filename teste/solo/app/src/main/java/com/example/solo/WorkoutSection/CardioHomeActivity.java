@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -29,6 +30,7 @@ import java.io.UnsupportedEncodingException;
 
 public class CardioHomeActivity extends AppCompatActivity {
     private Button btnStartNewActivity;
+    private ImageView btnVoltar;
     private static final String BASE_URL = new URL().getURL() + "/workout/cardio/newActivity";
     private static final String TAG = "CardioHomeActivity";
     private int idUser;
@@ -50,6 +52,14 @@ public class CardioHomeActivity extends AppCompatActivity {
         btnStartNewActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { createActivity(); }
+        });
+
+        btnVoltar = findViewById(R.id.imgBack);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
         });
     }
 
