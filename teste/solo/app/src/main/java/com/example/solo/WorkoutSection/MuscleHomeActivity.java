@@ -1,6 +1,8 @@
 package com.example.solo.WorkoutSection;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,11 +16,21 @@ import com.example.solo.Util.URL;
 public class MuscleHomeActivity extends AppCompatActivity {
     private static final String BASE_URL = new URL().getURL();
 
+    private ImageView btnVoltar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_muscle_home);
+
+        btnVoltar = findViewById(R.id.imgBack);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 }
