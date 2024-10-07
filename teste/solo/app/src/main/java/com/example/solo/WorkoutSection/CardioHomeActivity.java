@@ -68,7 +68,7 @@ public class CardioHomeActivity extends AppCompatActivity {
         JSONObject newActivity = new JSONObject();
         try {
             newActivity.put("idUser", idUser);
-            Log.d(TAG, "Objeto JSON criado: " + newActivity.toString());
+            Log.d(TAG, "Objeto JSON criado: " + newActivity);
         } catch (JSONException e){
             e.printStackTrace();
             Toast.makeText(this, "Erro ao criar os dados de habitos", Toast.LENGTH_SHORT).show();

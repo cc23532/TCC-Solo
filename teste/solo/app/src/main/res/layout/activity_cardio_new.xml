@@ -26,18 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map">
 
-        <EditText
-            android:id="@+id/etDurationTime"
-            android:layout_width="202dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="time"
-            app:layout_constraintEnd_toStartOf="@+id/etDistance"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDuration" />
-
         <TextView
             android:id="@+id/tvDuration"
             android:layout_width="wrap_content"
@@ -76,11 +64,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="39dp"
             android:text="Velocidade Média"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etDurationTime" />
+            app:layout_constraintTop_toBottomOf="@+id/tempo" />
 
         <TextView
             android:id="@+id/tvElevationGain"
@@ -118,12 +106,35 @@
             android:id="@+id/btnFinishActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="36dp"
             android:backgroundTint="#007BFF"
             android:text="Finalizar"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnIniciar" />
+
+        <TextView
+            android:id="@+id/tempo"
+            android:layout_width="166dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="15dp"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDuration" />
+
+        <Button
+            android:id="@+id/btnIniciar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="36dp"
+            android:text="Iniciar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnFinishActivity"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

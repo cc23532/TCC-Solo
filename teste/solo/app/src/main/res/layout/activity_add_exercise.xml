@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingBottom="16dp"
+        android:text="Seus treinos"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Information Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Nome do Exercício -->
+        <TextView
+            android:id="@+id/nome_exercicio_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome do Exercício"
+            android:textSize="18sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/nomeExercicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ex: Barra fixa"
+            android:inputType="text"/>
+
+        <!-- Carga -->
+        <TextView
+            android:id="@+id/carga_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Carga"
+            android:textSize="18sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/carga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="00kg"
+            android:inputType="number"/>
+
+        <!-- Séries -->
+        <TextView
+            android:id="@+id/series_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Séries"
+            android:textSize="18sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/series"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="4"
+            android:inputType="number"/>
+
+        <!-- Repetições -->
+        <TextView
+            android:id="@+id/repeticoes_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Repetições"
+            android:textSize="18sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/repeticoes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="10"
+            android:inputType="number"/>
+    </LinearLayout>
+
+    <!-- Button -->
+    <Button
+        android:id="@+id/salvar_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salvar"
+        android:layout_gravity="center" />
+
+</LinearLayout>

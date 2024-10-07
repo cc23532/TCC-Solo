@@ -126,24 +126,11 @@ public class UpdateHabitsActivity extends AppCompatActivity {
                             input_sleepBegin.setText(sleepBegin);
                             input_sleepEnd.setText(sleepEnd);
 
-                            if (isWork.equalsIgnoreCase("true")) {
-                                switchWork.setChecked(true);
-                            } else {
-                                switchWork.setChecked(false);
+                            switchWork.setChecked(isWork.equalsIgnoreCase("true"));
 
-                            }
+                            switchStudy.setChecked(isStudy.equalsIgnoreCase("true"));
 
-                            if (isStudy.equalsIgnoreCase("true")) {
-                                switchStudy.setChecked(true);
-                            } else {
-                                switchStudy.setChecked(false);
-                            }
-
-                            if (isWorkout.equalsIgnoreCase("true")) {
-                                switchWorkout.setChecked(true);
-                            } else {
-                                switchWorkout.setChecked(false);
-                            }
+                            switchWorkout.setChecked(isWorkout.equalsIgnoreCase("true"));
 
                             if (isSmoker.equalsIgnoreCase("true")) {
                                 radioGroupSmoker.check(R.id.rbSmokerTrue);
@@ -205,7 +192,7 @@ public class UpdateHabitsActivity extends AppCompatActivity {
             habitsData.put("sleepBegin", sleepBegin);
             habitsData.put("sleepEnd", sleepEnd);
             habitsData.put("smoke", isSmoker);
-            Log.d(TAG, "Objeto JSON criado: " + habitsData.toString());
+            Log.d(TAG, "Objeto JSON criado: " + habitsData);
         } catch (JSONException e) {
             Toast.makeText(this, "Erro ao criar os dados de habitos", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Erro ao criar o objeto JSON", e);

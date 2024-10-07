@@ -8,10 +8,16 @@ import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
+
+import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import com.example.solo.R;
 import com.example.solo.Util.URL;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -25,8 +31,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class CardioNewActivity extends FragmentActivity {
 
@@ -37,12 +45,43 @@ public class CardioNewActivity extends FragmentActivity {
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
 
-    private List<Location> routePoints = new ArrayList<>();
+    private final List<Location> routePoints = new ArrayList<>();
     private long startTime;
     private long endTime;
 
     private EditText etDurationTime, etDistance, etAverageSpeed, etElevationGain;
-    private Button btnFinishActivity;
+    private Button btnFinishActivity, btnIniciar;
+
+    private TextView tempo;
+    int segundos, minutos, horas, milisegundos;
+    long milisegundo, time, updateTime = 0L;
+    Handler handler;
+
+    private final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            milisegundo = SystemClock.uptimeMillis() - startTime;
+            updateTime = time + milisegundo;
+            segundos = (int) (updateTime / 1000);
+            minutos = segundos / 60;
+            horas = minutos / 60;
+            minutos = minutos % 60;
+            segundos = segundos % 60;
+            milisegundos = (int) (updateTime % 1000);
+
+            // Exibir horas:minutos:segundos:milissegundos
+            tempo.setText(MessageFormat.format("{0}:{1}:{2}:{3}",
+                    horas,
+                    String.format(Locale.getDefault(), "%02d", minutos),
+                    String.format(Locale.getDefault(), "%02d", segundos),
+                    String.format(Locale.getDefault(), "%02d", milisegundos)
+            ));
+
+            handler.postDelayed(this, 0);
+        }
+    };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +93,7 @@ public class CardioNewActivity extends FragmentActivity {
         Log.d("CardioNewActivity", "Nova atividade --> idUser: " + idUser);
 
         if (idUser != -1) {
-            etDurationTime = findViewById(R.id.etDurationTime);
+            //etDurationTime = findViewById(R.id.etDurationTime);
             etDistance = findViewById(R.id.etDistance);
             etAverageSpeed = findViewById(R.id.etAverageSpeed);
             etElevationGain = findViewById(R.id.etElevationGain);
@@ -86,7 +125,38 @@ public class CardioNewActivity extends FragmentActivity {
                 }
             });
         }
+
+        tempo = findViewById(R.id.tempo);
+        btnIniciar = findViewById(R.id.btnIniciar);
+        btnFinishActivity = findViewById(R.id.btnFinishActivity);
+
+        handler = new Handler(Looper.getMainLooper());
+
+        btnIniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTime = SystemClock.uptimeMillis();
+                handler.postDelayed(runnable, 0);
+                btnFinishActivity.setEnabled(true);
+                btnIniciar.setEnabled(false);
+            }
+        });
+
+        btnFinishActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                time += milisegundo;
+                handler.removeCallbacks(runnable);
+                btnFinishActivity.setEnabled(false);
+                btnIniciar.setEnabled(true);
+                finish();
+            }
+        });
+
+        tempo.setText("00:00:00");
     }
+
+
 
     private void startTrackingExercise() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&

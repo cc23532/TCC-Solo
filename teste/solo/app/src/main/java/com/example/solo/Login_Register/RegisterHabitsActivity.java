@@ -122,7 +122,7 @@ public class RegisterHabitsActivity extends AppCompatActivity {
             habitsData.put("sleepBegin", sleepBegin);
             habitsData.put("sleepEnd", sleepEnd);
             habitsData.put("smoke", isSmoker);
-            Log.d(TAG, "Objeto JSON criado: " + habitsData.toString());
+            Log.d(TAG, "Objeto JSON criado: " + habitsData);
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(this, "Erro ao criar os dados de habitos", Toast.LENGTH_SHORT).show();
