@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.List;
 
 
+import com.solo.api.models.user.SoloUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class MuscleExerciseController {
     MuscleExerciseRepository repository;
 
     @PostMapping("/newActivity/{idUser}/exercises")
-    public ResponseEntity<?> registerNewExercise(@PathVariable Integer idUser, @RequestBody Map<String, String> body){
+    public ResponseEntity<?> registerNewExercise(@PathVariable SoloUser idUser, @RequestBody Map<String, String> body){
         try {
             String name = body.get("name");
 
