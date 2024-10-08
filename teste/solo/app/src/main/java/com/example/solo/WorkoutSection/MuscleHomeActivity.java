@@ -1,7 +1,6 @@
 package com.example.solo.WorkoutSection;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,8 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MuscleHomeActivity extends AppCompatActivity {
 
@@ -154,25 +151,86 @@ public class MuscleHomeActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog2();  // Exibe o próximo diálogo ao clicar em "Adicionar"
+                showDialog3();  // Exibe o próximo diálogo ao clicar em "Adicionar"
             }
         });
         dialog.show();
     }
+
+    public void showDialog3() {
+        Dialog dialog = new Dialog(this, R.style.DialogStyle);
+        dialog.setContentView(R.layout.activity_muscle_type_exercises);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        ImageView btnSair = dialog.findViewById(R.id.btnSair);
+        Button btnType = dialog.findViewById(R.id.btnType);
+        EditText typeExerciseField = dialog.findViewById(R.id.typeExercise);
+
+        btnSair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String exerciseType = typeExerciseField.getText().toString().trim();
+
+                if (exerciseType.isEmpty()) {
+                    Toast.makeText(MuscleHomeActivity.this, "Por favor, insira o tipo de exercício", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                JSONObject typeExerciseData = new JSONObject();
+                try {
+                    typeExerciseData.put("name", exerciseType);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MuscleHomeActivity.this, "Erro ao criar os dados", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String url = "http://10.0.2.2:8080/workout/muscle/newActivity/" + idUser + "/exercises";
+
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, typeExerciseData,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Toast.makeText(MuscleHomeActivity.this, "Tipo de exercício salvo com sucesso!", Toast.LENGTH_SHORT).show();
+                                showDialog2();
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MuscleHomeActivity.this, "Erro ao salvar tipo de exercício: " + error.toString(), Toast.LENGTH_SHORT).show();
+                        error.printStackTrace();
+                    }
+                });
+
+                requestQueue.add(jsonObjectRequest);
+            }
+        });
+
+
+        dialog.show();
+    }
+
+
 
     public void showDialog2(){
         Dialog dialog = new Dialog(this, androidx.appcompat.R.style.Base_Theme_AppCompat_DialogWhenLarge);
         dialog.setContentView(R.layout.activity_add_exercise);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
 
-        // Inicializa os campos de entrada do exercício
         nameExerciseField = dialog.findViewById(R.id.nomeExercicio);
         cargaField = dialog.findViewById(R.id.carga);
         seriesField = dialog.findViewById(R.id.series);
         repeticoesField = dialog.findViewById(R.id.repeticoes);
         btnSaveExercise = dialog.findViewById(R.id.salvar_button);
 
-        // Recupera o idActivity da sessão
         SharedPreferences muscleActivity_session = getSharedPreferences("muscleActivity_session", MODE_PRIVATE);
         int idActivity = muscleActivity_session.getInt("idActivity", -1);
 
@@ -189,7 +247,6 @@ public class MuscleHomeActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Cria o objeto JSON para salvar o exercício
                 JSONObject exerciseData = new JSONObject();
                 try {
                     exerciseData.put("idActivity", idActivity);
@@ -203,8 +260,7 @@ public class MuscleHomeActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Faz a requisição POST para salvar o exercício
-                String url = BASE_URL + "/muscle-exercise/save";
+                String url = BASE_URL + "/" + idActivity + "/muscle-exercise/save";
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, exerciseData,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -220,7 +276,6 @@ public class MuscleHomeActivity extends AppCompatActivity {
                     }
                 });
 
-                // Adiciona a requisição à fila
                 requestQueue.add(jsonObjectRequest);
             }
         });

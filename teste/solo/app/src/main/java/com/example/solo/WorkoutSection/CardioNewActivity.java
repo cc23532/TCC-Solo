@@ -149,7 +149,7 @@ public class CardioNewActivity extends FragmentActivity {
                 handler.removeCallbacks(runnable);
                 btnFinishActivity.setEnabled(false);
                 btnIniciar.setEnabled(true);
-                finish();
+
             }
         });
 

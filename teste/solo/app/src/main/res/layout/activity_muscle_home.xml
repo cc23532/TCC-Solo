@@ -170,7 +170,7 @@
         android:layout_height="52dp"
         android:layout_marginTop="620dp"
         android:backgroundTint="#000000"
-        android:text="Adicionar Corrida"
+        android:text="Adicionar Treino"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
