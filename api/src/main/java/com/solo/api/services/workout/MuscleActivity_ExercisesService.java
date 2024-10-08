@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.solo.api.models.user.SoloUser;
+import com.solo.api.models.workout.MuscleAc_Ex_ItemKey;
 import com.solo.api.models.workout.MuscleActivity;
 import com.solo.api.models.workout.MuscleActivity_Exercises;
 import com.solo.api.models.workout.MuscleExercise;
@@ -17,7 +18,7 @@ public class MuscleActivity_ExercisesService {
     @Autowired
     MuscleActivity_ExercisesRepository repository;
 
-    public int registerNewActivityExercise(MuscleActivity activity, MuscleExercise exercise, double weight, int series, int repetition){
+    public MuscleAc_Ex_ItemKey registerNewActivityExercise(MuscleActivity activity, MuscleExercise exercise, double weight, int series, int repetition){
         MuscleActivity_Exercises newExercise = new MuscleActivity_Exercises();
         newExercise.setActivity(activity);
         newExercise.setExercise(exercise);
@@ -26,7 +27,7 @@ public class MuscleActivity_ExercisesService {
         newExercise.setRepetition(repetition);
 
         MuscleActivity_Exercises savedExercise = repository.save(newExercise);
-        return savedExercise.getIdItem();
+        return savedExercise.getIdMuscleActivity_Exercise();
     }
 
     public List<Object[]> getMuscleActivityExercisesByActivity(Integer idActivity){

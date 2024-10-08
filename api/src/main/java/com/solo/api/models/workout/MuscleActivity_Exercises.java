@@ -9,10 +9,6 @@ public class MuscleActivity_Exercises {
     @EmbeddedId
     private MuscleAc_Ex_ItemKey idMuscleActivity_Exercise;
 
-    @Id  // Adiciona uma chave primária separada
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera automaticamente um valor único
-    private Integer idItem;
-
     @ManyToOne
     @MapsId("idActivity")
     @JoinColumn(name = "idActivity", foreignKey = @ForeignKey(name = "FK_MuscleAcEx_Activity"))
@@ -36,17 +32,12 @@ public class MuscleActivity_Exercises {
         
     }
 
-    public MuscleActivity_Exercises(Integer idItem, MuscleActivity activity, MuscleExercise exercise, double weight, int series, int repetition){
-        this.idItem = idItem;
+    public MuscleActivity_Exercises(MuscleActivity activity, MuscleExercise exercise, double weight, int series, int repetition){
         this.activity = activity;
         this.exercise = exercise;
         this.weight = weight;
         this.series = series;
         this.repetition = repetition;
-    }
-
-    public Integer getIdItem() {
-        return idItem;
     }
 
     public MuscleAc_Ex_ItemKey getIdMuscleActivity_Exercise() {

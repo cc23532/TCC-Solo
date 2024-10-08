@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.solo.api.models.workout.MuscleAc_Ex_ItemKey;
 import com.solo.api.models.workout.MuscleActivity;
 import com.solo.api.models.workout.MuscleExercise;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,14 +37,14 @@ public class MuscleActivity_ExerciseController {
             int series = Integer.parseInt(body.get("series"));
             int repetition = Integer.parseInt(body.get("repetition"));
 
-            int idMuscleActivity_Exercise = service.registerNewActivityExercise(idActivity, idExercise, weight, series, repetition);
+            MuscleAc_Ex_ItemKey item = service.registerNewActivityExercise(idActivity, idExercise, weight, series, repetition);
 
-            if(idMuscleActivity_Exercise <= 0){
+            if(item.getId() <= 0){
                 return new ResponseEntity<>("Falha ao cadastrar novo item de treino...", HttpStatus.BAD_REQUEST);
 
             }
 
-            return new ResponseEntity<>(Collections.singletonMap("idMuscleActivity_Exercise", idMuscleActivity_Exercise), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("idMuscleActivity_Exercise", item), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Erro ao processar a requisição: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
