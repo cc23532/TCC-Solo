@@ -16,11 +16,6 @@ public interface MuscleActivityRepository extends JpaRepository<MuscleActivity, 
 
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO appSolo.MuscleActivity(idUser) VALUES (:idUser)", nativeQuery = true)
-    int startNewMuscleActivity(@Param("idUser") Integer idUser);
-
-    @Transactional
-    @Modifying
     @Query(value = "UPDATE appSolo.MuscleActivity " +
                     "SET duration = :duration " +
                     "WHERE idUser = :idUser", nativeQuery = true)

@@ -1,13 +1,6 @@
 package com.solo.api.models.workout;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.Table;
-import jakarta.persistence.ForeignKey;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "MuscleActivity_Exercises", schema = "appSolo")
@@ -15,6 +8,10 @@ public class MuscleActivity_Exercises {
 
     @EmbeddedId
     private MuscleAc_Ex_ItemKey idMuscleActivity_Exercise;
+
+    @Id  // Adiciona uma chave primária separada
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera automaticamente um valor único
+    private Integer idItem;
 
     @ManyToOne
     @MapsId("idActivity")
@@ -39,12 +36,21 @@ public class MuscleActivity_Exercises {
         
     }
 
-    public MuscleActivity_Exercises(MuscleActivity activity, MuscleExercise exercise, double weight, int series, int repetition){
+    public MuscleActivity_Exercises(Integer idItem, MuscleActivity activity, MuscleExercise exercise, double weight, int series, int repetition){
+        this.idItem = idItem;
         this.activity = activity;
         this.exercise = exercise;
         this.weight = weight;
         this.series = series;
         this.repetition = repetition;
+    }
+
+    public Integer getIdItem() {
+        return idItem;
+    }
+
+    public MuscleAc_Ex_ItemKey getIdMuscleActivity_Exercise() {
+        return idMuscleActivity_Exercise;
     }
 
     public MuscleActivity getActivity() {

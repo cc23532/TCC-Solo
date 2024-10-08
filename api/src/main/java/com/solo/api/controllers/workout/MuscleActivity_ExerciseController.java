@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.solo.api.models.workout.MuscleActivity;
+import com.solo.api.models.workout.MuscleExercise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +30,7 @@ public class MuscleActivity_ExerciseController {
     MuscleActivity_ExercisesRepository repository;
 
     @PostMapping("/newActivity/{idUser}/exercises/activityItems")
-    public ResponseEntity<?> registerNewActivityExercise(@RequestParam Integer idActivity, @RequestParam Integer idExercise, @RequestBody Map<String, String> body){
+    public ResponseEntity<?> registerNewActivityExercise(@RequestParam MuscleActivity idActivity, @RequestParam MuscleExercise idExercise, @RequestBody Map<String, String> body){
         try {
             double weight = Double.parseDouble(body.get("weight"));
             int series = Integer.parseInt(body.get("series"));

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.solo.api.models.user.SoloUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +30,9 @@ public class MuscleActivityController {
     @Autowired
     MuscleActivityService service;
 
+    // cria uma nova atividade utilizando o idUser (salvo em "user_session")
     @PostMapping("/newActivity/{idUser}")
-    public ResponseEntity<?> startNewMuscleActivity(@PathVariable Integer idUser){
+    public ResponseEntity<?> startNewMuscleActivity(@PathVariable SoloUser idUser){
         try{
             int idActivity = service.startNewMuscleActivity(idUser);
 
@@ -46,6 +48,8 @@ public class MuscleActivityController {
         }
     }
 
+    // finaliza a atividade já iniciada (idActivity salvo na session)
+    // utiliza
     @PostMapping("/finishActivity/{idActivity}")
     public ResponseEntity<?> finishMuscleActivity(@PathVariable Integer idActivity, @RequestBody Map<String, String> body) {
         try {
