@@ -106,7 +106,8 @@ CREATE TABLE appSolo.Meal
 (
     idMeal INT NOT NULL IDENTITY PRIMARY KEY,
     idUser INT NOT NULL,
-    mealDate DATETIME NOT NULL,
+    mealDate DATE NOT NULL,
+    mealTime TIME NOT NULL,
     CONSTRAINT FK_Meal_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
 
@@ -114,9 +115,13 @@ CREATE TABLE appSolo.Meal_Items
 (
     idItem INT NOT NULL IDENTITY PRIMARY KEY,
     idMeal INT NOT NULL,
-    food VARCHAR(50) NOT NULL,
+    idUser INT NOT NULL,
+    food VARCHAR(255) NOT NULL,
+    preparationMethod VARCHAR(255) NOT NULL,
     weight FLOAT NOT NULL,
-    CONSTRAINT FK_Meal_Items_Meal FOREIGN KEY (idMeal) REFERENCES appSolo.Meal(idMeal)
+    CONSTRAINT FK_Meal_Items_Meal FOREIGN KEY (idMeal) REFERENCES appSolo.Meal(idMeal),
+    CONSTRAINT FK_Meal_Items_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
+
 );
 
 -- Pare de Fumar

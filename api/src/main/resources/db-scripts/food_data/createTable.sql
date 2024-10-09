@@ -1,8 +1,7 @@
--- CREATE SCHEMA food
-
-CREATE TABLE food.data_ibge (
+-- CREATE SCHEMA ibge
+CREATE TABLE ibge.food_data (
     Codigo INT,
-    descricacao_do_alimento NVARCHAR(255) NOT NULL,
+    descricao_do_alimento NVARCHAR(255) NOT NULL,
     Categoria NVARCHAR(255) NOT NULL,
     Codigo_de_preparacao INT NULL,
     descricao_da_preparacao NVARCHAR(255) NOT NULL,
@@ -38,7 +37,7 @@ CREATE TABLE food.data_ibge (
     Niacina_mg DECIMAL(10, 2) NULL,
     Niacina_NE_mg DECIMAL(10, 2) NULL,
     Piridoxina_mg DECIMAL(10, 2) NULL,
-    Cobalami_na_mcg DECIMAL(10, 2) NULL,
+    Cobalamina_mcg DECIMAL(10, 2) NULL,
     Folato_DFE_mcg DECIMAL(10, 2) NULL,
     Vitamina_D_mcg DECIMAL(10, 2) NULL,
     Vitamina_E_mg DECIMAL(10, 2) NULL,
