@@ -30,7 +30,7 @@ public class MuscleActivity {
     @Column(nullable = false)
     private LocalDateTime activityDate;
 
-    @Column(nullable = false)
+    @Column
     private Time duration;
 
     public MuscleActivity(){

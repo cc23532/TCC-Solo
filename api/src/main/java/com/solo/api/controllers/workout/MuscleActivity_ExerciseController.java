@@ -1,9 +1,10 @@
 package com.solo.api.controllers.workout;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
+import com.solo.api.DTO.MuscleActivityExerciseDTO;
 import com.solo.api.models.workout.MuscleAc_Ex_ItemKey;
 import com.solo.api.models.workout.MuscleActivity;
 import com.solo.api.models.workout.MuscleExercise;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.solo.api.repositories.workout.MuscleActivity_ExercisesRepository;
 import com.solo.api.services.workout.MuscleActivity_ExercisesService;
 
+
 @RestController
 @RequestMapping("/workout/muscle")
 public class MuscleActivity_ExerciseController {
@@ -31,28 +33,46 @@ public class MuscleActivity_ExerciseController {
     MuscleActivity_ExercisesRepository repository;
 
     @PostMapping("/newActivity/{idUser}/exercises/activityItems")
-    public ResponseEntity<?> registerNewActivityExercise(@RequestParam MuscleActivity idActivity, @RequestParam MuscleExercise idExercise, @RequestBody Map<String, String> body){
+    public ResponseEntity<?> registerNewActivityExercise(
+            @RequestParam Integer idActivity, 
+            @RequestParam Integer idExercise, 
+            @RequestBody Map<String, String> body) {
         try {
+            String name = body.get("name");
             double weight = Double.parseDouble(body.get("weight"));
             int series = Integer.parseInt(body.get("series"));
             int repetition = Integer.parseInt(body.get("repetition"));
 
-            MuscleAc_Ex_ItemKey item = service.registerNewActivityExercise(idActivity, idExercise, weight, series, repetition);
+            // Busque a atividade e o exercício pelos IDs
+            MuscleActivity activity = service.findActivityById(idActivity);
+            MuscleExercise exercise = service.findExerciseById(idExercise);
 
-            if(item.getId() <= 0){
-                return new ResponseEntity<>("Falha ao cadastrar novo item de treino...", HttpStatus.BAD_REQUEST);
-
+            if (activity == null || exercise == null) {
+                return new ResponseEntity<>("Atividade ou exercício não encontrados", HttpStatus.BAD_REQUEST);
             }
 
-            return new ResponseEntity<>(Collections.singletonMap("idMuscleActivity_Exercise", item), HttpStatus.OK);
+            MuscleAc_Ex_ItemKey itemKey = service.registerNewActivityExercise(activity, exercise, name, weight, series, repetition);
+
+            if (itemKey == null) {
+                return new ResponseEntity<>("Falha ao cadastrar novo item de treino...", HttpStatus.BAD_REQUEST);
+            }
+
+            // Retornar a resposta com os IDs
+            Map<String, Object> response = new HashMap<>();
+            response.put("idActivity", itemKey.getIdActivity());
+            response.put("idExercise", itemKey.getIdExercise());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Erro ao processar a requisição: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("//newActivity/{idUser}/exercises/activityItems/{idActivity}")
-    public List<Object[]> getMuscleActivityExercisesByActivity(@PathVariable Integer idActivity){
-        return service.getMuscleActivityExercisesByActivity(idActivity);
+    @GetMapping("/newActivity/{idUser}/exercises/activityItems/{idActivity}")
+    public ResponseEntity<List<MuscleActivityExerciseDTO>> getMuscleActivityExercisesByActivity(@PathVariable Integer idUser, @PathVariable Integer idActivity) {
+        List<MuscleActivityExerciseDTO> exercises = service.getMuscleActivityExercisesByActivity(idUser, idActivity);
+        return new ResponseEntity<>(exercises, HttpStatus.OK);
     }
+
     
 }

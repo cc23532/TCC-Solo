@@ -1,14 +1,9 @@
 package com.solo.api.models.workout;
 
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
 
 @Embeddable
 public class MuscleAc_Ex_ItemKey {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
     @Column(name = "idActivity")
     private Integer idActivity;
@@ -20,14 +15,9 @@ public class MuscleAc_Ex_ItemKey {
 
     }
 
-    public MuscleAc_Ex_ItemKey(Integer id, Integer idActivity, Integer idExercise){
-        this.id = id;
+    public MuscleAc_Ex_ItemKey(Integer idActivity, Integer idExercise){
         this.idActivity = idActivity;
         this.idExercise = idExercise;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public Integer getIdActivity() {

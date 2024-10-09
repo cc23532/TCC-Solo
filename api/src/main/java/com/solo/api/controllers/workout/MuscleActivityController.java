@@ -36,7 +36,7 @@ public class MuscleActivityController {
         try{
             int idActivity = service.startNewMuscleActivity(idUser);
 
-            if (idActivity != 1) {
+            if (idActivity <= 0) {
                     return new ResponseEntity<>("Falha ao registrar atividade. Resultado da atualização: " + idActivity, HttpStatus.BAD_REQUEST);
                 }
     

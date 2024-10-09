@@ -30,8 +30,8 @@ public class MuscleActivityService {
         return savedActivity.getIdActivity();
     }
 
-    public int finishMuscleActivity(Time duration, Integer idUser){
-        return repository.finishMuscleActivity(duration, idUser);
+    public int finishMuscleActivity(Time duration, Integer idActivity){
+        return repository.finishMuscleActivity(duration, idActivity);
     }
 
     public List<MuscleActivity> findActivitiesByUser(Integer idUser){

@@ -16,8 +16,11 @@ public class MuscleActivity_Exercises {
 
     @ManyToOne
     @MapsId("idExercise")
-    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_MuscleAcEx_Exercise"))
+    @JoinColumn(name = "idExercise", foreignKey = @ForeignKey(name = "FK_MuscleAcEx_Exercise"))
     private MuscleExercise exercise;
+
+    @Column
+    private String name;
 
     @Column(nullable = false)
     private double weight;
@@ -32,9 +35,10 @@ public class MuscleActivity_Exercises {
         
     }
 
-    public MuscleActivity_Exercises(MuscleActivity activity, MuscleExercise exercise, double weight, int series, int repetition){
+    public MuscleActivity_Exercises(MuscleActivity activity, MuscleExercise exercise, String name, double weight, int series, int repetition){
         this.activity = activity;
         this.exercise = exercise;
+        this.name = name;
         this.weight = weight;
         this.series = series;
         this.repetition = repetition;
@@ -44,9 +48,18 @@ public class MuscleActivity_Exercises {
         return idMuscleActivity_Exercise;
     }
 
+    public void setIdMuscleActivity_Exercise(MuscleAc_Ex_ItemKey idMuscleActivity_Exercise) {
+        this.idMuscleActivity_Exercise = idMuscleActivity_Exercise;
+    }
+
     public MuscleActivity getActivity() {
         return activity;
     }
+
+    public Integer getIdActivity() {
+        return activity.getIdActivity();
+    }
+
 
     public void setActivity(MuscleActivity activity) {
         this.activity = activity;
@@ -56,8 +69,20 @@ public class MuscleActivity_Exercises {
         return exercise;
     }
 
+    public Integer getIdExercise() {
+        return exercise.getIdExercise();
+    }
+
     public void setExercise(MuscleExercise exercise) {
         this.exercise = exercise;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getWeight() {

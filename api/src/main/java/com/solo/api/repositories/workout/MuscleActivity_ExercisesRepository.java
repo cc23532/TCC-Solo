@@ -29,14 +29,17 @@ public interface MuscleActivity_ExercisesRepository extends JpaRepository<Muscle
     @Modifying
     @Query(value =  "SELECT mae.idMuscleActivity_Exercise, " +
                     "mae.idActivity, " +
-                    "me.name AS exerciseName, " +
+                    "mae.idExercise, " +
+                    "me.name AS category, " +
+                    "mae.name, " +
                     "mae.weight, " +
                     "mae.series, " +
                     "mae.repetition " +
                     "FROM appSolo.MuscleActivity_Exercises mae " +
                     "JOIN appSolo.MuscleExercise me ON mae.idExercise = me.idExercise " +
-                    "WHERE mae.idActivity = :idActivity", nativeQuery = true)
-    List<Object[]> getMuscleActivityExercisesByActivity(@Param("idActivity") Integer idActivity);
+                    "WHERE me.idUser = :idUser AND mae.idActivity = :idActivity", nativeQuery = true)
+    List<Object[]> getMuscleActivityExercisesByActivity(@Param("idUser") Integer idUser,
+                                                        @Param("idActivity") Integer idActivity);
 
     
 }

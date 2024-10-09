@@ -93,6 +93,7 @@ CREATE TABLE appSolo.MuscleActivity_Exercises
     idMuscleActivity_Exercise INT NOT NULL IDENTITY PRIMARY KEY,
     idActivity INT NOT NULL,
     idExercise INT NOT NULL,
+    name VARCHAR(50) NULL,
     weight FLOAT NOT NULL,
     series INT NOT NULL,
     repetition INT NOT NULL,
