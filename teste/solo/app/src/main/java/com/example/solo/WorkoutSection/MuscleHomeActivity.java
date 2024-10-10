@@ -35,7 +35,6 @@ public class MuscleHomeActivity extends AppCompatActivity {
     private static final String TAG = "MuscleHomeActivity";
     private int idUser;
     private RequestQueue requestQueue;
-
     private EditText nameExerciseField, cargaField, seriesField, repeticoesField;
     private Button btnSaveExercise;
 
@@ -44,7 +43,6 @@ public class MuscleHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_muscle_home);
 
-        // Recuperar idUser da sessão
         SharedPreferences user_session = getSharedPreferences("user_session", MODE_PRIVATE);
         idUser = user_session.getInt("idUser", -1);
 
@@ -54,7 +52,7 @@ public class MuscleHomeActivity extends AppCompatActivity {
         btnAddWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createActivity();  // Cria uma nova atividade e, ao sucesso, chama showDialog()
+                createActivity();
             }
         });
 
@@ -68,7 +66,6 @@ public class MuscleHomeActivity extends AppCompatActivity {
     }
 
     private void createActivity() {
-        // Cria o objeto JSON para enviar a atividade
         JSONObject newActivity = new JSONObject();
         try {
             newActivity.put("idUser", idUser);
@@ -90,15 +87,13 @@ public class MuscleHomeActivity extends AppCompatActivity {
                             int idActivity = response.getInt("idActivity");
                             Log.d(TAG, "idActivity salvo: " + idActivity);
 
-                            // Armazena o idActivity em SharedPreferences
                             SharedPreferences muscleActivity_session = getSharedPreferences("muscleActivity_session", MODE_PRIVATE);
                             SharedPreferences.Editor editor = muscleActivity_session.edit();
-                            editor.putInt("idUser", idUser);
                             editor.putInt("idActivity", idActivity);
 
                             if (editor.commit()) {
                                 Toast.makeText(MuscleHomeActivity.this, "Atividade criada com sucesso", Toast.LENGTH_SHORT).show();
-                                showDialog();  // Exibe o diálogo após criar a atividade
+                                showDialog();
                             }
                         } catch (Exception e) {
                             Log.e(TAG, "Erro ao processar a resposta JSON", e);
@@ -129,9 +124,9 @@ public class MuscleHomeActivity extends AppCompatActivity {
                 }
         );
 
-        // Adiciona a requisição à fila
         requestQueue.add(jsonObjectRequest);
     }
+
 
     public void showDialog(){
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
@@ -151,7 +146,7 @@ public class MuscleHomeActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog3();  // Exibe o próximo diálogo ao clicar em "Adicionar"
+                showDialog3();
             }
         });
         dialog.show();
@@ -232,7 +227,10 @@ public class MuscleHomeActivity extends AppCompatActivity {
         btnSaveExercise = dialog.findViewById(R.id.salvar_button);
 
         SharedPreferences muscleActivity_session = getSharedPreferences("muscleActivity_session", MODE_PRIVATE);
+        // int idActivity = muscleActivity_session.getInt("idActivity", -1);
+
         int idActivity = muscleActivity_session.getInt("idActivity", -1);
+
 
         btnSaveExercise.setOnClickListener(new View.OnClickListener() {
             @Override

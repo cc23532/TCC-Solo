@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +30,7 @@ import java.io.UnsupportedEncodingException;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button btnCreateAccount;
+    private TextView btnCreateAccount;
     private Button btnLogin;
     private EditText nickname_input, pwd_input;
     private RequestQueue requestQueue;
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         // Inicializando componentes da interface
-        btnLogin = findViewById(R.id.btnlogin);
+        btnLogin = findViewById(R.id.btnLogin);
         nickname_input = findViewById(R.id.nickname_input);
         pwd_input = findViewById(R.id.pwd_input);
 
