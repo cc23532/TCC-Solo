@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,7 +24,9 @@ import com.example.solo.WorkoutSection.MuscleHomeActivity;
 public class HomeActivity extends AppCompatActivity {
     private Button btnPopUpWorkout;
 
-    private ImageView btnProfileIcon, btnWorkoutIcon;
+    private ImageView btnProfileIcon, btnWorkoutIcon, personIcon;
+
+    private FrameLayout frameWorkout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +50,22 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+            personIcon = findViewById(R.id.personIcon);
+            personIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
+            });
             // O id não foi encontrado, talvez o usuário não esteja autenticado
         } else {
             Log.e("HomeActivity", "ID nulo, tente novamente");
         }
 
-        btnWorkoutIcon = findViewById(R.id.btnWorkoutIcon);
+        frameWorkout = findViewById(R.id.frameWorkout);
 
-        btnWorkoutIcon.setOnClickListener(new View.OnClickListener() {
+        frameWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog();
