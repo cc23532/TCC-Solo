@@ -69,12 +69,11 @@ public class CardioNewActivity extends FragmentActivity {
             segundos = segundos % 60;
             milisegundos = (int) (updateTime % 1000);
 
-            // Exibir horas:minutos:segundos:milissegundos
-            tempo.setText(MessageFormat.format("{0}:{1}:{2}:{3}",
+            // Exibir horas:minutos:segundos
+            tempo.setText(MessageFormat.format("{0}:{1}:{2}",
                     horas,
                     String.format(Locale.getDefault(), "%02d", minutos),
-                    String.format(Locale.getDefault(), "%02d", segundos),
-                    String.format(Locale.getDefault(), "%02d", milisegundos)
+                    String.format(Locale.getDefault(), "%02d", segundos)
             ));
 
             handler.postDelayed(this, 0);

@@ -1,3 +1,4 @@
+/*
 package com.solo.api.models.diet;
 
 import jakarta.persistence.Column;
@@ -140,3 +141,4 @@ public class Data_IBGE {
     private double Vitamina_C_mg;
 
 }
+*/

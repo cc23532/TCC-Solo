@@ -146,13 +146,14 @@ public class MuscleHomeActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog3();
+                createExercisePopUp();
+                dialog.dismiss();
             }
         });
         dialog.show();
     }
 
-    public void showDialog3() {
+    public void createExercisePopUp() {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         dialog.setContentView(R.layout.activity_muscle_type_exercises);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
@@ -194,8 +195,23 @@ public class MuscleHomeActivity extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                Toast.makeText(MuscleHomeActivity.this, "Tipo de exercício salvo com sucesso!", Toast.LENGTH_SHORT).show();
-                                showDialog2();
+                                try {
+                                    int idExercise = response.getInt("idExercise");
+                                    Log.d(TAG, "idExercise salvo: " + idExercise);
+
+                                    SharedPreferences exerciseData = getSharedPreferences("exerciseData", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = exerciseData.edit();
+                                    editor.putInt("idExercise", idExercise);
+
+                                    if (editor.commit()) {
+                                        Toast.makeText(MuscleHomeActivity.this, "Exercício criado com sucesso", Toast.LENGTH_SHORT).show();
+                                        createActivityItemsPopUp();
+                                        dialog.dismiss();
+                                    }
+                                } catch (Exception e) {
+                                    Log.e(TAG, "Erro ao processar a resposta JSON", e);
+                                    Toast.makeText(MuscleHomeActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -215,7 +231,7 @@ public class MuscleHomeActivity extends AppCompatActivity {
 
 
 
-    public void showDialog2(){
+    public void createActivityItemsPopUp(){
         Dialog dialog = new Dialog(this, androidx.appcompat.R.style.Base_Theme_AppCompat_DialogWhenLarge);
         dialog.setContentView(R.layout.activity_add_exercise);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
@@ -227,9 +243,11 @@ public class MuscleHomeActivity extends AppCompatActivity {
         btnSaveExercise = dialog.findViewById(R.id.salvar_button);
 
         SharedPreferences muscleActivity_session = getSharedPreferences("muscleActivity_session", MODE_PRIVATE);
+        SharedPreferences exerciseData = getSharedPreferences("exerciseData", MODE_PRIVATE);
         // int idActivity = muscleActivity_session.getInt("idActivity", -1);
 
         int idActivity = muscleActivity_session.getInt("idActivity", -1);
+        int idExercise = exerciseData.getInt("idExercise", -1);
 
 
         btnSaveExercise.setOnClickListener(new View.OnClickListener() {
@@ -247,24 +265,24 @@ public class MuscleHomeActivity extends AppCompatActivity {
 
                 JSONObject exerciseData = new JSONObject();
                 try {
-                    exerciseData.put("idActivity", idActivity);
                     exerciseData.put("name", nameExercise);
-                    exerciseData.put("carga", carga);
+                    exerciseData.put("weight", carga);
                     exerciseData.put("series", series);
-                    exerciseData.put("repeticoes", repeticoes);
+                    exerciseData.put("repetition", repeticoes);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(MuscleHomeActivity.this, "Erro ao criar os dados", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                String url = BASE_URL + "/" + idActivity + "/muscle-exercise/save";
+                String url = BASE_URL + "/" + idUser + "/exercises/activityItems?idActivity=" + idActivity + "&idExercise=" + idExercise;
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, exerciseData,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Toast.makeText(MuscleHomeActivity.this, "Exercício salvo com sucesso!", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "Resposta da API: " + response.toString());
+                                dialog.dismiss();
                             }
                         }, new Response.ErrorListener() {
                     @Override
