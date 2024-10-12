@@ -1,8 +1,8 @@
 -- medidas registradas a cada 100g de alimento
 
-INSERT INTO ibge.food_data (
+INSERT INTO appSolo.ibge_food_data (
     Codigo,
-    descricacao_do_alimento,
+    descricao_do_alimento,
     Categoria,
     Codigo_de_preparacao,
     descricao_da_preparacao,

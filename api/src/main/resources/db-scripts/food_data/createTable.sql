@@ -1,5 +1,5 @@
--- CREATE SCHEMA ibge
-CREATE TABLE ibge.food_data (
+create TABLE appSolo.ibge_food_data (
+    id INT NOT NULL IDENTITY,
     Codigo INT,
     descricao_do_alimento NVARCHAR(255) NOT NULL,
     Categoria NVARCHAR(255) NOT NULL,
@@ -43,3 +43,6 @@ CREATE TABLE ibge.food_data (
     Vitamina_E_mg DECIMAL(10, 2) NULL,
     Vitamina_C_mg DECIMAL(10, 2) NULL
 );
+
+ALTER TABLE appSolo.ibge_food_data
+ADD CONSTRAINT PK_ibge_food_data PRIMARY KEY (id);

@@ -100,7 +100,6 @@ CREATE TABLE appSolo.MuscleActivity_Exercises
     CONSTRAINT FK_MuscleAcEx_Activity FOREIGN KEY (idActivity) REFERENCES appSolo.MuscleActivity(idActivity),
     CONSTRAINT FK_MuscleAcEx_Exercise FOREIGN KEY (idExercise) REFERENCES appSolo.MuscleExercise(idExercise)
 );
-
 -- Dieta
 CREATE TABLE appSolo.Meal
 (
@@ -115,13 +114,10 @@ CREATE TABLE appSolo.Meal_Items
 (
     idItem INT NOT NULL IDENTITY PRIMARY KEY,
     idMeal INT NOT NULL,
-    idUser INT NOT NULL,
-    food VARCHAR(255) NOT NULL,
-    preparationMethod VARCHAR(255) NOT NULL,
+    idFood INT NOT NULL,
     weight FLOAT NOT NULL,
     CONSTRAINT FK_Meal_Items_Meal FOREIGN KEY (idMeal) REFERENCES appSolo.Meal(idMeal),
-    CONSTRAINT FK_Meal_Items_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
-
+    CONSTRAINT FK_Meal_Items_FoodData FOREIGN KEY (idFood) REFERENCES appSolo.ibge_food_data(id)
 );
 
 -- Pare de Fumar
