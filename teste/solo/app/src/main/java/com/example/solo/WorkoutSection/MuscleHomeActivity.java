@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,11 +18,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.solo.R;
 import com.example.solo.Util.URL;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,6 +39,7 @@ public class MuscleHomeActivity extends AppCompatActivity {
     private int idUser;
     private RequestQueue requestQueue;
     private EditText nameExerciseField, cargaField, seriesField, repeticoesField;
+    private TextView name, weight, repetition;
     private Button btnSaveExercise;
 
     @Override
@@ -48,6 +52,7 @@ public class MuscleHomeActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
+        exibirInfoNaTela();
         btnAddWorkout = findViewById(R.id.btnAddWorkout);
         btnAddWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,8 +132,7 @@ public class MuscleHomeActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-
-    public void showDialog(){
+    public void showDialog() {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         dialog.setContentView(R.layout.activity_your_workout);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
@@ -179,7 +183,6 @@ public class MuscleHomeActivity extends AppCompatActivity {
                     return;
                 }
 
-
                 JSONObject typeExerciseData = new JSONObject();
                 try {
                     typeExerciseData.put("name", exerciseType);
@@ -189,7 +192,7 @@ public class MuscleHomeActivity extends AppCompatActivity {
                     return;
                 }
 
-                String url = "http://10.0.2.2:8080/workout/muscle/newActivity/" + idUser + "/exercises";
+                String url = BASE_URL + "/" + idUser + "/exercises";
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, typeExerciseData,
                         new Response.Listener<JSONObject>() {
@@ -225,9 +228,57 @@ public class MuscleHomeActivity extends AppCompatActivity {
             }
         });
 
-
         dialog.show();
     }
+
+    public void exibirInfoNaTela() {
+        name = findViewById(R.id.name);
+        weight = findViewById(R.id.weight);
+        repetition = findViewById(R.id.repetition);
+
+        SharedPreferences muscleActivity_session = getSharedPreferences("muscleActivity_session", MODE_PRIVATE);
+        int idActivity = muscleActivity_session.getInt("idActivity", -1);
+
+        if (idActivity != -1) {
+            String url = BASE_URL + "/" + idUser + "/exercises/activityItems/" + idActivity;
+
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            if (response.length() > 0) { 
+                                try {
+                                    JSONObject item = response.getJSONObject(0);
+                                    String nameValue = item.getString("name");
+                                    String weightValue = item.getDouble("weight") + "kg";
+                                    String repetitionValue = item.getInt("repetition") + " rep";
+
+                                    name.setText(nameValue);
+                                    weight.setText(weightValue);
+                                    repetition.setText(repetitionValue);
+                                } catch (JSONException e) {
+                                    Log.e(TAG, "Erro ao processar a resposta JSON", e);
+                                    Toast.makeText(MuscleHomeActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(MuscleHomeActivity.this, "Nenhum item encontrado.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e(TAG, "Erro na requisição: " + error.toString());
+                    Toast.makeText(MuscleHomeActivity.this, "Erro ao obter as informações.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            requestQueue.add(jsonArrayRequest);
+        } else {
+            Toast.makeText(this, "Atividade não encontrada.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 
 
 
@@ -282,6 +333,7 @@ public class MuscleHomeActivity extends AppCompatActivity {
                             public void onResponse(JSONObject response) {
                                 Toast.makeText(MuscleHomeActivity.this, "Exercício salvo com sucesso!", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "Resposta da API: " + response.toString());
+                                exibirInfoNaTela();
                                 dialog.dismiss();
                             }
                         }, new Response.ErrorListener() {
