@@ -9,16 +9,16 @@ public class Meal_Items_Key {
     @Column(name = "idMeal")
     private Integer idMeal;
 
-    @Column(name = "idUser")
-    private Integer idUser;
+    @Column(name = "idFood")
+    private Integer idFood;
     
     public Meal_Items_Key(){
 
     }
 
-    public Meal_Items_Key(Integer idMeal, Integer idUser){
+    public Meal_Items_Key(Integer idMeal, Integer idFood){
         this.idMeal = idMeal;
-        this.idUser  = idMeal;
+        this.idFood  = idMeal;
     }
 
     public Integer getIdMeal() {
@@ -29,12 +29,12 @@ public class Meal_Items_Key {
         this.idMeal = idMeal;
     }
 
-    public Integer getIdUser() {
-        return idUser;
+    public Integer getIdFood() {
+        return idFood;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setIdFood(Integer idFood) {
+        this.idFood = idFood;
     }
 
     @Override

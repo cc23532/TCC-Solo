@@ -1,7 +1,5 @@
 package com.solo.api.models.diet;
 
-import com.solo.api.models.user.SoloUser;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -24,25 +22,21 @@ public class Meal_Items {
     private Meal idMeal;
 
     @ManyToOne
-    @MapsId("idUser")
-    @JoinColumn(name = "idUser", foreignKey = @ForeignKey(name = "FK_Meal_Items_SoloUser"))
-    private SoloUser idUser;
+    @MapsId("idFood")
+    @JoinColumn(name = "idFood", foreignKey = @ForeignKey(name = "FK_Meal_Items_FoodData"))
+    private Data_IBGE idFood;
 
     @Column(nullable = false)
-    private String food;
-
-    @Column(nullable = false)
-    private String preparationMethod;
+    private double weight;
 
     public Meal_Items(){
 
     }
 
-    public Meal_Items(Meal idMeal, SoloUser idUser, String food, String preparationMethod){
+    public Meal_Items(Meal idMeal, Data_IBGE idFood, double weight){
         this.idMeal = idMeal;
-        this.idUser = idUser;
-        this.food = food;
-        this.preparationMethod = preparationMethod;
+        this.idFood = idFood;
+        this.weight = weight;
     }
 
     public Meal_Items_Key getId_item() {
@@ -57,28 +51,20 @@ public class Meal_Items {
         this.idMeal = idMeal;
     }
 
-    public SoloUser getIdUser() {
-        return idUser;
+    public Data_IBGE getIdFood() {
+        return idFood;
     }
 
-    public void setIdUser(SoloUser idUser) {
-        this.idUser = idUser;
+    public void setIdFood(Data_IBGE idFood) {
+        this.idFood = idFood;
     }
 
-    public String getFood() {
-        return food;
-    }
+    public double getWeight() {
+        return weight;
+    }   
 
-    public void setFood(String food) {
-        this.food = food;
-    }
-
-    public String getPreparationMethod() {
-        return preparationMethod;
-    }
-
-    public void setPreparationMethod(String preparationMethod) {
-        this.preparationMethod = preparationMethod;
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override

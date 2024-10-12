@@ -1,8 +1,11 @@
-/*
+
 package com.solo.api.models.diet;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -20,6 +23,11 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class Data_IBGE {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     @Column
     private int codigo;
 
@@ -141,4 +149,3 @@ public class Data_IBGE {
     private double Vitamina_C_mg;
 
 }
-*/

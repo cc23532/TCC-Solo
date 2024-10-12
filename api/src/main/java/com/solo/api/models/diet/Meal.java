@@ -2,7 +2,7 @@ package com.solo.api.models.diet;
 
 import com.solo.api.models.user.SoloUser;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 
 import jakarta.persistence.Column;
