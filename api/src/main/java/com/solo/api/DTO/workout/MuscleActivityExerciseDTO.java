@@ -1,4 +1,4 @@
-package com.solo.api.DTO;
+package com.solo.api.DTO.workout;
 
 public class MuscleActivityExerciseDTO {
     private Integer id_item;

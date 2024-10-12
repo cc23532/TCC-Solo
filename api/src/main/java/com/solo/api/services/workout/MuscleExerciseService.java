@@ -1,10 +1,8 @@
 package com.solo.api.services.workout;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.solo.api.models.user.SoloUser;
-import com.solo.api.models.workout.MuscleActivity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

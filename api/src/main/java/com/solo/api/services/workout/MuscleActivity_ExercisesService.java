@@ -3,7 +3,7 @@ package com.solo.api.services.workout;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.solo.api.DTO.MuscleActivityExerciseDTO;
+import com.solo.api.DTO.workout.MuscleActivityExerciseDTO;
 import com.solo.api.models.workout.MuscleAc_Ex_ItemKey;
 import com.solo.api.models.workout.MuscleActivity;
 import com.solo.api.models.workout.MuscleActivity_Exercises;

@@ -16,7 +16,7 @@ public class CardioActivity {
     private Integer idActivity;
 
     @ManyToOne
-    @JoinColumn(name = "idUser", nullable = false)
+    @JoinColumn(name = "idUser", foreignKey = @ForeignKey(name = "FK_CardioActivity_SoloUser"))
     private SoloUser user;
 
     @Column
