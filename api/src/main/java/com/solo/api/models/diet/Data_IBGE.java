@@ -15,7 +15,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "food_data", schema = "ibge")
+@Table(name = "ibge_food_data", schema = "appSolo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -41,111 +41,111 @@ public class Data_IBGE {
     private String descricao_da_preparacao;
     
     @Column
-    private double Energia_kcal;
+    private Double Energia_kcal;
     
     @Column
-    private double Proteina_g;
+    private Double Proteina_g;
     
     @Column
-    private double Lipidios_totais_g;
+    private Double Lipidios_totais_g;
     
     @Column
-    private double Carboidrato_g;
+    private Double Carboidrato_g;
     
     @Column
-    private double Fibra_alimentar_total_g;
+    private Double Fibra_alimentar_total_g;
     
     @Column
-    private double Colesterol_mg;
+    private Double Colesterol_mg;
     
     @Column
-    private double AG_Saturados_g;
+    private Double AG_Saturados_g;
     
     @Column
-    private double AG_Mono_g;
+    private Double AG_Mono_g;
     
     @Column
-    private double AG_Poli_g;
+    private Double AG_Poli_g;
     
     @Column
-    private double AG_Linoleico_g;
+    private Double AG_Linoleico_g;
     
     @Column
-    private double AG_Linolenico_g;
+    private Double AG_Linolenico_g;
     
     @Column
-    private double AG_Trans_total_g;
+    private Double AG_Trans_total_g;
     
     @Column
-    private double Acucar_total_g;
+    private Double Acucar_total_g;
     
     @Column
-    private double Acucar_de_adicacao_g;
+    private Double Acucar_de_adicacao_g;
     
     @Column
-    private double Calcio_mg;
+    private Double Calcio_mg;
 
     @Column
-    private double Magnesio_mg;
+    private Double Magnesio_mg;
     
     @Column
-    private double Manganes_mg;
+    private Double Manganes_mg;
     
     @Column
-    private double Fosforo_mg;
+    private Double Fosforo_mg;
     
     @Column
-    private double Ferro_mg;
+    private Double Ferro_mg;
     
     @Column
-    private double Sodio_mg;
+    private Double Sodio_mg;
     
     @Column
-    private double Sodio_de_adicao_mg;
+    private Double Sodio_de_adicao_mg;
     
     @Column
-    private double Potassio_mg;
+    private Double Potassio_mg;
     
     @Column
-    private double Cobre_mg;
+    private Double Cobre_mg;
     
     @Column
-    private double Zinco_mg;
+    private Double Zinco_mg;
     
     @Column
-    private double Selenio_mcg;
+    private Double Selenio_mcg;
     
     @Column
-    private double Retinol_mcg;
+    private Double Retinol_mcg;
     
     @Column
-    private double Vitamina_A_RAE_mcg;
+    private Double Vitamina_A_RAE_mcg;
     
     @Column
-    private double Tiamina_mg;
+    private Double Tiamina_mg;
     
     @Column
-    private double Riboflavina_mg;
+    private Double Riboflavina_mg;
     
     @Column
-    private double Niacina_mg;
+    private Double Niacina_mg;
 
     @Column
-    private double Piridoxina_mg;
+    private Double Piridoxina_mg;
     
     @Column
-    private double Cobalamina_mcg;
+    private Double Cobalamina_mcg;
     
     @Column
-    private double Folato_DFE_mcg;
+    private Double Folato_DFE_mcg;
     
     @Column
-    private double Vitamina_D_mcg;
+    private Double Vitamina_D_mcg;
     
     @Column
-    private double Vitamina_E_mg;
+    private Double Vitamina_E_mg;
     
     @Column
-    private double Vitamina_C_mg;
+    private Double Vitamina_C_mg;
 
 }

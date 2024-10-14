@@ -18,12 +18,12 @@ public class Meal_Items {
 
     @ManyToOne
     @MapsId("idMeal")
-    @JoinColumn(name = "idMeal", foreignKey = @ForeignKey(name = "FK_Meal_Items_Meal"))
+    @JoinColumn(name = "idMeal", nullable = false,  foreignKey = @ForeignKey(name = "FK_Meal_Items_Meal"))
     private Meal idMeal;
 
     @ManyToOne
-    @MapsId("idFood")
-    @JoinColumn(name = "idFood", foreignKey = @ForeignKey(name = "FK_Meal_Items_FoodData"))
+    @MapsId("idFood") // Presumindo que "idFood" é a chave na classe chave composta
+    @JoinColumn(name = "idFood", nullable = false,  referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_Meal_Items_FoodData"))
     private Data_IBGE idFood;
 
     @Column(nullable = false)
@@ -41,6 +41,10 @@ public class Meal_Items {
 
     public Meal_Items_Key getId_item() {
         return id_item;
+    }
+
+    public void setId_item(Meal_Items_Key id_item) {
+        this.id_item = id_item;
     }
 
     public Meal getIdMeal() {
@@ -68,15 +72,16 @@ public class Meal_Items {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        // TODO Auto-generated method stub
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Meal_Items)) return false;
+        Meal_Items that = (Meal_Items) o;
+        return id_item.equals(that.id_item);
     }
 
     @Override
     public int hashCode() {
-        // TODO Auto-generated method stub
-        return super.hashCode();
+        return id_item.hashCode();
     }
 
     @Override
@@ -85,3 +90,6 @@ public class Meal_Items {
         return super.toString();
     }
 }
+
+
+

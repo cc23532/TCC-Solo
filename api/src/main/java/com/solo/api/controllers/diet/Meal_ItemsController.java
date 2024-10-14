@@ -8,17 +8,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
 import java.util.List;
 import java.util.Optional;
-import java.util.Collections;
+import java.util.HashMap;
 
 import com.solo.api.DTO.diet.Meal_ItemsDTO;
-import com.solo.api.models.diet.Meal;
+import com.solo.api.models.diet.Data_IBGE;
+import com.solo.api.models.diet.Meal_Items_Key;
 import com.solo.api.models.user.SoloUser;
 import com.solo.api.repositories.diet.MealRepository;
 import com.solo.api.repositories.diet.Meal_ItemsRepository;
@@ -40,18 +39,45 @@ public class Meal_ItemsController {
     @Autowired
     MealRepository mealRepo;
 
-    //adiciona os alimentos da refeição
-    @PostMapping("/addMeal/{idUser}?idMeal={idMeal}/items")
-    public ResponseEntity<?> registerMeal_Items(@PathVariable SoloUser idUser, @RequestParam Integer idMeal, @RequestBody Map<String, String> body) {
+    @PostMapping("/addMeal/{idUser}/items/{idMeal}")
+    public ResponseEntity<?> registerMealItems(
+            @PathVariable SoloUser idUser, 
+            @PathVariable Integer idMeal, // Aqui, pegamos o idMeal como Integer
+            @RequestBody Map<String, String> body) {
         try {
+            // Validação dos parâmetros recebidos no corpo da requisição
             String foodName = body.get("foodName");
             String preparationMethod = body.get("preparationMethod");
-    
-            Optional<Integer> idFoodOptional = foodService.findByNameAndMethod(foodName, preparationMethod);
-    
-            if (idFoodOptional.isPresent()) {
-                Integer idFood = idFoodOptional.get();
-                return new ResponseEntity<>(Collections.singletonMap("idFood", idFood), HttpStatus.OK);
+            String weightStr = body.get("weight");
+
+            if (foodName == null || preparationMethod == null || weightStr == null) {
+                return new ResponseEntity<>("Campos obrigatórios ausentes.", HttpStatus.BAD_REQUEST);
+            }
+
+            // Verifica e converte o peso para double
+            double weight;
+            try {
+                weight = Double.parseDouble(weightStr);
+            } catch (NumberFormatException e) {
+                return new ResponseEntity<>("Peso inválido.", HttpStatus.BAD_REQUEST);
+            }
+
+            // Busca o alimento pelo nome e método de preparo
+            Optional<Data_IBGE> foodOptional = foodService.findByNameAndMethod(foodName, preparationMethod);
+            
+            if (foodOptional.isPresent()) {
+                Data_IBGE food = foodOptional.get(); // Obtemos o objeto Data_IBGE
+                Meal_Items_Key itemKey = service.registerMeal_Items(mealRepo.findById(idMeal).orElseThrow(() -> 
+                    new RuntimeException("Refeição não encontrada.")), 
+                    food.getId(), // Passamos o id do alimento
+                    weight);
+                
+                // Criação da resposta
+                Map<String, Object> response = new HashMap<>();
+                response.put("idMeal", itemKey.getIdMeal());
+                response.put("idFood", itemKey.getIdFood());
+
+                return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("Alimento não encontrado.", HttpStatus.NOT_FOUND);
             }
@@ -59,19 +85,12 @@ public class Meal_ItemsController {
             return new ResponseEntity<>("Erro ao processar a requisição: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    
     
     // retorna os dados individuais de cada item (ex. calorias, proteinas, carboidratos etc)
-    @GetMapping("/my-meals/{idUser}?idMeal={idMeal}/items")
-    public List<Meal_ItemsDTO> getMealDetails(@PathVariable SoloUser idUser, @RequestParam Integer idMeal) {
-        // Verifique se a refeição pertence ao usuário
-        Meal meal = mealRepo.findById(idMeal)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Refeição não encontrada."));
-        
-        // Verifique se a refeição pertence ao usuário
-        if (!meal.getUser().equals(idUser.getId())) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Acesso não autorizado.");
-        }
-        
+    @GetMapping("/my-meals/{idUser}/items/{idMeal}")
+    public List<Meal_ItemsDTO> getMealDetails(@PathVariable SoloUser idUser, @PathVariable Integer idMeal) {
         return service.getMealDetails(idMeal);
     }
     

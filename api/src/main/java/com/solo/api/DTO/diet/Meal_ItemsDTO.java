@@ -1,6 +1,7 @@
 package com.solo.api.DTO.diet;
 
 import java.util.Date;
+import java.math.BigDecimal;
 import java.sql.Time;
 
 public class Meal_ItemsDTO {
@@ -10,24 +11,24 @@ public class Meal_ItemsDTO {
     private Integer id_item;
     private String foodName;
     private String preparationMethod;
-    private double weight;
-    private double energy_KCal;
-    private double carbohydrates_g;
-    private double protein_g;
-    private double total_fats_g;
-    private double satured_fats_g;
-    private double trans_fats_g;
-    private double dietary_fiber_g;
-    private double sodium_g;
-    private double total_sugars_g;
+    private Double weight;
+    private BigDecimal energy_KCal;
+    private BigDecimal carbohydrates_g;
+    private BigDecimal protein_g;
+    private BigDecimal total_fats_g;
+    private BigDecimal satured_fats_g;
+    private BigDecimal trans_fats_g;
+    private BigDecimal dietary_fiber_g;
+    private BigDecimal sodium_g;
+    private BigDecimal total_sugars_g;
 
     public Meal_ItemsDTO() {}
 
     public Meal_ItemsDTO(Integer idMeal, Date mealDate, Time mealTime, Integer id_item,
-                         String foodName, String preparationMethod, double weight, double energy_KCal,
-                         double carbohydrates_g, double protein_g, double total_fats_g,
-                         double satured_fats_g, double trans_fats_g, double dietary_fiber_g,
-                         double sodium_g, double total_sugars_g) {
+                         String foodName, String preparationMethod, Double weight, BigDecimal energy_KCal,
+                         BigDecimal carbohydrates_g, BigDecimal protein_g, BigDecimal total_fats_g,
+                         BigDecimal satured_fats_g, BigDecimal trans_fats_g, BigDecimal dietary_fiber_g,
+                         BigDecimal sodium_g, BigDecimal total_sugars_g) {
         this.idMeal = idMeal;
         this.mealDate = mealDate;
         this.mealTime = mealTime;
@@ -67,41 +68,41 @@ public class Meal_ItemsDTO {
         this.preparationMethod = preparationMethod;
     }
 
-    public double getWeight() { return weight; }
-    public void setWeight(double weight) { this.weight = weight; }
+    public Double getWeight() { return weight; }
+    public void setWeight(Double weight) { this.weight = weight; }
 
-    public double getEnergy_KCal() { return energy_KCal; }
-    public void setEnergy_KCal(double energy_KCal) { this.energy_KCal = energy_KCal; }
+    public BigDecimal getEnergy_KCal() { return energy_KCal; }
+    public void setEnergy_KCal(BigDecimal energy_KCal) { this.energy_KCal = energy_KCal; }
 
-    public double getCarbohydrates_g() { return carbohydrates_g; }
-    public void setCarbohydrates_g(double carbohydrates_g) {
+    public BigDecimal getCarbohydrates_g() { return carbohydrates_g; }
+    public void setCarbohydrates_g(BigDecimal carbohydrates_g) {
         this.carbohydrates_g = carbohydrates_g;
     }
 
-    public double getProtein_g() { return protein_g; }
-    public void setProtein_g(double protein_g) { this.protein_g = protein_g; }
+    public BigDecimal getProtein_g() { return protein_g; }
+    public void setProtein_g(BigDecimal protein_g) { this.protein_g = protein_g; }
 
-    public double getTotal_fats_g() { return total_fats_g; }
-    public void setTotal_fats_g(double total_fats_g) { this.total_fats_g = total_fats_g; }
+    public BigDecimal getTotal_fats_g() { return total_fats_g; }
+    public void setTotal_fats_g(BigDecimal total_fats_g) { this.total_fats_g = total_fats_g; }
 
-    public double getSatured_fats_g() { return satured_fats_g; }
-    public void setSatured_fats_g(double satured_fats_g) {
+    public BigDecimal getSatured_fats_g() { return satured_fats_g; }
+    public void setSatured_fats_g(BigDecimal satured_fats_g) {
         this.satured_fats_g = satured_fats_g;
     }
 
-    public double getTrans_fats_g() { return trans_fats_g; }
-    public void setTrans_fats_g(double trans_fats_g) { this.trans_fats_g = trans_fats_g; }
+    public BigDecimal getTrans_fats_g() { return trans_fats_g; }
+    public void setTrans_fats_g(BigDecimal trans_fats_g) { this.trans_fats_g = trans_fats_g; }
 
-    public double getDietary_fiber_g() { return dietary_fiber_g; }
-    public void setDietary_fiber_g(double dietary_fiber_g) {
+    public BigDecimal getDietary_fiber_g() { return dietary_fiber_g; }
+    public void setDietary_fiber_g(BigDecimal dietary_fiber_g) {
         this.dietary_fiber_g = dietary_fiber_g;
     }
 
-    public double getSodium_g() { return sodium_g; }
-    public void setSodium_g(double sodium_g) { this.sodium_g = sodium_g; }
+    public BigDecimal getSodium_g() { return sodium_g; }
+    public void setSodium_g(BigDecimal sodium_g) { this.sodium_g = sodium_g; }
 
-    public double getTotal_sugars_g() { return total_sugars_g; }
-    public void setTotal_sugars_g(double total_sugars_g) {
+    public BigDecimal getTotal_sugars_g() { return total_sugars_g; }
+    public void setTotal_sugars_g(BigDecimal total_sugars_g) {
         this.total_sugars_g = total_sugars_g;
     }
 

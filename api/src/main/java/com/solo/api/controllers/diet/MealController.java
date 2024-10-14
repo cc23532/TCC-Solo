@@ -3,7 +3,6 @@ package com.solo.api.controllers.diet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,13 +33,19 @@ public class MealController {
     @Autowired
     MealService service;
 
+    @GetMapping
+    public String testRoute() {
+        return "SOLO: Seção de Dieta no ar";
+    }
+    
+
     //adiciona nova refeição
     @PostMapping("/addMeal/{idUser}")
     public ResponseEntity<?> registerNewMeal(@PathVariable SoloUser idUser, @RequestBody Map<String, String> body){
         try {
             String mealDateStr = body.get("mealDate");
             Date mealDate = new SimpleDateFormat("yyyy-MM-dd").parse(mealDateStr);
-            Time mealTime = (body.get("mealTime") != null && !body.get("workEnd").isEmpty()) ? Time.valueOf(body.get("workEnd") + ":00") : null;
+            Time mealTime = (body.get("mealTime") != null && !body.get("mealTime").isEmpty()) ? Time.valueOf(body.get("mealTime") + ":00") : null;
 
             int idMeal = service.registerNewMeal(idUser, mealDate, mealTime);
         
@@ -60,12 +65,5 @@ public class MealController {
     @GetMapping("/my-meals/{idUser}")
     public List<MealSummaryDTO> getMealsByUser(@PathVariable Integer idUser) {
         return service.getMealsByUser(idUser);
-    }
-
-    //deleta refeição com base no idMeal
-    @DeleteMapping("/my-meals/{idUser}/delete/{idMeal}")
-    public void delete(@PathVariable Integer idMeal){
-        repo.deleteById(idMeal);
-    }
-    
+    }    
 }

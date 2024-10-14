@@ -14,8 +14,11 @@ public class Data_IBGEService {
     @Autowired
     Data_IBGERepository repo;
 
-    public Optional<Integer> findByNameAndMethod(String descricao_do_alimento, String descricao_da_preparacao){
+    public Optional<Data_IBGE> findByNameAndMethod(String descricao_do_alimento, String descricao_da_preparacao){
         return repo.findByNameAndMethod(descricao_do_alimento, descricao_da_preparacao);
+    }
+    public Optional<Data_IBGE> findById(Integer id){
+        return repo.findById(id);
     }
 
     public List<Data_IBGE> findByName(String descricao_do_alimento){
@@ -30,7 +33,7 @@ public class Data_IBGEService {
         return repo.findAll();
     }
 
-    public Optional<Data_IBGE> showOne(Integer id){
-        return repo.findById(id);
+    public Data_IBGE showOne(Integer id){
+        return repo.findByIdFood(id);
     }
 }

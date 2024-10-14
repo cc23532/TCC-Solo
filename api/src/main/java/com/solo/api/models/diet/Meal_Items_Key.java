@@ -1,26 +1,18 @@
 package com.solo.api.models.diet;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import java.io.Serializable;
 
 @Embeddable
-public class Meal_Items_Key {
+public class Meal_Items_Key implements Serializable {
 
     @Column(name = "idMeal")
     private Integer idMeal;
 
     @Column(name = "idFood")
     private Integer idFood;
-    
-    public Meal_Items_Key(){
 
-    }
-
-    public Meal_Items_Key(Integer idMeal, Integer idFood){
-        this.idMeal = idMeal;
-        this.idFood  = idMeal;
-    }
-
+    // Getters e Setters
     public Integer getIdMeal() {
         return idMeal;
     }
@@ -37,21 +29,22 @@ public class Meal_Items_Key {
         this.idFood = idFood;
     }
 
+    // Implementar equals e hashCode para a chave composta
     @Override
-    public boolean equals(Object obj) {
-        // TODO Auto-generated method stub
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Meal_Items_Key)) return false;
+
+        Meal_Items_Key that = (Meal_Items_Key) o;
+
+        if (!idMeal.equals(that.idMeal)) return false;
+        return idFood.equals(that.idFood);
     }
 
     @Override
     public int hashCode() {
-        // TODO Auto-generated method stub
-        return super.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
+        int result = idMeal.hashCode();
+        result = 31 * result + idFood.hashCode();
+        return result;
     }
 }

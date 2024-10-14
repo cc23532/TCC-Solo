@@ -3,6 +3,7 @@ package com.solo.api.services.diet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
@@ -37,50 +38,56 @@ public class MealService {
     }
 
     private MealSummaryDTO calculateMealSummary(List<Meal_ItemsDTO> mealItems) {
-        double totalWeight = 0;
-        double totalEnergyKCal = 0;
-        double totalProteins = 0;
-        double totalFats = 0;
-        double totalCarbohydrates = 0;
-        double totalSaturatedFats = 0;
-        double totalTransFats = 0;
-        double totalDietaryFiber = 0;
-        double totalSodium = 0;
-        double totalSugars = 0;
-
+        Double totalWeight =0.0;
+        BigDecimal totalEnergyKCal = BigDecimal.valueOf(0.0);
+        BigDecimal totalProteins = BigDecimal.valueOf(0.0);
+        BigDecimal totalFats = BigDecimal.valueOf(0.0);
+        BigDecimal totalCarbohydrates = BigDecimal.valueOf(0.0);
+        BigDecimal totalSaturatedFats = BigDecimal.valueOf(0.0);
+        BigDecimal totalTransFats = BigDecimal.valueOf(0.0);
+        BigDecimal totalDietaryFiber = BigDecimal.valueOf(0.0);
+        BigDecimal totalSodium = BigDecimal.valueOf(0.0);
+        BigDecimal totalSugars = BigDecimal.valueOf(0.0);
+    
         if (mealItems.isEmpty()) {
-            return new MealSummaryDTO(null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            return new MealSummaryDTO(null, null, null, 0.0, BigDecimal.ZERO, BigDecimal.ZERO, 
+                                       BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, 
+                                       BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, 
+                                       BigDecimal.ZERO);
         }
-
+    
         for (Meal_ItemsDTO item : mealItems) {
-            totalWeight += item.getWeight();
-            totalEnergyKCal += item.getEnergy_KCal();
-            totalProteins += item.getProtein_g();
-            totalFats += item.getTotal_fats_g();
-            totalCarbohydrates += item.getCarbohydrates_g();
-            totalSaturatedFats += item.getSatured_fats_g();
-            totalTransFats += item.getTrans_fats_g();
-            totalDietaryFiber += item.getDietary_fiber_g();
-            totalSodium += item.getSodium_g();
-            totalSugars += item.getTotal_sugars_g();
+            if (item != null) { // Verifica se o item não é null
+                totalWeight += 0.0;
+                totalEnergyKCal = totalEnergyKCal.add(item.getEnergy_KCal() != null ? item.getEnergy_KCal() : BigDecimal.ZERO);
+                totalProteins = totalProteins.add(item.getProtein_g() != null ? item.getProtein_g() : BigDecimal.ZERO);
+                totalFats = totalFats.add(item.getTotal_fats_g() != null ? item.getTotal_fats_g() : BigDecimal.ZERO);
+                totalCarbohydrates = totalCarbohydrates.add(item.getCarbohydrates_g() != null ? item.getCarbohydrates_g() : BigDecimal.ZERO);
+                totalSaturatedFats = totalSaturatedFats.add(item.getSatured_fats_g() != null ? item.getSatured_fats_g() : BigDecimal.ZERO);
+                totalTransFats = totalTransFats.add(item.getTrans_fats_g() != null ? item.getTrans_fats_g() : BigDecimal.ZERO);
+                totalDietaryFiber = totalDietaryFiber.add(item.getDietary_fiber_g() != null ? item.getDietary_fiber_g() : BigDecimal.ZERO);
+                totalSodium = totalSodium.add(item.getSodium_g() != null ? item.getSodium_g() : BigDecimal.ZERO);
+                totalSugars = totalSugars.add(item.getTotal_sugars_g() != null ? item.getTotal_sugars_g() : BigDecimal.ZERO);
+            }
         }
-
+    
         // Pega as informações da refeição do primeiro item
         Meal_ItemsDTO firstItem = mealItems.get(0);
         Integer idMealRef = firstItem.getIdMeal(); // ID da refeição
         Date mealDate = firstItem.getMealDate();     // Data da refeição
         Time mealTime = firstItem.getMealTime();     // Hora da refeição
-        
+    
         // Cria e retorna o resumo da refeição
         return new MealSummaryDTO(
                 idMealRef, mealDate, mealTime,
-                totalWeight, totalEnergyKCal, totalCarbohydrates, 
-                totalProteins, totalFats, totalSaturatedFats, 
-                totalTransFats, totalDietaryFiber, totalSodium, 
+                totalWeight, totalEnergyKCal, totalCarbohydrates,
+                totalProteins, totalFats, totalSaturatedFats,
+                totalTransFats, totalDietaryFiber, totalSodium,
                 totalSugars
         );
     }
-
+    
+    
     private MealSummaryDTO getMealSummary(Integer idMeal) {
         // Obtém os detalhes da refeição
         List<Meal_ItemsDTO> mealItems = itemsService.getMealDetails(idMeal);
