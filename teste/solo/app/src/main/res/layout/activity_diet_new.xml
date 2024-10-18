@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
     <!-- Header -->
+
+    <!-- Information Section -->
+
+    <ImageView
+        android:id="@+id/imgVoltar"
+        android:layout_width="44dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="129dp"
+        android:src="@drawable/pngegg"
+        app:layout_constraintEnd_toStartOf="@+id/textView13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/header"
         android:layout_width="wrap_content"
@@ -17,13 +33,13 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- Information Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!-- Nome -->
+
         <TextView
             android:id="@+id/nome_label"
             android:layout_width="wrap_content"

@@ -19,7 +19,7 @@ import com.example.solo.UserSection.ProfileActivity;
 public class DietHomeActivity extends AppCompatActivity {
 
     private FrameLayout frame;
-    private ImageView imageView11, imageView12;
+    private ImageView imageView11, imageView12, imgBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,14 @@ public class DietHomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(DietHomeActivity.this, DietNewActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        imgBack = findViewById(R.id.imgBack);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
