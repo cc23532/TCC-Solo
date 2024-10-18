@@ -17,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.solo.DietSection.DietHomeActivity;
 import com.example.solo.R;
 import com.example.solo.WorkoutSection.CardioHomeActivity;
 import com.example.solo.WorkoutSection.MuscleHomeActivity;
@@ -24,9 +25,11 @@ import com.example.solo.WorkoutSection.MuscleHomeActivity;
 public class HomeActivity extends AppCompatActivity {
     private Button btnPopUpWorkout;
 
-    private ImageView btnProfileIcon, btnWorkoutIcon, personIcon;
+    private ImageView btnProfileIcon, btnWorkoutIcon, personIcon, dietIcon;
 
     private FrameLayout frameWorkout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,15 @@ public class HomeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            dietIcon = findViewById(R.id.dietIcon);
+            dietIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(HomeActivity.this, DietHomeActivity.class);
                     startActivity(intent);
                 }
             });

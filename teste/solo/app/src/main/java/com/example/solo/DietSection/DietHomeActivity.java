@@ -1,6 +1,10 @@
 package com.example.solo.DietSection;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,18 +13,36 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.solo.R;
+import com.example.solo.UserSection.HomeActivity;
+import com.example.solo.UserSection.ProfileActivity;
 
 public class DietHomeActivity extends AppCompatActivity {
+
+    private FrameLayout frame;
+    private ImageView imageView11, imageView12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_diet_home);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        imageView11 = findViewById(R.id.imageView11);
+        imageView11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DietHomeActivity.this, DietNewActivity.class);
+                startActivity(intent);
+            }
         });
+
+        imageView12 = findViewById(R.id.imageView12);
+        imageView12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DietHomeActivity.this, DietNewActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
