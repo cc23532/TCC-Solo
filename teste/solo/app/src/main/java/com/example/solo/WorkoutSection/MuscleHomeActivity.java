@@ -1,6 +1,7 @@
 package com.example.solo.WorkoutSection;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +22,9 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.solo.DietSection.DietHomeActivity;
 import com.example.solo.R;
+import com.example.solo.UserSection.HomeActivity;
 import com.example.solo.Util.URL;
 
 import org.json.JSONArray;
@@ -56,8 +59,9 @@ public class MuscleHomeActivity extends AppCompatActivity {
         btnAddWorkout = findViewById(R.id.btnAddWorkout);
         btnAddWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                createActivity();
+            public void onClick(View view) {
+                Intent intent = new Intent(MuscleHomeActivity.this, MuscleNewActivity.class);
+                startActivity(intent);
             }
         });
 
