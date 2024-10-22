@@ -1,11 +1,10 @@
 CREATE VIEW appSolo.MealDetails AS
 SELECT 
-    m.idMeal as idMeal,
+    m.idMeal AS idMeal,
     m.mealDate AS Meal_Date,
     m.mealTime AS Meal_Time,
     mi.idItem AS id_item,
-    fi.descricao_do_alimento AS Food_Name,
-    fi.descricao_da_preparacao AS Preparation_Description,
+    fi.descricao_do_alimento + ' ' + fi.descricao_da_preparacao AS Food_Name,
     mi.weight AS Weight,
     fi.Energia_kcal AS Energy_kcal,
     fi.Carboidrato_g AS Carbohydrates,
