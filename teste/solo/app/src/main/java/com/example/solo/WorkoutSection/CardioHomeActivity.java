@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -17,12 +18,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.solo.Login_Register.LoginActivity;
 import com.example.solo.R;
 import com.example.solo.Util.URL;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,7 +34,8 @@ import java.io.UnsupportedEncodingException;
 public class CardioHomeActivity extends AppCompatActivity {
     private Button btnStartNewActivity;
     private ImageView btnVoltar;
-    private static final String BASE_URL = new URL().getURL() + "/workout/cardio/newActivity";
+    private TextView duration, distance, lostKCal;
+    private static final String BASE_URL = new URL().getURL() + "/workout/cardio/my-activities";
     private static final String TAG = "CardioHomeActivity";
     private int idUser;
     private RequestQueue requestQueue;
@@ -48,6 +52,8 @@ public class CardioHomeActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
+        exibirInfoTela();
+
         btnStartNewActivity = findViewById(R.id.btnStartNewActivity);
         btnStartNewActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +67,53 @@ public class CardioHomeActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void exibirInfoTela(){
+        duration = findViewById(R.id.duration);
+        distance = findViewById(R.id.distance);
+        lostKCal = findViewById(R.id.lostKcal);
+
+        if (idUser != -1) {
+            String url = BASE_URL + "/" + idUser;
+
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            if (response.length() > 0) {
+                                try {
+                                    JSONObject item = response.getJSONObject(0);
+                                    String durationStr = item.getString("duration") + "h";
+                                    String distanceStr = item.getDouble("distance") + "km";
+                                    String lostKCalStr = item.getInt("lostKCal") + " kcal";
+
+
+                                    duration.setText(durationStr);
+                                    distance.setText(distanceStr);
+                                    lostKCal.setText(lostKCalStr);
+
+
+                                } catch (JSONException e) {
+                                    Log.e(TAG, "Erro ao processar a resposta JSON", e);
+                                    Toast.makeText(CardioHomeActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(CardioHomeActivity.this, "Nenhum item encontrado.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e(TAG, "Erro na requisição: " + error.toString());
+                    Toast.makeText(CardioHomeActivity.this, "Erro ao obter as informações.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            requestQueue.add(jsonArrayRequest);
+        } else {
+            Toast.makeText(this, "Atividade não encontrada.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void createActivity(){
