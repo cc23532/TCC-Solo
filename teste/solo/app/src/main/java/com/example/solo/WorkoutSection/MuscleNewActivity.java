@@ -44,7 +44,7 @@ public class MuscleNewActivity extends AppCompatActivity {
     private int idUser;
     private RequestQueue requestQueue;
     private EditText nameExerciseField, cargaField, seriesField, repeticoesField;
-    private TextView name, weight, repetition;
+    private TextView name, weight, repetition, typeExercise;
     private Button btnSaveExercise;
 
 
@@ -63,15 +63,7 @@ public class MuscleNewActivity extends AppCompatActivity {
         btnNovoTreino.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-            }
-        });
-
-        btnVoltar = findViewById(R.id.imgBack);
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
+                createActivity();
             }
         });
     }
@@ -214,6 +206,7 @@ public class MuscleNewActivity extends AppCompatActivity {
                                     if (editor.commit()) {
                                         Toast.makeText(MuscleNewActivity.this, "Exercício criado com sucesso", Toast.LENGTH_SHORT).show();
                                         createActivityItemsPopUp();
+                                        exibirInfoNaTela();
                                         dialog.dismiss();
                                     }
                                 } catch (Exception e) {
@@ -240,6 +233,7 @@ public class MuscleNewActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         weight = findViewById(R.id.weight);
         repetition = findViewById(R.id.repetition);
+        typeExercise = findViewById(R.id.typeExercise);
 
         SharedPreferences muscleActivity_session = getSharedPreferences("muscleActivity_session", MODE_PRIVATE);
         int idActivity = muscleActivity_session.getInt("idActivity", -1);
@@ -254,11 +248,13 @@ public class MuscleNewActivity extends AppCompatActivity {
                             if (response.length() > 0) {
                                 try {
                                     JSONObject item = response.getJSONObject(0);
+                                    String categoryValue = item.getString("category");
                                     String nameValue = item.getString("name");
                                     String weightValue = item.getDouble("weight") + "kg";
                                     String repetitionValue = item.getInt("repetition") + " rep";
 
                                     name.setText(nameValue);
+                                    typeExercise.setText(categoryValue);
                                     weight.setText(weightValue);
                                     repetition.setText(repetitionValue);
                                 } catch (JSONException e) {
