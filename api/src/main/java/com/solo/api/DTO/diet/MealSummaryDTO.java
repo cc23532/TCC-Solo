@@ -6,19 +6,19 @@ import java.math.BigDecimal;
 import java.sql.Time;
 
 public class MealSummaryDTO {
-    private Integer idMeal;                     // ID da refeição
-    private Date mealDate;                       // Data da refeição
-    private Time mealTime;                       // Hora da refeição
-    private Double totalWeight;                  // Peso total dos itens
-    private BigDecimal totalEnergyKCal;              // Energia total em KCal
-    private BigDecimal totalCarbohydrates;           // Carboidratos totais
-    private BigDecimal totalProteins;                // Proteínas totais
-    private BigDecimal totalFats;                    // Gorduras totais
-    private BigDecimal totalSaturatedFats;           // Gorduras saturadas totais
-    private BigDecimal totalTransFats;               // Gorduras trans totais
-    private BigDecimal totalDietaryFiber;            // Fibras dietéticas totais
-    private BigDecimal totalSodium;                  // Sódio total
-    private BigDecimal totalSugars;                  // Açúcares totais
+private Integer idMeal;
+    private Date mealDate;
+    private Time mealTime;
+    private Double totalWeight = 0.0;
+    private BigDecimal totalEnergyKCal = BigDecimal.ZERO;
+    private BigDecimal totalCarbohydrates = BigDecimal.ZERO;
+    private BigDecimal totalProteins = BigDecimal.ZERO;
+    private BigDecimal totalFats = BigDecimal.ZERO;
+    private BigDecimal totalSaturatedFats = BigDecimal.ZERO;
+    private BigDecimal totalTransFats = BigDecimal.ZERO;
+    private BigDecimal totalDietaryFiber = BigDecimal.ZERO;
+    private BigDecimal totalSodium = BigDecimal.ZERO;
+    private BigDecimal totalSugars = BigDecimal.ZERO;
 
     // Construtor padrão
     public MealSummaryDTO() {}

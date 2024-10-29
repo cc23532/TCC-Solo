@@ -58,7 +58,7 @@ public class MealService {
     
         for (Meal_ItemsDTO item : mealItems) {
             if (item != null) { // Verifica se o item não é null
-                totalWeight += 0.0;
+                totalWeight += item.getWeight();
                 totalEnergyKCal = totalEnergyKCal.add(item.getEnergy_KCal() != null ? item.getEnergy_KCal() : BigDecimal.ZERO);
                 totalProteins = totalProteins.add(item.getProtein_g() != null ? item.getProtein_g() : BigDecimal.ZERO);
                 totalFats = totalFats.add(item.getTotal_fats_g() != null ? item.getTotal_fats_g() : BigDecimal.ZERO);

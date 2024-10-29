@@ -55,19 +55,18 @@ public class Meal_ItemsService {
                 (Time) result[2],  // mealTime
                 (Integer) result[3],   // id_item
                 (String) result[4],   // foodName
-                (String) result[5],   // preparationMethod
-                (Double) result[6],  // weight
-                (BigDecimal) result[7],   // energy_KCal
-                (BigDecimal) result[8],  // carbohydrates_g
-                (BigDecimal) result[9],  // protein_g
-                (BigDecimal) result[10],  // total_fats_g
-                (BigDecimal) result[11],  // satured_fats_g
-                (BigDecimal) result[12],  // trans_fats_g
-                (BigDecimal) result[13],  // dietary_fiber_g
-                (BigDecimal) result[14],  // sodium_g
-                (BigDecimal) result[15]  // total_sugars_g
+                (Double) result[5],  // weight
+                (BigDecimal) result[6],   // energy_KCal
+                (BigDecimal) result[7],  // carbohydrates_g
+                (BigDecimal) result[8],  // protein_g
+                (BigDecimal) result[9],  // total_fats_g
+                (BigDecimal) result[10],  // satured_fats_g
+                (BigDecimal) result[11],  // trans_fats_g
+                (BigDecimal) result[12],  // dietary_fiber_g
+                (BigDecimal) result[13],  // sodium_g
+                (BigDecimal) result[14]  // total_sugars_g
             );
-        dtoList.add(dto);
+            dtoList.add(dto);
         }
         return dtoList;
     }

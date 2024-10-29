@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/diet/food-data-ibge")
-public class Data_IBGEController {
+public class FoodController {
     @Autowired
     Data_IBGERepository repo;
 

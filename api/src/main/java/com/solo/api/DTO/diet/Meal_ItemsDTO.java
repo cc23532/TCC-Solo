@@ -10,7 +10,6 @@ public class Meal_ItemsDTO {
     private Time mealTime;
     private Integer id_item;
     private String foodName;
-    private String preparationMethod;
     private Double weight;
     private BigDecimal energy_KCal;
     private BigDecimal carbohydrates_g;
@@ -25,7 +24,7 @@ public class Meal_ItemsDTO {
     public Meal_ItemsDTO() {}
 
     public Meal_ItemsDTO(Integer idMeal, Date mealDate, Time mealTime, Integer id_item,
-                         String foodName, String preparationMethod, Double weight, BigDecimal energy_KCal,
+                         String foodName, Double weight, BigDecimal energy_KCal,
                          BigDecimal carbohydrates_g, BigDecimal protein_g, BigDecimal total_fats_g,
                          BigDecimal satured_fats_g, BigDecimal trans_fats_g, BigDecimal dietary_fiber_g,
                          BigDecimal sodium_g, BigDecimal total_sugars_g) {
@@ -34,7 +33,6 @@ public class Meal_ItemsDTO {
         this.mealTime = mealTime;
         this.id_item = id_item;
         this.foodName = foodName;
-        this.preparationMethod = preparationMethod;
         this.weight = weight;
         this.energy_KCal = energy_KCal;
         this.carbohydrates_g = carbohydrates_g;
@@ -62,11 +60,6 @@ public class Meal_ItemsDTO {
 
     public String getFoodName() { return foodName; }
     public void setFoodName(String foodName) { this.foodName = foodName; }
-
-    public String getPreparationMethod() { return preparationMethod; }
-    public void setPreparationMethod(String preparationMethod) {
-        this.preparationMethod = preparationMethod;
-    }
 
     public Double getWeight() { return weight; }
     public void setWeight(Double weight) { this.weight = weight; }
@@ -114,7 +107,6 @@ public class Meal_ItemsDTO {
                 ", mealTime='" + mealTime + '\'' +
                 ", id_item=" + id_item +
                 ", foodName='" + foodName + '\'' +
-                ", preparationMethod='" + preparationMethod + '\'' +
                 ", weight=" + weight +
                 ", energy_KCal=" + energy_KCal +
                 ", carbohydrates_g=" + carbohydrates_g +

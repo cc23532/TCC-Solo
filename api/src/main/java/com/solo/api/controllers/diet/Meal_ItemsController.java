@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.HashMap;
 
 import com.solo.api.DTO.diet.Meal_ItemsDTO;
-import com.solo.api.models.diet.Data_IBGE;
+import com.solo.api.models.diet.Food_Select;
 import com.solo.api.models.diet.Meal_Items_Key;
 import com.solo.api.models.user.SoloUser;
 import com.solo.api.repositories.diet.MealRepository;
@@ -47,10 +47,9 @@ public class Meal_ItemsController {
         try {
             // Validação dos parâmetros recebidos no corpo da requisição
             String foodName = body.get("foodName");
-            String preparationMethod = body.get("preparationMethod");
             String weightStr = body.get("weight");
 
-            if (foodName == null || preparationMethod == null || weightStr == null) {
+            if (foodName == null || weightStr == null) {
                 return new ResponseEntity<>("Campos obrigatórios ausentes.", HttpStatus.BAD_REQUEST);
             }
 
@@ -63,13 +62,13 @@ public class Meal_ItemsController {
             }
 
             // Busca o alimento pelo nome e método de preparo
-            Optional<Data_IBGE> foodOptional = foodService.findByNameAndMethod(foodName, preparationMethod);
+            Optional<Food_Select> foodOptional = foodService.findByFoodName(foodName);
             
             if (foodOptional.isPresent()) {
-                Data_IBGE food = foodOptional.get(); // Obtemos o objeto Data_IBGE
+                Food_Select food = foodOptional.get(); 
                 Meal_Items_Key itemKey = service.registerMeal_Items(mealRepo.findById(idMeal).orElseThrow(() -> 
                     new RuntimeException("Refeição não encontrada.")), 
-                    food.getId(), // Passamos o id do alimento
+                    food.getId_item(), // Passamos o id do alimento
                     weight);
                 
                 // Criação da resposta

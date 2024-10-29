@@ -1,4 +1,4 @@
-CREATE VIEW appSolo.MealDetails AS
+CREATE OR ALTER VIEW appSolo.MealDetails AS
 SELECT 
     m.idMeal AS idMeal,
     m.mealDate AS Meal_Date,
@@ -6,15 +6,15 @@ SELECT
     mi.idItem AS id_item,
     fi.descricao_do_alimento + ' ' + fi.descricao_da_preparacao AS Food_Name,
     mi.weight AS Weight,
-    fi.Energia_kcal AS Energy_kcal,
-    fi.Carboidrato_g AS Carbohydrates,
-    fi.Proteina_g AS Proteins,
-    fi.Lipidios_totais_g AS Total_Fats,
-    fi.AG_Saturados_g AS Saturated_Fats,
-    fi.AG_Trans_total_g AS Trans_Fats,
-    fi.Fibra_alimentar_total_g AS Dietary_Fiber,
-    fi.Sodio_mg AS Sodium,
-    fi.Acucar_total_g AS Sugars
+    CAST(fi.Energia_kcal * (mi.weight / 100) AS DECIMAL(10, 2)) AS Energy_kcal,
+    CAST(fi.Carboidrato_g * (mi.weight / 100) AS DECIMAL(10, 2)) AS Carbohydrates,
+    CAST(fi.Proteina_g * (mi.weight / 100) AS DECIMAL(10, 2)) AS Proteins,
+    CAST(fi.Lipidios_totais_g * (mi.weight / 100) AS DECIMAL(10, 2)) AS Total_Fats,
+    CAST(fi.AG_Saturados_g * (mi.weight / 100) AS DECIMAL(10, 2)) AS Saturated_Fats,
+    CAST(fi.AG_Trans_total_g * (mi.weight / 100) AS DECIMAL(10, 2)) AS Trans_Fats,
+    CAST(fi.Fibra_alimentar_total_g * (mi.weight / 100) AS DECIMAL(10, 2)) AS Dietary_Fiber,
+    CAST(fi.Sodio_mg * (mi.weight / 100) AS DECIMAL(10, 2)) AS Sodium,
+    CAST(fi.Acucar_total_g * (mi.weight / 100) AS DECIMAL(10, 2)) AS Sugars
 FROM 
     appSolo.Meal m
 JOIN 
