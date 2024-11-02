@@ -122,7 +122,9 @@ CREATE TABLE appSolo.Meal_Items
 -- Pare de Fumar
 CREATE TABLE appSolo.StopSmoking
 (
-    idUser INT NOT NULL PRIMARY KEY,
+    idCount INT NOT NULL PRIMARY KEY,
+    idUser INT NOT NULL,
+    baseDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     cigsPerDay INT NOT NULL,
     cigsPerPack INT NOT NULL,
     packPrice FLOAT NOT NULL,
@@ -130,14 +132,15 @@ CREATE TABLE appSolo.StopSmoking
 );
 
 -- Finanças 
-CREATE TABLE appSolo.FinancialActivity
+CREATE TABLE appSolo.Finances
 (
     idActivity INT NOT NULL IDENTITY PRIMARY KEY,
     idUser INT NOT NULL,
-    typeOf VARCHAR(50) NOT NULL,
-    value MONEY NOT NULL,
-    activityDate DATETIME NOT NULL,
-    label VARCHAR(50) NOT NULL,
+    transactionType VARCHAR(50) NOT NULL, --entrada ou saída
+    movementType VARCHAR(15) NOT NULL,  --fixa ou variável
+    moneyValue FLOAT NOT NULL,
+    activityDate DATE NOT NULL,
+    label VARCHAR(50) NOT NULL, --alimentação, aluguel, seguro etc
     description TEXT NULL,
-    CONSTRAINT FK_FinancialActivity_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
+    CONSTRAINT FK_Finances_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
 );
