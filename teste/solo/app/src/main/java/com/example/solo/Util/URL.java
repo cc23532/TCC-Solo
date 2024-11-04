@@ -8,7 +8,7 @@ public class URL {
      // private static final String BASE_URL = "http://10.0.2.2:8080"; // Para emulador
 
     //URL Ngrok (Diego)
-    private static final String BASE_URL = "https://9f47-143-106-201-59.ngrok-free.app";
+    private static final String BASE_URL = "https://74c5-143-106-201-59.ngrok-free.app  ";
 
 
     public String getURL(){

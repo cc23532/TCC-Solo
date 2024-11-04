@@ -40,10 +40,15 @@ public class FinancesController {
     //Quando apenas @endDate estiver vazio, retornamos as finanças a partir de @startDate até o presente momento
     //Quando ambos @startDate e @endDate forem fornecidos, retornamos as finanças dentro do intervalo
     @GetMapping("/extract/{idUser}")
+    /*
+    public ResponseEntity<?> getExtractByPeriodAndUser(@PathVariable Integer idUser,
+                                                   @RequestParam(required = false) String startDate,
+                                                   @RequestParam(required = false) String endDate) {
+    */
     public ResponseEntity<?> getExtractByPeriodAndUser(@PathVariable Integer idUser, @RequestBody Map<String, String> body) {
         String startDateStr = body.get("startDate");
         String endDateStr = body.get("endDate");
-    
+        
         try {
             // Definir startDate como uma data muito antiga se for null
             Date startDate = startDateStr != null ? 
@@ -54,19 +59,18 @@ public class FinancesController {
             Date endDate = endDateStr != null ? 
                     new SimpleDateFormat("yyyy-MM-dd").parse(endDateStr) : 
                     new Date();
-    
+
             // Obter extrato pelo período e usuário
             List<Finances> extract = repo.getExtractByPeriodAndUser(startDate, endDate, idUser);
-    
+
             return extract.isEmpty() 
                     ? ResponseEntity.noContent().build() 
                     : ResponseEntity.ok(extract);
-    
+
         } catch (Exception e) {
             return new ResponseEntity<>("Erro na conversão dos dados", HttpStatus.BAD_REQUEST);
         }
     }
-    
 
     // detalhes de transação a partir do extrato -> transaction details
     @GetMapping("/extract/{idUser}/transaction-details/{idActivity}")

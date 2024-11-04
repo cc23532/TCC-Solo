@@ -21,11 +21,12 @@ import com.example.solo.DietSection.DietHomeActivity;
 import com.example.solo.R;
 import com.example.solo.WorkoutSection.CardioHomeActivity;
 import com.example.solo.WorkoutSection.MuscleHomeActivity;
+import com.example.solo.finances.FinanceHomeActivity;
 
 public class HomeActivity extends AppCompatActivity {
     private Button btnPopUpWorkout;
 
-    private ImageView btnProfileIcon, btnWorkoutIcon, personIcon, dietIcon;
+    private ImageView btnProfileIcon, btnWorkoutIcon, personIcon, dietIcon, financeIcon;
 
     private FrameLayout frameWorkout;
 
@@ -61,12 +62,19 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
             dietIcon = findViewById(R.id.dietIcon);
             dietIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(HomeActivity.this, DietHomeActivity.class);
+                    startActivity(intent);
+                }
+            });
+            financeIcon = findViewById(R.id.financeIcon);
+            financeIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(HomeActivity.this, FinanceHomeActivity.class);
                     startActivity(intent);
                 }
             });
