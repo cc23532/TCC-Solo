@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "StopSmoking", schema = "appSolo")
@@ -36,10 +36,10 @@ public class StopSmoking {
 
     @OneToOne
     @JoinColumn(name = "idUser", foreignKey = @ForeignKey(name = "FK_Finances_SoloUser"))
-    private SoloUser soloUser;
+    private SoloUser idUser;
 
     @Column(nullable = false)
-    private LocalDateTime baseDate;
+    private OffsetDateTime baseDate;
 
     @Column(nullable = false)
     private Integer cigsPerDay;
