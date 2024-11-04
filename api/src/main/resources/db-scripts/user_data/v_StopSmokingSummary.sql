@@ -1,11 +1,14 @@
-CREATE VIEW appSolo.StopSmokingSummary AS
+CREATE OR ALTER VIEW appSolo.StopSmokingSummary AS
 SELECT 
     ss.idCount,
     ss.idUser,
     ss.baseDate,
-    DATEDIFF(CURRENT_TIMESTAMP, ss.baseDate) AS daysWithoutSmoking,
-    DATEDIFF(CURRENT_TIMESTAMP, ss.baseDate) * ss.cigsPerDay AS avoidedCigarettes,
-    (DATEDIFF(CURRENT_TIMESTAMP, ss.baseDate) * ss.cigsPerDay / ss.cigsPerPack) * ss.packPrice AS moneySaved,
-    (DATEDIFF(CURRENT_TIMESTAMP, ss.baseDate) * ss.cigsPerDay * 11) / 60 AS lifeMinutesSaved
+    DATEDIFF(HOUR, ss.baseDate, CURRENT_TIMESTAMP) AS hoursWithoutSmoking,
+    -- Cálculo de cigarros evitados: cigarros por dia dividido por 24 horas
+    (DATEDIFF(HOUR, ss.baseDate, CURRENT_TIMESTAMP) * ss.cigsPerDay / 24.0) AS avoidedCigarettes,
+    -- Cálculo de dinheiro economizado
+    ((DATEDIFF(HOUR, ss.baseDate, CURRENT_TIMESTAMP) * ss.cigsPerDay / 24.0) / ss.cigsPerPack) * ss.packPrice AS moneySaved,
+    -- Cálculo de minutos de vida ganhos
+    (DATEDIFF(HOUR, ss.baseDate, CURRENT_TIMESTAMP) * ss.cigsPerDay * 11.0) / 60.0 AS lifeMinutesSaved
 FROM 
     appSolo.StopSmoking ss;

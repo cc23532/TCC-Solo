@@ -122,14 +122,14 @@ CREATE TABLE appSolo.Meal_Items
 -- Pare de Fumar
 CREATE TABLE appSolo.StopSmoking
 (
-    idCount INT NOT NULL PRIMARY KEY,
+    idCount INT NOT NULL IDENTITY PRIMARY KEY,
     idUser INT NOT NULL,
-    baseDate DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    baseDate DATETIME NOT NULL DEFAULT CAST(GETDATE() AS DATETIME),
     cigsPerDay INT NOT NULL,
     cigsPerPack INT NOT NULL,
     packPrice FLOAT NOT NULL,
     CONSTRAINT FK_StopSmoking_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
-);
+); 
 
 -- Finanças 
 CREATE TABLE appSolo.Finances
