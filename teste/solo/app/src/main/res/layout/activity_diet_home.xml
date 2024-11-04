@@ -14,10 +14,9 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/seta"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="Botão Voltar"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.002" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/dietText"
@@ -25,17 +24,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="172dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="8dp"
-        android:text="Dieta "
+        android:text="Dieta"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnProfileIcon"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/btnProfileIcon"
@@ -45,72 +38,64 @@
         android:layout_marginEnd="36dp"
         android:contentDescription="Ícone de Perfil"
         android:src="@drawable/solo_logo"
-        app:layout_constraintBottom_toTopOf="@+id/muscleText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Novo TextView para mostrar o total de calorias -->
+    <TextView
+        android:id="@+id/totalCaloriesInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Total de Calorias: 0"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintTop_toBottomOf="@+id/imgBack" />
 
-    <ImageView
-        android:id="@+id/imageView8"
+    <TextView
+        android:id="@+id/txtRefeicoes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="84dp"
+        android:text="Refeições Diárias"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/circle" />
+        app:layout_constraintTop_toBottomOf="@id/totalCaloriesInfo" />  <!-- Aqui foi corrigido -->
 
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/mealsInfo"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="148dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/goal" />
-
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginTop="8dp"
+        android:text="Nenhuma refeição registrada."
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/right" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtRefeicoes" />
 
-    <ImageView
-        android:id="@+id/imageView11"
+    <Button
+        android:id="@+id/btnAddMeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="324dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="604dp"
+        android:backgroundTint="#000000"
+        android:text="Adicionar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/meals" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="376dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/meals2" />
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="341dp"
-        android:layout_height="275dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="268dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewRefeicoes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/mealsInfo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
