@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -63,7 +64,7 @@ public class DietNewActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         // Obtendo o idUser salvo em SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("register-session", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
         idUser = sharedPreferences.getInt("idUser", -1); // Recupera o idUser salvo
         Log.d(TAG, "idUser recuperado: " + idUser);
 
@@ -106,7 +107,7 @@ public class DietNewActivity extends AppCompatActivity {
                             // Iterando pela resposta da API e adicionando alimentos à lista
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject food = response.getJSONObject(i);
-                                String foodName = food.getString("foodName");  // Assumindo que a chave do nome é "foodName"
+                                String foodName = food.getString("food_Name");  // Assumindo que a chave do nome é "foodName"
                                 alimentosList.add(foodName);
                             }
 
@@ -114,6 +115,16 @@ public class DietNewActivity extends AppCompatActivity {
                             ArrayAdapter<String> adapter = new ArrayAdapter<>(DietNewActivity.this, android.R.layout.simple_dropdown_item_1line, alimentosList);
                             alimentos.setAdapter(adapter);
 
+                            // Configurando o listener para capturar o item selecionado
+                            alimentos.setOnItemClickListener((parent, view, position, id) -> {
+                                String selectedFood = adapter.getItem(position); // Obtém o alimento selecionado
+
+                                // Salvando o item selecionado no SharedPreferences
+                                SharedPreferences sharedPreferences = getSharedPreferences("meal-session", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("foodName", selectedFood); // Salva apenas o alimento selecionado
+                                editor.apply();
+                            });
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(DietNewActivity.this, "Erro ao processar os alimentos.", Toast.LENGTH_SHORT).show();
@@ -138,15 +149,13 @@ public class DietNewActivity extends AppCompatActivity {
     private void registerMeal(int idUser) {
         // Obtendo os dados dos campos
         String dataRefeicao = data.getText().toString().trim();
-        String alimentosRefeicao = alimentos.getText().toString().trim();
-        String quantidadeRefeicao = quantidade.getText().toString().trim();
         String horarioRefeicao = horario.getText().toString().trim();
 
-        Log.d(TAG, "Dados obtidos: dataRefeicao=" + dataRefeicao + ", alimentosRefeicao=" + alimentosRefeicao +
-                ", quantidadeRefeicao=" + quantidadeRefeicao + ", horarioRefeicao=" + horarioRefeicao);
+        Log.d(TAG, "Dados obtidos: dataRefeicao=" + dataRefeicao + ", alimentosRefeicao=" +
+                ", quantidadeRefeicao="  + ", horarioRefeicao=" + horarioRefeicao);
 
         // Verificar se os campos obrigatórios estão preenchidos
-        if (TextUtils.isEmpty(dataRefeicao) || TextUtils.isEmpty(alimentosRefeicao) || TextUtils.isEmpty(quantidadeRefeicao) || TextUtils.isEmpty(horarioRefeicao)) {
+        if (TextUtils.isEmpty(dataRefeicao) || TextUtils.isEmpty(horarioRefeicao)) {
             Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show();
             Log.w(TAG, "Campos obrigatórios não preenchidos");
             return;
@@ -186,6 +195,7 @@ public class DietNewActivity extends AppCompatActivity {
                         try {
                             // Obter o idMeal da resposta para adicionar os itens
                             int idMeal = response.getInt("idMeal");
+                            editor.putInt("idMeal", idMeal);
                             addMealItems(idUser, idMeal);  // Chama a função para adicionar os itens à refeição
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -216,6 +226,11 @@ public class DietNewActivity extends AppCompatActivity {
     }
 
     private void addMealItems(int idUser, int idMeal) {
+        SharedPreferences sharedPreferences = getSharedPreferences("meal-session", MODE_PRIVATE);
+
+        String foodName = sharedPreferences.getString("foodName", null); // Recupera o idUser salvo
+        String weight = quantidade.getText().toString().trim();
+
         // Criando a URL para adicionar os itens à refeição
         String urlItems = BASE_URL + "/diet/addMeal/" + idUser + "/items/" + idMeal;
         Log.d(TAG, "URL para adicionar itens à refeição: " + urlItems);
@@ -224,8 +239,8 @@ public class DietNewActivity extends AppCompatActivity {
         JSONObject itemsData = new JSONObject();
         try {
             // Adicione os itens à refeição aqui
-            itemsData.put("foodName", "Exemplo de Alimento");
-            itemsData.put("weight", 1);
+            itemsData.put("foodName", foodName);
+            itemsData.put("weight", weight);
             Log.d(TAG, "Objeto JSON para itens criado: " + itemsData);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -235,12 +250,13 @@ public class DietNewActivity extends AppCompatActivity {
         }
 
         // Criando a requisição POST para adicionar itens à refeição
-        JsonObjectRequest itemsRequest = new JsonObjectRequest(Request.Method.POST, urlItems, itemsData,
+        JsonObjectRequest itemsRequest = new JsonObjectRequest(Request.Method.POST , urlItems, itemsData,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Toast.makeText(DietNewActivity.this, "Itens adicionados à refeição com sucesso!", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Resposta da requisição para adicionar itens: " + response.toString());
+                        finish();
                     }
                 },
                 new Response.ErrorListener() {

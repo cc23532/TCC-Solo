@@ -68,7 +68,7 @@ public class FinanceHomeActivity extends AppCompatActivity {
 
                                     totalSpent += moneyValue;
 
-                                    expensesBuilder.append("Descrição: ").append(description)
+                                    expensesBuilder.append(description)
                                             .append(", Valor: R$ ").append(moneyValue)
                                             .append("\n");
 
