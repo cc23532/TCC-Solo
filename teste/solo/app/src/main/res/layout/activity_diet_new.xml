@@ -44,13 +44,13 @@
             android:id="@+id/nome_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome"
+            android:text="Data"
             android:textSize="18sp"
             android:paddingTop="8dp"
             android:paddingBottom="4dp"/>
 
         <EditText
-            android:id="@+id/nome"
+            android:id="@+id/data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ex: Almoço"
@@ -66,12 +66,12 @@
             android:paddingTop="8dp"
             android:paddingBottom="4dp"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/alimentos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ex: Arroz"
-            android:inputType="text"/>
+            android:hint="Digite os alimentos"
+            android:inputType="text" />
 
         <!-- Quantidade -->
         <TextView
@@ -110,7 +110,7 @@
 
     <!-- Buttons -->
     <Button
-        android:id="@+id/adicionar_button"
+        android:id="@+id/addMeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
