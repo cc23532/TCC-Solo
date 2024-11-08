@@ -35,7 +35,7 @@ public class CardioHomeActivity extends AppCompatActivity {
     private Button btnStartNewActivity;
     private ImageView btnVoltar;
     private TextView duration, distance, lostKCal;
-    private static final String BASE_URL = new URL().getURL() + "/workout/cardio/my-activities";
+    private static final String BASE_URL = new URL().getURL() + "/workout/cardio";
     private static final String TAG = "CardioHomeActivity";
     private int idUser;
     private RequestQueue requestQueue;
@@ -75,7 +75,7 @@ public class CardioHomeActivity extends AppCompatActivity {
         lostKCal = findViewById(R.id.lostKcal);
 
         if (idUser != -1) {
-            String url = BASE_URL + "/" + idUser;
+            String url = BASE_URL + "/my-activities" + idUser;
 
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                     new Response.Listener<JSONArray>() {
@@ -129,7 +129,7 @@ public class CardioHomeActivity extends AppCompatActivity {
             return;
         }
 
-        String url = BASE_URL + "/" + idUser;
+        String url = BASE_URL + "/newActivity/" + idUser;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST, url, newActivity,
                 new Response.Listener<JSONObject>() {

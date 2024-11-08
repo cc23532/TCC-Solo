@@ -1,5 +1,6 @@
 package com.example.solo.DietSection;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -256,6 +257,8 @@ public class DietNewActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Toast.makeText(DietNewActivity.this, "Itens adicionados à refeição com sucesso!", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Resposta da requisição para adicionar itens: " + response.toString());
+                        Intent intent = new Intent(DietNewActivity.this, DietHomeActivity.class);
+                        startActivity(intent);
                         finish();
                     }
                 },

@@ -59,6 +59,7 @@ public class DietHomeActivity extends AppCompatActivity {
         btnAddMeal.setOnClickListener(view -> {
             Intent intent = new Intent(DietHomeActivity.this, DietNewActivity.class);
             startActivity(intent);
+            finish();
         });
     }
 
@@ -120,7 +121,7 @@ public class DietHomeActivity extends AppCompatActivity {
                                 double energyKCal = item.getDouble("energy_KCal");
                                 Log.d(TAG, "Alimento encontrado: " + foodName + " - Calorias: " + energyKCal);
 
-                                mealDetails.append(" - ").append(foodName).append(" \n");
+                                mealDetails.append(" - ").append(foodName).append(" " + energyKCal + "Kcal").append(" \n");
 
                                 totalCalories += energyKCal;
 
@@ -134,8 +135,9 @@ public class DietHomeActivity extends AppCompatActivity {
                     }
 
                     mealsInfo.setText(mealDetails.toString());
+                    String totalCaloriesFormat = String.format("%.2f", totalCalories);
 
-                    totalCaloriesInfo.setText("Total de Calorias: " + totalCalories);
+                    totalCaloriesInfo.setText("" + totalCaloriesFormat);
                 }, error -> Log.e(TAG, "Erro ao obter itens da refeição: " + error.toString()));
 
         requestQueue.add(jsonArrayRequest);

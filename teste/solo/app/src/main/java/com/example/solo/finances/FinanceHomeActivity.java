@@ -32,13 +32,14 @@ public class FinanceHomeActivity extends AppCompatActivity {
     private ImageView btnVoltar;
     private TextView totalSpentInfo;
     private TextView expensesList;
-    private static final String BASE_URL = new URL().getURL() + "/finances/extract";
+    private static final String BASE_URL = new URL().getURL() + "/finances";
     private static final String TAG = "FinanceHomeActivity";
     private RequestQueue requestQueue;
     private double totalSpent = 0;
     private Button btnEnviar, btnAdicionar;
     private EditText valorMovimentacao, dataMovimentacao, finalidadeEditText;
     private RadioButton radioEntrada, radioSaida;
+    private int idUser = getSharedPreferences("user_session", MODE_PRIVATE).getInt("idUser", -1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class FinanceHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_finance_home);
 
         requestQueue = Volley.newRequestQueue(this);
+
 
         totalSpentInfo = findViewById(R.id.totalSpentInfo);
         btnVoltar = findViewById(R.id.imgBack);
@@ -60,13 +62,15 @@ public class FinanceHomeActivity extends AppCompatActivity {
         btnAdicionar.setOnClickListener(view -> {
             popUpAddRegister();
         });
+
+
     }
 
     private void carregarDespesas() {
-        int idUser = getSharedPreferences("user_session", MODE_PRIVATE).getInt("idUser", -1);
+
 
         if (idUser != -1) {
-            String url = BASE_URL + "/" + idUser;
+            String url = BASE_URL + "/extract/" + idUser;
 
 
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -131,11 +135,7 @@ public class FinanceHomeActivity extends AppCompatActivity {
         radioEntrada = dialog.findViewById(R.id.radioEntrada);
         radioSaida = dialog.findViewById(R.id.radioSaida);
         btnEnviar = dialog.findViewById(R.id.btnEnviar);
-
-        SharedPreferences finacesActivity_session = getSharedPreferences("finacesActivity_session", MODE_PRIVATE);
-
-        int idUser = finacesActivity_session.getInt("idUser", -1);
-
+        
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Obtendo os valores dos campos
@@ -174,7 +174,7 @@ public class FinanceHomeActivity extends AppCompatActivity {
                 }
 
                 // Definindo a URL para o POST da movimentação financeira
-                String url = BASE_URL + "/finances/add/" + idUser;
+                String url = BASE_URL + "/add/" + idUser;
 
                 // Criando a requisição para enviar os dados
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, movimentacaoData,
