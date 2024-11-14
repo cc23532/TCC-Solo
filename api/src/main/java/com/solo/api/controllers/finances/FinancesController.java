@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.solo.api.repositories.finances.FinancesRepository;
@@ -39,12 +40,8 @@ public class FinancesController {
     //Quando startDate ou endDate estiverem vazios (null), retornamos todas as finanças do usuário (allTime)
     //Quando apenas @endDate estiver vazio, retornamos as finanças a partir de @startDate até o presente momento
     //Quando ambos @startDate e @endDate forem fornecidos, retornamos as finanças dentro do intervalo
-    @GetMapping("/extract/{idUser}")
-    /*
-    public ResponseEntity<?> getExtractByPeriodAndUser(@PathVariable Integer idUser,
-                                                   @RequestParam(required = false) String startDate,
-                                                   @RequestParam(required = false) String endDate) {
-    */
+    
+    /* @GetMapping("/extract/{idUser}")
     public ResponseEntity<?> getExtractByPeriodAndUser(@PathVariable Integer idUser, @RequestBody Map<String, String> body) {
         String startDateStr = body.get("startDate");
         String endDateStr = body.get("endDate");
@@ -70,7 +67,35 @@ public class FinancesController {
         } catch (Exception e) {
             return new ResponseEntity<>("Erro na conversão dos dados", HttpStatus.BAD_REQUEST);
         }
-    }
+    } */ 
+
+    @GetMapping("/extract/{idUser}")
+    public ResponseEntity<?> getExtractByPeriodAndUser(@PathVariable Integer idUser,
+                                                   @RequestParam(required = false) String startDateStr,
+                                                   @RequestParam(required = false) String endDateStr) {
+        try {
+            // Definir startDate como uma data muito antiga se for null
+            Date startDate = startDateStr != null ? 
+                    new SimpleDateFormat("yyyy-MM-dd").parse(startDateStr) : 
+                    new SimpleDateFormat("yyyy-MM-dd").parse("1900-01-01");
+            
+            // Definir endDate como data atual se for null
+            Date endDate = endDateStr != null ? 
+                    new SimpleDateFormat("yyyy-MM-dd").parse(endDateStr) : 
+                    new Date();
+
+            // Obter extrato pelo período e usuário
+            List<Finances> extract = repo.getExtractByPeriodAndUser(startDate, endDate, idUser);
+
+            return extract.isEmpty() 
+                    ? ResponseEntity.noContent().build() 
+                    : ResponseEntity.ok(extract);
+
+        } catch (Exception e) {
+            // Exceções mais específicas podem ser tratadas se necessário
+            return new ResponseEntity<>("Erro na conversão dos dados. Verifique o formato das datas.", HttpStatus.BAD_REQUEST);
+        }
+    } 
 
     // detalhes de transação a partir do extrato -> transaction details
     @GetMapping("/extract/{idUser}/transaction-details/{idActivity}")

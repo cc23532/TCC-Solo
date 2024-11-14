@@ -39,15 +39,17 @@ public class FinanceHomeActivity extends AppCompatActivity {
     private Button btnEnviar, btnAdicionar;
     private EditText valorMovimentacao, dataMovimentacao, finalidadeEditText;
     private RadioButton radioEntrada, radioSaida;
-    private int idUser = getSharedPreferences("user_session", MODE_PRIVATE).getInt("idUser", -1);
+    private int idUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finance_home);
+        
+        SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
+        idUser = preferences.getInt("idUser", -1);
 
         requestQueue = Volley.newRequestQueue(this);
-
 
         totalSpentInfo = findViewById(R.id.totalSpentInfo);
         btnVoltar = findViewById(R.id.imgBack);
@@ -62,8 +64,6 @@ public class FinanceHomeActivity extends AppCompatActivity {
         btnAdicionar.setOnClickListener(view -> {
             popUpAddRegister();
         });
-
-
     }
 
     private void carregarDespesas() {
@@ -99,7 +99,7 @@ public class FinanceHomeActivity extends AppCompatActivity {
                                 }
                             }
 
-                            totalSpentInfo.setText("Total Gasto: R$ " + totalSpent);
+                            totalSpentInfo.setText("R$" + totalSpent);
                             expensesList.setText(expensesBuilder.toString());
 
                         } else {
@@ -135,7 +135,7 @@ public class FinanceHomeActivity extends AppCompatActivity {
         radioEntrada = dialog.findViewById(R.id.radioEntrada);
         radioSaida = dialog.findViewById(R.id.radioSaida);
         btnEnviar = dialog.findViewById(R.id.btnEnviar);
-        
+
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Obtendo os valores dos campos

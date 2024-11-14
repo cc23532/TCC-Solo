@@ -22,13 +22,14 @@ import com.example.solo.R;
 import com.example.solo.WorkoutSection.CardioHomeActivity;
 import com.example.solo.WorkoutSection.MuscleHomeActivity;
 import com.example.solo.finances.FinanceHomeActivity;
+import com.example.solo.stopSmoking.stopSmokingHomeActivity;
 
 public class HomeActivity extends AppCompatActivity {
     private Button btnPopUpWorkout;
 
     private ImageView btnProfileIcon, btnWorkoutIcon, personIcon, dietIcon, financeIcon;
 
-    private FrameLayout frameWorkout;
+    private FrameLayout frameWorkout, frameSmoking;
 
 
 
@@ -75,6 +76,15 @@ public class HomeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(HomeActivity.this, FinanceHomeActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            frameSmoking = findViewById(R.id.frameSmoking);
+            frameSmoking.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(HomeActivity.this, stopSmokingHomeActivity.class);
                     startActivity(intent);
                 }
             });

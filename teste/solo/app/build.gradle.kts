@@ -84,7 +84,6 @@ dependencies {
     implementation(libs.connect.client)
     implementation(libs.squareup.okhttp) // Para chamadas HTTP
 
-
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))

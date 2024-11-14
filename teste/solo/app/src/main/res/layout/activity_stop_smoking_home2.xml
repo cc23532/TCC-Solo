@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/daysWithoutSmokingInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dias sem fumar:"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/moneySavedInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dinheiro economizado:"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/lifeMinutesSavedInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Minutos de vida salvos:"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/avoidedCigarettesInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cigarros evitados:"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Voltar" />
+
+</LinearLayout>
