@@ -17,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.solo.AgendaSection.AgendaHomeActivity;
 import com.example.solo.DietSection.DietHomeActivity;
 import com.example.solo.R;
 import com.example.solo.WorkoutSection.CardioHomeActivity;
@@ -27,7 +28,7 @@ import com.example.solo.stopSmoking.stopSmokingHomeActivity;
 public class HomeActivity extends AppCompatActivity {
     private Button btnPopUpWorkout;
 
-    private ImageView btnProfileIcon, btnWorkoutIcon, personIcon, dietIcon, financeIcon;
+    private ImageView btnProfileIcon, personIcon, dietIcon, financeIcon, calendarIcon;
 
     private FrameLayout frameWorkout, frameSmoking;
 
@@ -79,12 +80,19 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
             frameSmoking = findViewById(R.id.frameSmoking);
             frameSmoking.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(HomeActivity.this, stopSmokingHomeActivity.class);
+                    startActivity(intent);
+                }
+            });
+            calendarIcon = findViewById(R.id.calendarIcon);
+            calendarIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(HomeActivity.this, AgendaHomeActivity.class);
                     startActivity(intent);
                 }
             });

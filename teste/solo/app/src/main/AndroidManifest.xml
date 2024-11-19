@@ -20,6 +20,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".AgendaSection.AgendaHomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".stopSmoking.StopSmokingNewActivity"
             android:exported="false" />
         <activity

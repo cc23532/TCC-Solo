@@ -1,4 +1,4 @@
-package com.example.solo.stopSmoking;
+package com.example.solo.AgendaSection;
 
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -11,18 +11,17 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.solo.R;
 
-public class StopSmokingNewActivity extends AppCompatActivity {
+public class AgendaHomeActivity extends AppCompatActivity {
 
     private ImageView imgVoltar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stop_smoking_new);
+        setContentView(R.layout.activity_agenda_home);
 
         imgVoltar = findViewById(R.id.imgVoltar);
         imgVoltar.setOnClickListener(v -> finish());
-
 
     }
 }
