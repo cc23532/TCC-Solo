@@ -1,8 +1,10 @@
 package com.example.solo.stopSmoking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +14,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.solo.DietSection.DietHomeActivity;
+import com.example.solo.DietSection.DietNewActivity;
 import com.example.solo.R;
 import com.example.solo.Util.URL;
 
@@ -25,7 +29,9 @@ public class stopSmokingHomeActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
 
     private TextView daysWithoutSmokingInfo, moneySavedInfo, lifeMinutesSavedInfo, avoidedCigarettesInfo, daysWithoutSmokingInfo2;
-    private Button btnBack;
+    private Button btnBack, btnAtualizar;
+
+    private ImageView imgVoltar;
     private int idUser;
     private DecimalFormat decimalFormat = new DecimalFormat("0");
 
@@ -43,9 +49,17 @@ public class stopSmokingHomeActivity extends AppCompatActivity {
         moneySavedInfo = findViewById(R.id.moneySavedInfo);
         lifeMinutesSavedInfo = findViewById(R.id.lifeMinutesSavedInfo);
         avoidedCigarettesInfo = findViewById(R.id.avoidedCigarettesInfo);
-        btnBack = findViewById(R.id.btnBack);
+        imgVoltar = findViewById(R.id.imgVoltar);
+        btnAtualizar = findViewById(R.id.btnAtualizar);
 
-        btnBack.setOnClickListener(v -> finish());
+
+        btnAtualizar.setOnClickListener(view -> {
+            Intent intent = new Intent(stopSmokingHomeActivity.this, StopSmokingNewActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        imgVoltar.setOnClickListener(v -> finish());
 
         carregarStopSmokingData();
     }
