@@ -35,7 +35,7 @@ public class StopSmoking {
     private Integer idCount;
 
     @OneToOne
-    @JoinColumn(name = "idUser", foreignKey = @ForeignKey(name = "FK_Finances_SoloUser"))
+    @JoinColumn(name = "idUser", foreignKey = @ForeignKey(name = "FK_StopSmoking_SoloUser"))
     private SoloUser idUser;
 
     @Column(nullable = false)

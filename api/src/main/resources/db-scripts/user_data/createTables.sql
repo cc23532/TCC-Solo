@@ -43,17 +43,27 @@ CREATE TABLE appSolo.UserMood
 );
 
 -- Agenda
-CREATE TABLE appSolo.Scheduling
+CREATE TABLE appSolo.Event
 (
-    idSchedule INT NOT NULL IDENTITY PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    schedulingDate DATE NOT NULL,
-    timeBegin TIME NOT NULL,
-    timeEnd TIME NOT NULL,
-    description TEXT NULL,
+    idEvent INT NOT NULL IDENTITY PRIMARY KEY,
     idUser INT NOT NULL,
-    CONSTRAINT FK_Scheduling_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
+    title VARCHAR(100) NOT NULL,
+    idCategory INT NOT NULL,
+    eventDate DATE NOT NULL,
+    startTime TIME NOT NULL,
+    endTime TIME NOT NULL,
+    location VARCHAR(255),
+    description TEXT NULL,
+    created_at TIMESTAMP NOT NULL,
+    CONSTRAINT FK_Event_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
+    CONSTRAINT FK_Event_EventCategory FOREIGN KEY (idCategory) REFERENCES appSolo.EventCategory(idCategory)
 );
+
+CREATE TABLE appSolo.EventCategory
+(
+    idCategory INT NOT NULL IDENTITY PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL
+)
 
 -- Treinamentos
 CREATE TABLE appSolo.CardioActivity
