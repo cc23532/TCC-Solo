@@ -5,12 +5,289 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="608dp"
+        android:text="Voltar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="81dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="204dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:gravity="center"
+        android:text="dias"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="81dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="204dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:gravity="center"
+        android:text="horas"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="81dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="204dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:gravity="center"
+        android:text="minutos"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/fundo_tarefas2"
+        android:layout_width="341dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="436dp"
+        android:background="@drawable/fundo_tarefas_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/fundo_tarefas2"
+        android:layout_width="341dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="360dp"
+        android:background="@drawable/fundo_tarefas_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/fundo_tarefas2"
+        android:layout_width="341dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="284dp"
+        android:background="@drawable/fundo_tarefas_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/fundo_tarefas2"
+        android:layout_width="341dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="208dp"
+        android:background="@drawable/fundo_tarefas_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="71dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="269dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/calendar" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="71dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="340dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/smoking_24" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="71dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="420dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/finance" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="71dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="495dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/clock" />
+
+    <TextView
+        android:id="@+id/daysWithoutSmokingInfo2"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="172dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+     <TextView
+        android:id="@+id/textEdit"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="172dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="12"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textEdit"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="268dp"
+        android:layout_marginTop="172dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="38"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/daysWithoutSmokingInfo"
         android:layout_width="68dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="260dp"
+        android:layout_marginStart="284dp"
+        android:layout_marginTop="282dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="123dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginBottom="430dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Dias          sem fumar"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="123dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginBottom="432dp"
+        android:fontFamily="sans-serif-light"
+        android:text="I"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="123dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginBottom="356dp"
+        android:fontFamily="sans-serif-light"
+        android:text="I"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="123dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginBottom="280dp"
+        android:fontFamily="sans-serif-light"
+        android:text="I"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="123dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginBottom="204dp"
+        android:fontFamily="sans-serif-light"
+        android:text="I"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="98dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginBottom="360dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Cigarros evitados"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="166dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginBottom="292dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Dinheiro economizado"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="137dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginBottom="208dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Minutos de vida salvo"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/avoidedCigarettesInfo"
+        android:layout_width="69dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="284dp"
+        android:layout_marginTop="356dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
         android:text="0"
@@ -22,8 +299,8 @@
         android:id="@+id/moneySavedInfo"
         android:layout_width="69dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="216dp"
-        android:layout_marginTop="260dp"
+        android:layout_marginStart="284dp"
+        android:layout_marginTop="432dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
         android:text="0"
@@ -35,97 +312,24 @@
         android:id="@+id/lifeMinutesSavedInfo"
         android:layout_width="69dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="316dp"
-        android:layout_marginTop="260dp"
+        android:layout_marginStart="284dp"
+        android:layout_marginTop="508dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
         android:text="0"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/avoidedCigarettesInfo"
-        android:layout_width="69dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="260dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="center"
-        android:text="0"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Voltar"
-        tools:layout_editor_absoluteX="137dp"
-        tools:layout_editor_absoluteY="78dp" />
 
     <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="0dp"
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/statisticssmoking" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="62dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="288dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:gravity="center"
-        android:text="Dias sem fumar"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="81dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="288dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:gravity="center"
-        android:text="Cigarro evitados"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="81dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="209dp"
-        android:layout_marginTop="288dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:gravity="center"
-        android:text="Dinheiro economizado"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="81dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="309dp"
-        android:layout_marginTop="288dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:gravity="center"
-        android:text="Tempo recuperado"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/clocktime" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

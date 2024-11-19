@@ -67,11 +67,8 @@ public class FinanceHomeActivity extends AppCompatActivity {
     }
 
     private void carregarDespesas() {
-
-
         if (idUser != -1) {
             String url = BASE_URL + "/extract/" + idUser;
-
 
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                     response -> {
@@ -85,13 +82,20 @@ public class FinanceHomeActivity extends AppCompatActivity {
                                 try {
                                     JSONObject expense = response.getJSONObject(i);
                                     double moneyValue = expense.getDouble("moneyValue");
-                                    String description = expense.getString("description");
+                                    String description = expense.optString("description", null); // Retorna null se "description" não existir ou for null
 
-                                    totalSpent += moneyValue;
-
-                                    expensesBuilder.append(description)
-                                            .append(", Valor: R$ ").append(moneyValue)
-                                            .append("\n");
+                                    // Verificando se a descrição não é null ou vazia
+                                    if (description != null && !description.isEmpty()) {
+                                        totalSpent += moneyValue;
+                                        expensesBuilder.append(description)
+                                                .append(", Valor: R$ ").append(moneyValue)
+                                                .append("\n");
+                                    } else {
+                                        // Se a descrição for null ou vazia, não adiciona a descrição
+                                        totalSpent += moneyValue;
+                                        expensesBuilder.append("Valor: R$ ").append(moneyValue)
+                                                .append("\n");
+                                    }
 
                                 } catch (JSONException e) {
                                     Log.e(TAG, "Erro ao processar a resposta JSON", e);
@@ -123,6 +127,8 @@ public class FinanceHomeActivity extends AppCompatActivity {
             Log.e(TAG, "ID do usuário não encontrado.");
         }
     }
+
+
 
     private void popUpAddRegister() {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);

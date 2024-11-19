@@ -88,8 +88,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="664dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="728dp"
         android:backgroundTint="#000000"
         android:text="Adicionar"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,13 +99,11 @@
         android:id="@+id/recyclerViewRefeicoes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="236dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mealsInfo"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView7"
