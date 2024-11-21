@@ -324,13 +324,13 @@
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
+        android:layout_width="92dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="148dp"
         android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/clocktime" />
+        app:srcCompat="@drawable/stop_smoking24" />
 
     <Button
         android:id="@+id/btnAtualizar"
