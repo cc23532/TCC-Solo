@@ -118,7 +118,6 @@
         android:background="@drawable/edit_text_border"
         android:fontFamily="@font/inter"
         android:hint="Quantidade no maço"
-        android:inputType="number"
         android:padding="12dp"
         android:paddingStart="20dp"
         android:textColor="#000000"

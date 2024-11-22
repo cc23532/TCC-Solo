@@ -1,110 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:padding="16dp">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-<!-- Título -->
-<TextView
-    android:id="@+id/titulo_movimentacao"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Registro de Movimentação"
-    android:textSize="18sp"
-    android:layout_marginBottom="20dp"
-    android:textStyle="bold"/>
-
-<!-- Tipo de Movimentação (Entrada ou Saída) -->
-<TextView
-    android:id="@+id/tipo_movimentacao"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Qual tipo de movimentação?"
-    android:textSize="16sp"
-    android:layout_marginBottom="8dp" />
-
-<RadioGroup
-    android:id="@+id/radioGroupTipoMovimentacao"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginBottom="20dp">
-
-    <RadioButton
-        android:id="@+id/radioEntrada"
+    <!-- Título -->
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:checked="false"
-        android:text="Entrada" />
+        android:text="Registro de Movimentação"
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold" />
 
-    <RadioButton
-        android:id="@+id/radioSaida"
+    <!-- Tipo de Movimentação -->
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Saída" />
-</RadioGroup>
+        android:text="Qual tipo de movimentação?"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
 
-<!-- Valor da Movimentação -->
-<TextView
-    android:id="@+id/valor_movimentacao"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Valor da movimentação"
-    android:textSize="16sp"
-    android:layout_marginBottom="8dp" />
+    <RadioGroup
+        android:id="@+id/radioGroupTipoMovimentacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
 
-<EditText
-    android:id="@+id/valorMovimentacao"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:inputType="numberDecimal"
-    android:hint="0"
-    android:layout_marginBottom="20dp" />
+        <RadioButton
+            android:id="@+id/radioEntrada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Entrada" />
 
-<!-- Data da Movimentação -->
-<TextView
-    android:id="@+id/data_movimentacao"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Data da movimentação"
-    android:textSize="16sp"
-    android:layout_marginBottom="8dp" />
+        <RadioButton
+            android:id="@+id/radioSaida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Saída" />
+    </RadioGroup>
 
-<EditText
-    android:id="@+id/dataMovimentacao"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="11/11/1111"
-    android:inputType="date"
-    android:layout_marginBottom="20dp" />
+    <!-- Tipo de Gasto -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tipo de Gasto (Fixo ou Variável)"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
 
-<!-- Finalidade -->
-<TextView
-    android:id="@+id/finalidade"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Finalidade"
-    android:textSize="16sp"
-    android:layout_marginBottom="8dp" />
+    <RadioGroup
+        android:id="@+id/radioGroupTipoGasto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
 
-<EditText
-    android:id="@+id/finalidadeEditText"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Selecione..."
-    android:layout_marginBottom="20dp" />
+        <RadioButton
+            android:id="@+id/radioFixo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Fixo" />
 
-<!-- Botão Enviar -->
+        <RadioButton
+            android:id="@+id/radioVariavel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Variável" />
+    </RadioGroup>
+
+    <!-- Valor -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Valor (R$)"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/valorMovimentacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="0.00"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Data -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data (aaaa-mm-dd)"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/dataMovimentacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="2024-10-10"
+        android:inputType="date"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Rótulo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rótulo (Ex: Alimentação)"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/rotuloEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Rótulo"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Descrição -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descrição"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/descricaoEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descrição (opcional)"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Botão Enviar -->
     <Button
         android:id="@+id/btnEnviar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enviar"
-        android:textSize="16sp"
-        app:iconTint="#000000"
-        app:rippleColor="#000000" />
+        android:text="Enviar" />
 
 </LinearLayout>
