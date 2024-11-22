@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,73 +20,46 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.solo.R;
-import com.example.solo.UserSection.HomeActivity;
-import com.example.solo.UserSection.ProfileActivity;
 import com.example.solo.Util.URL;
-import com.example.solo.WorkoutSection.MuscleHomeActivity;
-import com.example.solo.WorkoutSection.MuscleNewActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DietHomeActivity extends AppCompatActivity {
+public class DietDinnerActivity extends AppCompatActivity {
     private Button btnAddMeal;
     private ImageView btnVoltar;
-    private FrameLayout frameBreakfast, frameLunch, frameAfternoon, frameDinner;
     private TextView mealsInfo, totalCaloriesInfo;
     private static final String BASE_URL = new URL().getURL() + "/diet/my-meals";
-    private static final String TAG = "DietHomeActivity";
+    private static final String TAG = "DietaDinnerActivity";
     private int idUser;
     private RequestQueue requestQueue;
     private double totalCalories = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_diet_home);
+        setContentView(R.layout.activity_dietafternoon);
+
+        SharedPreferences user_session = getSharedPreferences("user_session", MODE_PRIVATE);
+        idUser = user_session.getInt("idUser", -1);
+
+        requestQueue = Volley.newRequestQueue(this);
+
+        mealsInfo = findViewById(R.id.mealsInfo);
+        totalCaloriesInfo = findViewById(R.id.totalCaloriesInfo);
+        btnVoltar = findViewById(R.id.imgBack);
+
+        btnVoltar.setOnClickListener(v -> finish());
+
+        exibirRefeicoes();
 
         btnAddMeal = findViewById(R.id.btnAddMeal);
-        btnAddMeal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DietHomeActivity.this, DietNewActivity.class);
-                startActivity(intent);
-            }
-        });
-        frameBreakfast = findViewById(R.id.frameBreakfast);
-        frameBreakfast.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DietHomeActivity.this, DietBreakfastActivity.class);
-                startActivity(intent);
-            }
-        });
-        frameLunch = findViewById(R.id.frameLunch);
-        frameLunch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DietHomeActivity.this, DietLunchActivity.class);
-                startActivity(intent);
-            }
-        });
-        frameAfternoon = findViewById(R.id.frameAfternoon);
-        frameAfternoon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DietHomeActivity.this, DietafternoonActivity.class);
-                startActivity(intent);
-            }
-        });
-        frameDinner = findViewById(R.id.frameDinner);
-        frameDinner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DietHomeActivity.this, DietDinnerActivity.class);
-                startActivity(intent);
-            }
+        btnAddMeal.setOnClickListener(view -> {
+            Intent intent = new Intent(DietDinnerActivity.this, DietNewActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 
@@ -104,16 +76,21 @@ public class DietHomeActivity extends AppCompatActivity {
                             Log.d(TAG, "Resposta recebida: " + response.toString());
                             if (response.length() > 0) {
                                 StringBuilder mealDetails = new StringBuilder();
+                                totalCalories = 0; // Resetando o total de calorias a cada nova requisição
                                 for (int i = 0; i < response.length(); i++) {
                                     try {
                                         JSONObject meal = response.getJSONObject(i);
                                         if (meal.has("idMeal") && !meal.isNull("idMeal")) {
-                                            int mealId = meal.getInt("idMeal");
-                                            obterItensDaRefeicao(mealId, mealDetails);
+                                            String mealTime = meal.getString("mealTime");
+                                            // Filtra o horário entre 06:00:00 e 11:00:00
+                                            if (isInMorningTime(mealTime)) {
+                                                int mealId = meal.getInt("idMeal");
+                                                obterItensDaRefeicao(mealId, mealDetails);
+                                            }
                                         }
                                     } catch (JSONException e) {
                                         Log.e(TAG, "Erro ao processar a resposta JSON", e);
-                                        Toast.makeText(DietHomeActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(DietDinnerActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             } else {
@@ -123,7 +100,7 @@ public class DietHomeActivity extends AppCompatActivity {
                         }
                     }, error -> {
                 Log.e(TAG, "Erro na requisição: " + error.toString());
-                Toast.makeText(DietHomeActivity.this, "Erro ao obter as informações.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DietDinnerActivity.this, "Erro ao obter as informações.", Toast.LENGTH_SHORT).show();
             });
 
             requestQueue.add(jsonArrayRequest);
@@ -151,8 +128,7 @@ public class DietHomeActivity extends AppCompatActivity {
 
                                 mealDetails.append(" - ").append(foodName).append(" " + energyKCal + "Kcal").append(" \n");
 
-                                totalCalories += energyKCal;
-
+                                totalCalories += energyKCal; // Soma das calorias apenas das refeições filtradas
                             } catch (JSONException e) {
                                 Log.e(TAG, "Erro ao processar os itens da refeição", e);
                             }
@@ -170,5 +146,16 @@ public class DietHomeActivity extends AppCompatActivity {
 
         requestQueue.add(jsonArrayRequest);
     }
-}
 
+    private boolean isInMorningTime(String mealTime) {
+        try {
+            // Converte o mealTime para comparar se está dentro do intervalo das 06:00 até 11:00
+            String[] parts = mealTime.split(":");
+            int hour = Integer.parseInt(parts[0]);
+            return hour >= 18 && hour < 23;
+        } catch (Exception e) {
+            Log.e(TAG, "Erro ao processar horário da refeição", e);
+            return false;
+        }
+    }
+}
