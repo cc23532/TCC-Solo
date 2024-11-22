@@ -15,7 +15,7 @@ import com.example.solo.R;
 
 public class AgendaHomeActivity extends AppCompatActivity {
 
-    private ImageView imgVoltar;
+    private ImageView imgVoltar, imggVoltar;
 
     private Button btnAddTarefa, btnConfirmar;
 
@@ -39,11 +39,6 @@ public class AgendaHomeActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.activity_add_tarefa);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
 
-        btnConfirmar = findViewById(R.id.btnConfirmar);
-
-        btnConfirmar.setOnClickListener(view ->{
-            dialog.dismiss();
-        });
 
         dialog.show();
     }

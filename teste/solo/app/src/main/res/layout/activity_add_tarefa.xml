@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/timeOut" />
 
     <ImageView
-        android:id="@+id/imgVoltar"
+        android:id="@+id/imggVoltar"
         android:layout_width="44dp"
         android:layout_height="35dp"
         android:layout_marginStart="1dp"
