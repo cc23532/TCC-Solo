@@ -1,6 +1,8 @@
 package com.example.solo.AgendaSection;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +17,8 @@ public class AgendaHomeActivity extends AppCompatActivity {
 
     private ImageView imgVoltar;
 
+    private Button btnAddTarefa, btnConfirmar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,5 +27,24 @@ public class AgendaHomeActivity extends AppCompatActivity {
         imgVoltar = findViewById(R.id.imgVoltar);
         imgVoltar.setOnClickListener(v -> finish());
 
+        btnAddTarefa = findViewById(R.id.btnAddTarefa);
+
+        btnAddTarefa.setOnClickListener(view -> {
+            addTarefa();
+        });
+    }
+
+    public void addTarefa(){
+        Dialog dialog = new Dialog(this, androidx.appcompat.R.style.Base_Theme_AppCompat_DialogWhenLarge);
+        dialog.setContentView(R.layout.activity_add_tarefa);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        btnConfirmar = findViewById(R.id.btnConfirmar);
+
+        btnConfirmar.setOnClickListener(view ->{
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 }
