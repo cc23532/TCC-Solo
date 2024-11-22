@@ -38,7 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ex: Barra fixa"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:textColorHint="#000000" />
 
         <!-- Carga -->
         <TextView
@@ -55,7 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="00kg"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textColorHint="#000000" />
 
         <!-- Séries -->
         <TextView
@@ -72,7 +74,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="4"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textColorHint="#000000" />
 
         <!-- Repetições -->
         <TextView
@@ -89,7 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="10"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textColorHint="#000000" />
     </LinearLayout>
 
     <!-- Button -->

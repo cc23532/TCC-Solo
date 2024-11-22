@@ -20,6 +20,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".DietSection.DietDinnerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DietSection.DietafternoonActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DietSection.DietLunchActivity"
+            android:exported="false" />
+        <activity
             android:name=".DietSection.DietBreakfastActivity"
             android:exported="false" />
         <activity

@@ -40,6 +40,7 @@
         android:ems="10"
         android:hint="Ex: Costas"
         android:inputType="text"
+        android:textColorHint="#000000"
         app:layout_constraintBottom_toTopOf="@+id/btnType"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
