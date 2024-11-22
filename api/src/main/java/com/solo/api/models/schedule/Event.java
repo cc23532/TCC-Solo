@@ -40,9 +40,8 @@ public class Event {
     @Column(length = 100, nullable = false)
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "idCategory", foreignKey = @ForeignKey(name = "FK_Event_EventCategory"))
-    private EventCategory idCategory;
+    @Column(length = 20, nullable = false)
+    private String category;
 
     @Column(nullable = false)
     private Date eventDate;

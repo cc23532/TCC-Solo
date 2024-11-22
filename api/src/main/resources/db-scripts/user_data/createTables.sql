@@ -48,7 +48,7 @@ CREATE TABLE appSolo.Event
     idEvent INT NOT NULL IDENTITY PRIMARY KEY,
     idUser INT NOT NULL,
     title VARCHAR(100) NOT NULL,
-    idCategory INT NOT NULL,
+    category VARCHAR(20) NOT NULL,
     eventDate DATE NOT NULL,
     startTime TIME NOT NULL,
     endTime TIME NOT NULL,
@@ -56,14 +56,7 @@ CREATE TABLE appSolo.Event
     description TEXT NULL,
     created_at TIMESTAMP NOT NULL,
     CONSTRAINT FK_Event_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
-    CONSTRAINT FK_Event_EventCategory FOREIGN KEY (idCategory) REFERENCES appSolo.EventCategory(idCategory)
 );
-
-CREATE TABLE appSolo.EventCategory
-(
-    idCategory INT NOT NULL IDENTITY PRIMARY KEY,
-    name VARCHAR(50) UNIQUE NOT NULL
-)
 
 -- Treinamentos
 CREATE TABLE appSolo.CardioActivity
