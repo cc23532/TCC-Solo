@@ -4,7 +4,11 @@ SELECT
     m.mealDate AS Meal_Date,
     m.mealTime AS Meal_Time,
     mi.idItem AS id_item,
-    fi.descricao_do_alimento + ' ' + fi.descricao_da_preparacao AS Food_Name,
+    fi.descricao_do_alimento +  
+    CASE 
+        WHEN fi.descricao_da_preparacao = 'Não se aplica' THEN '' 
+        ELSE ' ' + fi.descricao_da_preparacao 
+    END AS Food_Name,
     mi.weight AS Weight,
     CAST(fi.Energia_kcal * (mi.weight / 100) AS DECIMAL(10, 2)) AS Energy_kcal,
     CAST(fi.Carboidrato_g * (mi.weight / 100) AS DECIMAL(10, 2)) AS Carbohydrates,
