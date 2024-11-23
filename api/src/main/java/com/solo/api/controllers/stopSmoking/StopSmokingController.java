@@ -1,6 +1,7 @@
 package com.solo.api.controllers.stopSmoking;
 
 import java.util.Optional;
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -12,10 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.solo.api.DTO.stopSmoking.StopSmokingSummaryDTO;
 import com.solo.api.models.stopSmoking.StopSmoking;
 import com.solo.api.models.user.SoloUser;
 import com.solo.api.repositories.stopSmoking.StopSmokingRepository;
 import com.solo.api.repositories.user.SoloUserRepository;
+import com.solo.api.util.TimeConverter;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,30 +73,52 @@ public class StopSmokingController {
     @GetMapping("/{idUser}")
     public ResponseEntity<?> getSummary(@PathVariable Integer idUser) {
         Optional<List<Object[]>> summaries = repo.getSummaryByUser(idUser);
-        Map<String, Object> response = new HashMap<>();
-        
+
         if (summaries.isEmpty() || summaries.get().isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-    
-        // Log para depuração
+
         List<Object[]> dataList = summaries.get();
-        Object[] data = dataList.get(0); // Pegue a primeira linha de resultados
-    
+        Object[] data = dataList.get(0); // Pega a primeira linha de resultados
+
         if (data.length < 7) {
             return ResponseEntity.badRequest().body("Dados incompletos.");
         }
+
+        // Campos brutos do banco de dados
+        Integer idCount = (Integer) data[0];
+        Integer idUserFromDb = (Integer) data[1];
+        String baseDate = data[2].toString();
+        Integer hoursWithoutSmoking = (Integer) data[3];
+        
+        // Converter BigDecimal para Double
+        BigDecimal avoidedCigarettesBigDecimal = (BigDecimal) data[4];
+        Double avoidedCigarettes = avoidedCigarettesBigDecimal.doubleValue();
+
+        Double moneySaved = (Double) data[5];
+        
+        BigDecimal lifeMinutesSavedBigDecimal = (BigDecimal) data[6];
+        Double lifeMinutesSavedDouble = lifeMinutesSavedBigDecimal.doubleValue();
+        Integer lifeMinutesSaved = (int) Math.round(lifeMinutesSavedDouble); // Arredonda e converte para Integer
     
-        response.put("idCount", data[0]);
-        response.put("idUser", data[1]);
-        response.put("baseDate", data[2]);
-        response.put("daysWithoutSmoking", data[3]);
-        response.put("avoidedCigarettes", data[4]);
-        response.put("moneySaved", data[5]);
-        response.put("lifeMinutesSaved", data[6]);
-    
-        return ResponseEntity.ok(response);
+        // Processar os dados usando a classe TimeConverter
+        Map<String, Integer> convertedHours = TimeConverter.convertHours(hoursWithoutSmoking);
+        Map<String, Integer> convertedMinutes = TimeConverter.convertMinutes(lifeMinutesSaved);
+
+        // Criar o DTO para a resposta
+        StopSmokingSummaryDTO summary = new StopSmokingSummaryDTO(
+            idCount,
+            idUserFromDb,
+            baseDate,
+            convertedHours,
+            avoidedCigarettes,
+            moneySaved,
+            convertedMinutes
+        );
+
+        return ResponseEntity.ok(summary);
     }
+
     
 
     @DeleteMapping("/{idUser}/{idCount}")
