@@ -1,11 +1,11 @@
 package com.solo.api.controllers.schedule;
 
 import com.solo.api.models.schedule.Event;
-import com.solo.api.models.stopSmoking.StopSmoking;
 import com.solo.api.models.user.SoloUser;
 import com.solo.api.repositories.schedule.EventRepository;
 import com.solo.api.repositories.user.SoloUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +43,14 @@ public class EventController {
                 .orElse(ResponseEntity.noContent().build());
     }
 
+    @GetMapping("/{idUser}/events-by-date")
+    public ResponseEntity<List<Event>> getEventsByUserAndDate(@PathVariable Integer idUser, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date eventDate) {
+        List<Event> events = repo.getEventsByUserAndDate(idUser, eventDate);
+        return events.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(events);
+    }
+
     @PostMapping("/{idUser}/add")
     public ResponseEntity<?> addEvent (@PathVariable SoloUser idUser, @RequestBody Map<String, String> body){
 
@@ -52,18 +60,15 @@ public class EventController {
         String category = body.get("category");
         String eventDateStr = body.get("eventDate");
         String startTimeStr = body.get("startTime");
-        String endTimeStr = body.get("endTime");
         String location = body.get("location");
         String description = body.get("description");
 
         Date eventDate;
         Time startTime;
-        Time endTime;
 
         try{
             eventDate = new SimpleDateFormat("yyyy-MM-dd").parse(eventDateStr);
             startTime = Time.valueOf(startTimeStr + ":00");
-            endTime = Time.valueOf(endTimeStr + ":00");
         } catch (Exception e){
             return new ResponseEntity<>("Erro na conversão dos dados", HttpStatus.BAD_REQUEST);
         }
@@ -73,7 +78,6 @@ public class EventController {
         newEvent.setCategory(category);
         newEvent.setEventDate(eventDate);
         newEvent.setStartTime(startTime);
-        newEvent.setEndTime(endTime);
         newEvent.setLocation(location);
         newEvent.setDescription(description);
 
@@ -112,11 +116,9 @@ public class EventController {
                         // Conversão de dados
                         String eventDateStr = body.get("eventDate");
                         String startTimeStr = body.get("startTime");
-                        String endTimeStr = body.get("endTime");
 
                         Date eventDate = new SimpleDateFormat("yyyy-MM-dd").parse(eventDateStr);
                         Time startTime = Time.valueOf(startTimeStr + ":00"); // Adiciona ":00" para o formato HH:mm:ss
-                        Time endTime = Time.valueOf(endTimeStr + ":00");
 
                         // Atualiza os dados do evento existente
                         existingEvent.setIdUser(user);
@@ -125,7 +127,6 @@ public class EventController {
                         existingEvent.setLocation(body.get("location"));
                         existingEvent.setTitle(body.get("title"));
                         existingEvent.setStartTime(startTime);
-                        existingEvent.setEndTime(endTime);
 
                         return ResponseEntity.ok(repo.save(existingEvent));
                     } catch (Exception e) {
@@ -139,11 +140,9 @@ public class EventController {
 
                         String eventDateStr = body.get("eventDate");
                         String startTimeStr = body.get("startTime");
-                        String endTimeStr = body.get("endTime");
 
                         Date eventDate = new SimpleDateFormat("yyyy-MM-dd").parse(eventDateStr);
                         Time startTime = Time.valueOf(startTimeStr + ":00"); // Adiciona ":00" para o formato HH:mm:ss
-                        Time endTime = Time.valueOf(endTimeStr + ":00");
 
                         // Configura os dados do novo evento
                         newEvent.setIdUser(user);
@@ -152,7 +151,6 @@ public class EventController {
                         newEvent.setLocation(body.get("location"));
                         newEvent.setTitle(body.get("title"));
                         newEvent.setStartTime(startTime);
-                        newEvent.setEndTime(endTime);
 
                         return ResponseEntity.status(HttpStatus.CREATED).body(repo.save(newEvent));
                     } catch (Exception e) {

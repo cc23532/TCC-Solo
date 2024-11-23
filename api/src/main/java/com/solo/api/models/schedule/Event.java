@@ -50,9 +50,6 @@ public class Event {
     private Time startTime;
 
     @Column(nullable = false)
-    private Time endTime;
-
-    @Column(nullable = false)
     private String location;
 
     @Column(nullable = false)
