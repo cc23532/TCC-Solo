@@ -51,8 +51,8 @@ CREATE TABLE appSolo.Event
     category VARCHAR(20) NOT NULL,
     eventDate DATE NOT NULL,
     startTime TIME NOT NULL,
-    endTime TIME NOT NULL,
-    location VARCHAR(255),
+    endTime TIME NULL,
+    location VARCHAR(255) NULL,
     description TEXT NULL,
     created_at TIMESTAMP NOT NULL,
     CONSTRAINT FK_Event_SoloUser FOREIGN KEY (idUser) REFERENCES appSolo.SoloUser(id)
