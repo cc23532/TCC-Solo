@@ -1,10 +1,16 @@
 package com.example.solo.AgendaSection;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,27 +18,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.solo.R;
+import com.example.solo.UserSection.HomeActivity;
+import com.example.solo.UserSection.ProfileActivity;
 import com.example.solo.Util.URL;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AgendaHomeActivity extends AppCompatActivity {
 
     private static final String TAG = "AgendaHomeActivity";
-    private static final String BASE_URL = new URL().getURL(); // URL do backend
-
+    private static final String BASE_URL = new URL().getURL();
     private CalendarView calendarView;
-    private TextView txtCompromissos;
     private RequestQueue requestQueue;
     private ImageView imgVoltar;
-
+    private LinearLayout containerTarefas;
+    private TextView txtStatus;
+    private ProgressBar progressBar;
+    private Button btnAddCompromisso, btnVerMais, btnAddTarefa;
     private int idUser;
 
     @Override
@@ -40,24 +46,51 @@ public class AgendaHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda_home);
 
-        // Recupera o idUser do SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
-        idUser = sharedPreferences.getInt("idUser", -1); // Recupera o idUser salvo
-        Log.d(TAG, "idUser recuperado: " + idUser);
-
-        // Inicializando os elementos
-        calendarView = findViewById(R.id.calendarView);
-        txtCompromissos = findViewById(R.id.txtCompromissos);
+        containerTarefas = findViewById(R.id.containerTarefas);
         imgVoltar = findViewById(R.id.imgVoltar);
+        calendarView = findViewById(R.id.calendarView);
+        txtStatus = findViewById(R.id.selectDate);
+        progressBar = findViewById(R.id.progressBar);
+        btnAddCompromisso = findViewById(R.id.btnAddCompromisso);
+        btnVerMais = findViewById(R.id.btnVerMais);
+        btnAddTarefa = findViewById(R.id.btnAddTarefa);
+
+        btnVerMais.setVisibility(View.GONE);
+        btnAddTarefa.setVisibility(View.GONE);
+        btnAddCompromisso.setVisibility(View.GONE);
+
         requestQueue = Volley.newRequestQueue(this);
 
-        // Evento de voltar
         imgVoltar.setOnClickListener(v -> finish());
 
-        // Capturar clique em data no CalendarView
+        SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
+        idUser = preferences.getInt("idUser", -1);
+
+        if (idUser == -1) {
+            Toast.makeText(this, "Usuário não autenticado!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
             fetchCompromissos(selectedDate);
+        });
+
+        btnAddTarefa = findViewById(R.id.btnAddTarefa);
+        btnAddTarefa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AgendaHomeActivity.this, AgendaNewActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnAddCompromisso = findViewById(R.id.btnAddCompromisso);
+        btnAddCompromisso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AgendaHomeActivity.this, AgendaNewActivity.class);
+                startActivity(intent);
+            }
         });
     }
 
@@ -70,45 +103,58 @@ public class AgendaHomeActivity extends AppCompatActivity {
         String url = BASE_URL + "/schedule/" + idUser + "/events-by-date?eventDate=" + date;
         Log.d(TAG, "Fetching compromissos from URL: " + url);
 
+
+        txtStatus.setVisibility(View.VISIBLE);
+        containerTarefas.removeAllViews();
+        progressBar.setVisibility(View.VISIBLE);
+        btnVerMais.setVisibility(View.GONE);
+        btnAddTarefa.setVisibility(View.GONE);
+        btnAddCompromisso.setVisibility(View.VISIBLE);
+
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(TAG, "Response received: " + response);
-                        StringBuilder compromissos = new StringBuilder();
-                        try {
-                            for (int i = 0; i < response.length(); i++) {
+                response -> {
+                    progressBar.setVisibility(View.GONE);
+
+                    try {
+                        if (response.length() == 0) {
+                            txtStatus.setVisibility(View.VISIBLE);
+                            btnAddCompromisso.setVisibility(View.VISIBLE);
+                        } else {
+                            txtStatus.setVisibility(View.GONE);
+                            btnAddCompromisso.setVisibility(View.GONE);
+                            btnVerMais.setVisibility(View.VISIBLE);
+                            btnAddTarefa.setVisibility(View.VISIBLE);
+
+                            int maxTarefas = Math.min(response.length(), 5);
+                            for (int i = 0; i < maxTarefas; i++) {
                                 JSONObject obj = response.getJSONObject(i);
 
-                                // Obtém os valores do JSON
-                                String titulo = obj.getString("title"); // Corrigido para "title"
-                                String horario = obj.getString("startTime"); // Corrigido para "startTime"
-                                String local = obj.getString("location"); // Adicionado o local
-                                String categoria = obj.getString("category"); // Categoria do evento
+                                String titulo = obj.getString("title");
+                                String horario = obj.getString("startTime");
 
-                                // Concatena as informações
-                                compromissos.append("- ").append(titulo)
-                                        .append(" (").append(categoria).append(")\n")
-                                        .append("  Horário: ").append(horario)
-                                        .append("\n  Local: ").append(local)
-                                        .append("\n\n");
+                                if (horario != null && horario.length() >= 5) {
+                                    horario = horario.substring(0, 5);
+                                }
+
+                                View taskView = LayoutInflater.from(this).inflate(R.layout.task_item, containerTarefas, false);
+
+                                TextView taskTitle = taskView.findViewById(R.id.textView9);
+                                TextView taskTime = taskView.findViewById(R.id.textView16);
+
+                                taskTitle.setText(titulo);
+                                taskTime.setText(horario);
+
+                                containerTarefas.addView(taskView);
                             }
-
-                            // Exibe os compromissos ou mensagem padrão
-                            txtCompromissos.setText(compromissos.toString().isEmpty() ?
-                                    "Nenhum compromisso para esta data." : compromissos.toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(AgendaHomeActivity.this, "Erro ao processar dados", Toast.LENGTH_SHORT).show();
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Erro ao processar dados.", Toast.LENGTH_SHORT).show();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "Error fetching compromissos", error);
-                        Toast.makeText(AgendaHomeActivity.this, "Erro ao buscar compromissos", Toast.LENGTH_SHORT).show();
-                    }
+                error -> {
+                    progressBar.setVisibility(View.GONE);
+                    Log.e(TAG, "Erro ao buscar compromissos", error);
                 });
 
         requestQueue.add(request);
