@@ -48,20 +48,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/totalCaloriesInfo"
-        android:layout_width="121dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="72dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="0"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgBack" />
-
-
     <!-- Aqui foi corrigido -->
 
 
@@ -78,6 +64,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/totalCaloriesInfo" />
 
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dietframe" />
+
+    <TextView
+        android:id="@+id/totalCaloriesInfo"
+        android:layout_width="121dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="72dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgBack" />
 
     <TextView
         android:id="@+id/mealsInfo"
@@ -116,25 +125,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="120dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/circle" />
-
-
     <TextView
         android:id="@+id/textviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:layout_marginEnd="152dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="168dp"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Calorias totais"
+        android:text="Calorias"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
