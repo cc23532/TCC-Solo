@@ -137,7 +137,6 @@ public class AgendaHomeActivity extends AppCompatActivity {
             int day = Integer.parseInt(parts[2]);
 
             // Adicionar a data ao MaterialCalendarView com destaque
-            calendarView.setDateSelected(CalendarDay.from(year, month, day), true);
         }
     }
 
