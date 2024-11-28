@@ -21,12 +21,18 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.solo.R;
-import com.example.solo.UserSection.HomeActivity;
-import com.example.solo.UserSection.ProfileActivity;
 import com.example.solo.Util.URL;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashSet;
+
+import android.graphics.Color;
+import android.text.style.ForegroundColorSpan;
+
 
 public class AgendaHomeActivity extends AppCompatActivity {
 
@@ -40,6 +46,7 @@ public class AgendaHomeActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button btnAddCompromisso, btnVerMais, btnAddTarefa;
     private int idUser;
+    private HashSet<String> datasComEventos; // Armazena as datas com compromissos no formato "yyyy-MM-dd"
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,7 @@ public class AgendaHomeActivity extends AppCompatActivity {
         btnAddCompromisso.setVisibility(View.GONE);
 
         requestQueue = Volley.newRequestQueue(this);
+        datasComEventos = new HashSet<>();
 
         imgVoltar.setOnClickListener(v -> finish());
 
@@ -71,30 +79,71 @@ public class AgendaHomeActivity extends AppCompatActivity {
             finish();
         }
 
+        requestQueue = Volley.newRequestQueue(this);
+
+        carregarDatasComEventos(); // Busca todas as datas com eventos ao inicializar
+
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
             fetchCompromissos(selectedDate);
         });
 
-        btnAddTarefa = findViewById(R.id.btnAddTarefa);
-        btnAddTarefa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AgendaHomeActivity.this, AgendaNewActivity.class);
-                startActivity(intent);
-            }
+        btnAddTarefa.setOnClickListener(view -> {
+            Intent intent = new Intent(AgendaHomeActivity.this, AgendaNewActivity.class);
+            startActivity(intent);
         });
-        btnAddCompromisso = findViewById(R.id.btnAddCompromisso);
-        btnAddCompromisso.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AgendaHomeActivity.this, AgendaNewActivity.class);
-                startActivity(intent);
-            }
+
+        btnAddCompromisso.setOnClickListener(view -> {
+            Intent intent = new Intent(AgendaHomeActivity.this, AgendaNewActivity.class);
+            startActivity(intent);
         });
     }
 
+    private void carregarDatasComEventos() {
+        if (idUser == -1) {
+            Toast.makeText(this, "Usuário não autenticado!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String url = BASE_URL + "/schedule/" + idUser + "/all-event-dates";
+        Log.d(TAG, "Fetching event dates from URL: " + url);
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject obj = response.getJSONObject(i);
+                            String date = obj.getString("eventDate"); // Formato esperado: "yyyy-MM-dd"
+                            datasComEventos.add(date);
+                        }
+                        destacarDatasComEventos(); // Destaca as datas no calendário
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Erro ao carregar datas dos eventos.", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Log.e(TAG, "Erro ao carregar datas dos eventos", error)
+        );
+
+        requestQueue.add(request);
+    }
+
+    private void destacarDatasComEventos() {
+        for (String date : datasComEventos) {
+            // Converter a string da data para CalendarDay
+            String[] parts = date.split("-");
+            int year = Integer.parseInt(parts[0]);
+            int month = Integer.parseInt(parts[1]) - 1; // Os meses começam de 0 no CalendarDay
+            int day = Integer.parseInt(parts[2]);
+
+            // Adicionar a data ao MaterialCalendarView com destaque
+            calendarView.setDateSelected(CalendarDay.from(year, month, day), true);
+        }
+    }
+
+
     private void fetchCompromissos(String date) {
+        // Implementação anterior sem alterações
         if (idUser == -1) {
             Toast.makeText(this, "Usuário não autenticado!", Toast.LENGTH_SHORT).show();
             return;
