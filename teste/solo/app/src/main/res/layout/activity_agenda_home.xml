@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".AgendaSection.AgendaHomeActivity">
 
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendarVie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mcv_selectionColor="@android:color/red" />
+
     <ImageView
         android:id="@+id/imgVoltar"
         android:layout_width="44dp"
@@ -15,6 +21,7 @@
         android:src="@drawable/pngegg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <CalendarView
         android:id="@+id/calendarView"
