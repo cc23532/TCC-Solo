@@ -136,7 +136,7 @@
         app:srcCompat="@drawable/clock" />
 
     <TextView
-        android:id="@+id/daysWithoutSmokingInfo2"
+        android:id="@+id/daysWithoutSmokingInfoDay"
         android:layout_width="68dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="59dp"
@@ -149,7 +149,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
      <TextView
-        android:id="@+id/textEdit"
+        android:id="@+id/daysWithoutSmokingInfoHora"
         android:layout_width="68dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
@@ -162,7 +162,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textEdit"
+        android:id="@+id/daysWithoutSmokingInfoMinuto"
         android:layout_width="68dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="268dp"

@@ -14,12 +14,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.solo.DietSection.DietHomeActivity;
-import com.example.solo.DietSection.DietNewActivity;
 import com.example.solo.R;
 import com.example.solo.Util.URL;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 
@@ -28,31 +27,34 @@ public class stopSmokingHomeActivity extends AppCompatActivity {
     private static final String BASE_URL = new URL().getURL() + "/stop-smoking";
     private RequestQueue requestQueue;
 
-    private TextView daysWithoutSmokingInfo, moneySavedInfo, lifeMinutesSavedInfo, avoidedCigarettesInfo, daysWithoutSmokingInfo2;
-    private Button btnBack, btnAtualizar;
-
+    private TextView daysWithoutSmokingInfoDay, daysWithoutSmokingHora, daysWithoutSmokingMinutos;
+    private TextView avoidedCigarettesInfo, moneySavedInfo, lifeMinutesSavedInfo;
+    private Button btnAtualizar;
     private ImageView imgVoltar;
     private int idUser;
-    private DecimalFormat decimalFormat = new DecimalFormat("0");
+    private DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop_smoking_home);
 
+        // Recupera o ID do usuário salvo na sessão
         idUser = getSharedPreferences("user_session", MODE_PRIVATE).getInt("idUser", -1);
 
         requestQueue = Volley.newRequestQueue(this);
 
-        daysWithoutSmokingInfo = findViewById(R.id.daysWithoutSmokingInfo);
-        daysWithoutSmokingInfo2 = findViewById(R.id.daysWithoutSmokingInfo2);
+        // Referências aos elementos do layout
+        daysWithoutSmokingInfoDay = findViewById(R.id.daysWithoutSmokingInfoDay);
+        daysWithoutSmokingHora = findViewById(R.id.daysWithoutSmokingInfoHora);
+        daysWithoutSmokingMinutos = findViewById(R.id.daysWithoutSmokingInfoMinuto);
+        avoidedCigarettesInfo = findViewById(R.id.avoidedCigarettesInfo);
         moneySavedInfo = findViewById(R.id.moneySavedInfo);
         lifeMinutesSavedInfo = findViewById(R.id.lifeMinutesSavedInfo);
-        avoidedCigarettesInfo = findViewById(R.id.avoidedCigarettesInfo);
         imgVoltar = findViewById(R.id.imgVoltar);
         btnAtualizar = findViewById(R.id.btnAtualizar);
 
-
+        // Ações dos botões
         btnAtualizar.setOnClickListener(view -> {
             Intent intent = new Intent(stopSmokingHomeActivity.this, StopSmokingNewActivity.class);
             startActivity(intent);
@@ -72,18 +74,31 @@ public class stopSmokingHomeActivity extends AppCompatActivity {
                     response -> {
                         Log.d(TAG, "Resposta recebida: " + response.toString());
                         try {
-                            int daysWithoutSmoking = response.getInt("daysWithoutSmoking");
-                            int daysWithoutSmoking2 = response.getInt("daysWithoutSmoking");
-                            double moneySaved = response.getDouble("moneySaved");
-                            double lifeMinutesSaved = response.getDouble("lifeMinutesSaved");
-                            double avoidedCigarettes = response.getDouble("avoidedCigarettes");
+                            // Lê os valores retornados pela API
+                            JSONObject daysWithoutSmoking = response.getJSONObject("daysWithoutSmoking");
+                            JSONObject lifeMinutesSaved = response.getJSONObject("lifeMinutesSaved");
 
-                            daysWithoutSmokingInfo.setText(String.valueOf(daysWithoutSmoking) + "d");
-                            daysWithoutSmokingInfo2.setText(String.valueOf(daysWithoutSmoking));
-                            moneySavedInfo.setText(decimalFormat.format(moneySaved) + "R$");
-                            lifeMinutesSavedInfo.setText(decimalFormat.format(lifeMinutesSaved));
-                            avoidedCigarettesInfo.setText(decimalFormat.format(avoidedCigarettes));
+                            int days = daysWithoutSmoking.getInt("days");
+                            int months = daysWithoutSmoking.getInt("months");
+                            int years = daysWithoutSmoking.getInt("years");
+                            int hours = daysWithoutSmoking.getInt("hours");
 
+                            int lifeDays = lifeMinutesSaved.getInt("days");
+                            int lifeHours = lifeMinutesSaved.getInt("hours");
+                            int lifeMinutes = lifeMinutesSaved.getInt("minutes");
+
+                            String avoidedCigarettes = response.getString("avoidedCigarettes");
+                            String moneySaved = response.getString("moneySaved");
+
+                            // Atualiza as TextViews com os dados
+                            daysWithoutSmokingInfoDay.setText(String.format("%d", days));
+                            daysWithoutSmokingHora.setText(String.format("%d", hours));
+                            daysWithoutSmokingMinutos.setText(String.format("%d", lifeMinutes));
+                            avoidedCigarettesInfo.setText(avoidedCigarettes);
+                            moneySavedInfo.setText(moneySaved + " R$");
+                            lifeMinutesSavedInfo.setText(
+                                    String.format("%d",lifeMinutes)
+                            );
                         } catch (JSONException e) {
                             Log.e(TAG, "Erro ao processar a resposta JSON", e);
                             Toast.makeText(stopSmokingHomeActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
@@ -106,4 +121,3 @@ public class stopSmokingHomeActivity extends AppCompatActivity {
         }
     }
 }
-
