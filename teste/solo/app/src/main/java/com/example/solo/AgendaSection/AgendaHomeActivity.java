@@ -81,7 +81,6 @@ public class AgendaHomeActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        carregarDatasComEventos(); // Busca todas as datas com eventos ao inicializar
 
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
@@ -98,48 +97,6 @@ public class AgendaHomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
-
-    private void carregarDatasComEventos() {
-        if (idUser == -1) {
-            Toast.makeText(this, "Usuário não autenticado!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String url = BASE_URL + "/schedule/" + idUser + "/all-event-dates";
-        Log.d(TAG, "Fetching event dates from URL: " + url);
-
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                response -> {
-                    try {
-                        for (int i = 0; i < response.length(); i++) {
-                            JSONObject obj = response.getJSONObject(i);
-                            String date = obj.getString("eventDate"); // Formato esperado: "yyyy-MM-dd"
-                            datasComEventos.add(date);
-                        }
-                        destacarDatasComEventos(); // Destaca as datas no calendário
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(this, "Erro ao carregar datas dos eventos.", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                error -> Log.e(TAG, "Erro ao carregar datas dos eventos", error)
-        );
-
-        requestQueue.add(request);
-    }
-
-    private void destacarDatasComEventos() {
-        for (String date : datasComEventos) {
-            // Converter a string da data para CalendarDay
-            String[] parts = date.split("-");
-            int year = Integer.parseInt(parts[0]);
-            int month = Integer.parseInt(parts[1]) - 1; // Os meses começam de 0 no CalendarDay
-            int day = Integer.parseInt(parts[2]);
-
-            // Adicionar a data ao MaterialCalendarView com destaque
-        }
-    }
-
 
     private void fetchCompromissos(String date) {
         // Implementação anterior sem alterações

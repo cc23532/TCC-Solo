@@ -182,7 +182,7 @@
         android:layout_marginTop="282dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
-        android:text="0"
+        android:text="25"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -298,8 +298,8 @@
 
     <TextView
         android:id="@+id/moneySavedInfo"
-        android:layout_width="69dp"
-        android:layout_height="wrap_content"
+        android:layout_width="86dp"
+        android:layout_height="23dp"
         android:layout_marginStart="284dp"
         android:layout_marginTop="432dp"
         android:fontFamily="@font/montserrat_bold"
