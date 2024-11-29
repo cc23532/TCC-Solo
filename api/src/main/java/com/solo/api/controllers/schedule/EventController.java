@@ -52,29 +52,31 @@ public class EventController {
     }
 
     @GetMapping("/{idUser}/today-events")
-    public ResponseEntity<List<Event>> getEventsByTodayAndTime(
+    public ResponseEntity<?> getEventsByTodayAndTime(
             @PathVariable Integer idUser,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date eventDate,
             @RequestParam String startTime) {
 
-        // Adiciona ":00" à string se estiver no formato "HH:mm"
+        // Formata o horário para incluir ":00" se necessário
         String formattedTime = startTime.length() == 5 ? startTime + ":00" : startTime;
 
         try {
             Time sqlTime = Time.valueOf(formattedTime); // Converte para java.sql.Time
             List<Event> events = repo.getEventsByTodayAndTime(idUser, eventDate, sqlTime);
 
-            return events.isEmpty()
-                    ? ResponseEntity.noContent().build()
-                    : ResponseEntity.ok(events);
+            if (events.isEmpty()) {
+                // Retorna mensagem caso não existam compromissos
+                return ResponseEntity.ok("Você não tem compromissos para hoje");
+            }
+
+            return ResponseEntity.ok(events);
 
         } catch (IllegalArgumentException e) {
-            // Retorna uma resposta de erro se o formato do horário for inválido
+            // Retorna uma mensagem clara para formatos de horário inválidos
             return ResponseEntity.badRequest()
-                    .body(null);
+                    .body("Formato de horário inválido. Use o formato HH:mm.");
         }
     }
-
 
 
     @PostMapping("/{idUser}/add")
