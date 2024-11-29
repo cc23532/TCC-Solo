@@ -51,6 +51,32 @@ public class EventController {
                 : ResponseEntity.ok(events);
     }
 
+    @GetMapping("/{idUser}/today-events")
+    public ResponseEntity<List<Event>> getEventsByTodayAndTime(
+            @PathVariable Integer idUser,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date eventDate,
+            @RequestParam String startTime) {
+
+        // Adiciona ":00" à string se estiver no formato "HH:mm"
+        String formattedTime = startTime.length() == 5 ? startTime + ":00" : startTime;
+
+        try {
+            Time sqlTime = Time.valueOf(formattedTime); // Converte para java.sql.Time
+            List<Event> events = repo.getEventsByTodayAndTime(idUser, eventDate, sqlTime);
+
+            return events.isEmpty()
+                    ? ResponseEntity.noContent().build()
+                    : ResponseEntity.ok(events);
+
+        } catch (IllegalArgumentException e) {
+            // Retorna uma resposta de erro se o formato do horário for inválido
+            return ResponseEntity.badRequest()
+                    .body(null);
+        }
+    }
+
+
+
     @PostMapping("/{idUser}/add")
     public ResponseEntity<?> addEvent (@PathVariable SoloUser idUser, @RequestBody Map<String, String> body){
 
