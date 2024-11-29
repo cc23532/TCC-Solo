@@ -53,7 +53,7 @@ public class MuscleActivityController {
     @PostMapping("/finishActivity/{idActivity}")
     public ResponseEntity<?> finishMuscleActivity(@PathVariable Integer idActivity, @RequestBody Map<String, String> body) {
         try {
-            Time duration = (body.get("duration") != null && !body.get("duration").isEmpty()) ? Time.valueOf(body.get("duration") + ":00") : null;
+            Time duration = (body.get("duration") != null && !body.get("duration").isEmpty()) ? Time.valueOf(body.get("duration")) : null;
 
             int result = service.finishMuscleActivity(duration, idActivity);
             
