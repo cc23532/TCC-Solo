@@ -76,10 +76,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="108dp"
-        android:layout_marginBottom="192dp"
+        android:layout_marginBottom="180dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="Treino"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -220,7 +220,7 @@
         android:id="@+id/frameWorkout"
         android:layout_width="341dp"
         android:layout_height="59dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="32dp"
         android:layout_marginBottom="164dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
