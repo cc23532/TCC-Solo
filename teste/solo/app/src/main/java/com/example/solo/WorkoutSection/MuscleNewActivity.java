@@ -4,6 +4,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,18 +37,49 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.MessageFormat;
+import java.util.Locale;
 
 public class MuscleNewActivity extends AppCompatActivity {
 
     private ImageView btnVoltar;
     private Button btnNovoTreino;
-    private static final String BASE_URL = new URL().getURL() + "/workout/muscle/newActivity";
+    private static final String BASE_URL = new URL().getURL() + "/workout/muscle/";
     private static final String TAG = "MuscleNewActivity";
     private int idUser;
     private RequestQueue requestQueue;
     private EditText nameExerciseField, cargaField, seriesField, repeticoesField;
-    private TextView name, weight, repetition, typeExercise;
-    private Button btnSaveExercise;
+    private TextView name, weight, repetition, typeExercise, tempo;
+    private Button btnSaveExercise, btnStart, btnStop, btnPause;
+    private long startTime;
+    int segundos, minutos, horas, milisegundos;
+    long milisegundo, time, updateTime = 0L;
+    Handler handler;
+
+    private int idActivity;
+
+    private final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            milisegundo = SystemClock.uptimeMillis() - startTime;
+            updateTime = time + milisegundo;
+            segundos = (int) (updateTime / 1000);
+            minutos = segundos / 60;
+            horas = minutos / 60;
+            minutos = minutos % 60;
+            segundos = segundos % 60;
+            milisegundos = (int) (updateTime % 1000);
+
+            // Exibir horas:minutos:segundos
+            tempo.setText(MessageFormat.format("{0}:{1}:{2}",
+                    horas,
+                    String.format(Locale.getDefault(), "%02d", minutos),
+                    String.format(Locale.getDefault(), "%02d", segundos)
+            ));
+
+            handler.postDelayed(this, 0);
+        }
+    };
 
 
     @Override
@@ -57,7 +91,34 @@ public class MuscleNewActivity extends AppCompatActivity {
         idUser = user_session.getInt("idUser", -1);
 
         requestQueue = Volley.newRequestQueue(this);
+        tempo = findViewById(R.id.timer);
+        btnStart = findViewById(R.id.btnStart);
+        btnPause = findViewById(R.id.btnPause);
 
+        handler = new Handler(Looper.getMainLooper());
+
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTime = SystemClock.uptimeMillis();
+                handler.postDelayed(runnable, 0);
+                btnPause.setEnabled(true);
+                btnStart.setEnabled(false);
+            }
+        });
+
+        btnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                time += milisegundo;
+                handler.removeCallbacks(runnable);
+                btnStop.setEnabled(false);
+                btnStart.setEnabled(true);
+
+            }
+        });
+
+        tempo.setText("00:00:00");
         exibirInfoNaTela();
         btnNovoTreino = findViewById(R.id.btnNovoTreino);
         btnNovoTreino.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +127,18 @@ public class MuscleNewActivity extends AppCompatActivity {
                 createActivity();
             }
         });
+
+        btnStop = findViewById(R.id.btnStop);
+        btnStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+
+
     }
 
     private void createActivity() {
@@ -80,14 +153,14 @@ public class MuscleNewActivity extends AppCompatActivity {
             return;
         }
 
-        String url = BASE_URL + "/" + idUser;
+        String url = BASE_URL + "newActivity/" + idUser;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST, url, newActivity,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            int idActivity = response.getInt("idActivity");
+                            idActivity = response.getInt("idActivity");
                             Log.d(TAG, "idActivity salvo: " + idActivity);
 
                             SharedPreferences muscleNewActivity_session = getSharedPreferences("muscleNewActivity_session", MODE_PRIVATE);
@@ -189,7 +262,7 @@ public class MuscleNewActivity extends AppCompatActivity {
                     return;
                 }
 
-                String url = BASE_URL + "/" + idUser + "/exercises";
+                String url = BASE_URL + "newActivity/" + idUser + "/exercises";
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, typeExerciseData,
                         new Response.Listener<JSONObject>() {
@@ -239,7 +312,7 @@ public class MuscleNewActivity extends AppCompatActivity {
         int idActivity = muscleActivity_session.getInt("idActivity", -1);
 
         if (idActivity != -1) {
-            String url = BASE_URL + "/" + idUser + "/exercises/activityItems/" + idActivity;
+            String url = BASE_URL + "newActivity/" + idUser + "/exercises/activityItems/" + idActivity;
 
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                     new Response.Listener<JSONArray>() {
@@ -323,7 +396,7 @@ public class MuscleNewActivity extends AppCompatActivity {
                     return;
                 }
 
-                String url = BASE_URL + "/" + idUser + "/exercises/activityItems?idActivity=" + idActivity + "&idExercise=" + idExercise;
+                String url = BASE_URL + "newActivity/" + idUser + "/exercises/activityItems?idActivity=" + idActivity + "&idExercise=" + idExercise;
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, exerciseData,
                         new Response.Listener<JSONObject>() {
                             @Override
