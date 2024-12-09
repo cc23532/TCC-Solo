@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.solo.AgendaSection.AgendaHomeActivity;
 import com.example.solo.DietSection.DietHomeActivity;
@@ -84,6 +85,10 @@ public class HomeActivity extends AppCompatActivity {
 
         frameWorkout.setOnClickListener(v -> showDialog());
 
+        // Verificar e exibir o popup uma vez por dia
+        checkAndShowDailyPopup();
+        popUpHumor();
+
         // Ajuste de layout com padding para system bars
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -91,7 +96,108 @@ public class HomeActivity extends AppCompatActivity {
             return insets;
         });
     }
-    
+
+    private void popUpHumor() {
+        Dialog dialog = new Dialog(this, R.style.DialogStyle);
+        dialog.setContentView(R.layout.activity_popup_humor);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        ImageView btnSad = dialog.findViewById(R.id.sadHumor);
+        ImageView btnUnhappy = dialog.findViewById(R.id.unhappyHumor);
+        ImageView btnNormal = dialog.findViewById(R.id.normalHumor);
+        ImageView btnHappy = dialog.findViewById(R.id.happyHumor);
+        ImageView btnVeryhappy = dialog.findViewById(R.id.veryhappyHumor);
+
+        View.OnClickListener moodClickListener = v -> {
+            String mood = "";
+
+            if (v.getId() == R.id.sadHumor) {
+                mood = "sad";
+            } else if (v.getId() == R.id.unhappyHumor) {
+                mood = "unhappy";
+            } else if (v.getId() == R.id.normalHumor) {
+                mood = "normal";
+            } else if (v.getId() == R.id.happyHumor) {
+                mood = "happy";
+            } else if (v.getId() == R.id.veryhappyHumor) {
+                mood = "veryhappy";
+            }
+
+            // Envia o humor para a API
+            sendMoodToAPI(mood);
+
+            // Fecha o diálogo após a seleção
+            dialog.dismiss();
+        };
+
+        btnSad.setOnClickListener(moodClickListener);
+        btnUnhappy.setOnClickListener(moodClickListener);
+        btnNormal.setOnClickListener(moodClickListener);
+        btnHappy.setOnClickListener(moodClickListener);
+        btnVeryhappy.setOnClickListener(moodClickListener);
+
+        dialog.show();
+    }
+
+
+    private void sendMoodToAPI(String mood) {
+        if (idUser == -1) {
+            Toast.makeText(this, "Usuário inválido. Não foi possível enviar o humor.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String url = BASE_URL + "/user/mood/" + idUser;
+
+        // Cria o JSON para enviar
+        JSONObject payload = new JSONObject();
+        try {
+            payload.put("mood", mood); // Adiciona o humor como dado no JSON
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Erro ao preparar os dados para envio.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Requisição POST
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, payload,
+                response -> {
+                    Toast.makeText(this, "Humor enviado com sucesso: " + mood, Toast.LENGTH_SHORT).show();
+                    Log.d("PopUpHumor", "Resposta da API: " + response.toString());
+                },
+                error -> {
+                    Toast.makeText(this, "Erro ao enviar humor. Tente novamente.", Toast.LENGTH_SHORT).show();
+                    Log.e("PopUpHumor", "Erro: " + error.toString());
+                });
+
+        // Adiciona a requisição à fila
+        requestQueue.add(request);
+    }
+
+    private void checkAndShowDailyPopup() {
+        SharedPreferences preferences = getSharedPreferences("daily_popup", MODE_PRIVATE);
+        String lastShownDate = preferences.getString("last_shown_date", "");
+
+        // Obtém a data atual no formato "yyyy-MM-dd"
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+
+        // Logs para depuração
+        Log.d("DailyPopup", "Last shown date: " + lastShownDate + ", Current date: " + currentDate);
+
+        // Verifica se o pop-up já foi mostrado hoje
+        if (!currentDate.equals(lastShownDate)) {
+            Log.d("DailyPopup", "Exibindo o pop-up de humor pela primeira vez hoje.");
+
+            // Atualiza a data de exibição no SharedPreferences
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("last_shown_date", currentDate);
+            editor.apply();
+
+            // Exibe o pop-up
+            popUpHumor();
+        } else {
+            Log.d("DailyPopup", "Pop-up de humor já foi exibido hoje.");
+        }
+    }
 
     private void fetchCompromissos() {
         // Limpar os compromissos antes de adicionar novos
@@ -153,9 +259,6 @@ public class HomeActivity extends AppCompatActivity {
         requestQueue.add(request);
     }
 
-
-
-
     private void showDialog() {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         dialog.setContentView(R.layout.activity_popup_workout);
@@ -181,4 +284,5 @@ public class HomeActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
 }
