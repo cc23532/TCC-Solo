@@ -148,18 +148,13 @@ public class RegisterHabitsActivity extends AppCompatActivity {
                         Toast.makeText(RegisterHabitsActivity.this, "Habitos registrados com sucesso!", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Resposta da requisição: " + response.toString());
                         // Redirecionar para a LoginActivity após o registro
-                        Intent intent = new Intent(RegisterHabitsActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         String errorMessage = "Erro ao registrar habitos: " + error.toString();
-                        Toast.makeText(RegisterHabitsActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                         error.printStackTrace();
-                        Log.e(TAG, "Detalhes do erro: ", error);
                     }
                 }) {
             @Override
@@ -172,6 +167,10 @@ public class RegisterHabitsActivity extends AppCompatActivity {
 
         // Adicionando a requisição à fila
         requestQueue.add(jsonObjectRequest);
+        Intent intent = new Intent(RegisterHabitsActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 
 }

@@ -151,19 +151,18 @@ public class RegisterUserActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             // Obtendo o idUser da resposta
-                            String registeredUser = response.getString("idUser");
+                            int registeredUser = response.getInt("idUser");
 
                             // Salvando o idUser em SharedPreferences
                             SharedPreferences sharedPreferences = getSharedPreferences("register-session", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("idUser", registeredUser);
+                            editor.putInt("idUser", registeredUser);
                             editor.apply();
 
                             // Redirecionar para a RegisterHabitsActivity
                             Intent intent = new Intent(RegisterUserActivity.this, RegisterHabitsActivity.class);
                             intent.putExtra("idUser", registeredUser); // Passando o idUser como parâmetro
                             startActivity(intent);
-                            Log.d("idUser:", registeredUser);
 
                             // Limpar os campos após o sucesso
                             clearFields();

@@ -182,7 +182,7 @@
         android:layout_marginTop="282dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
-        android:text="25"
+        android:text="29"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

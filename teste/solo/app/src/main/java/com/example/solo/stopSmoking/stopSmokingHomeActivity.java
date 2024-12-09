@@ -28,7 +28,7 @@ public class stopSmokingHomeActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
 
     private TextView daysWithoutSmokingInfoDay, daysWithoutSmokingHora, daysWithoutSmokingMinutos;
-    private TextView avoidedCigarettesInfo, moneySavedInfo, lifeMinutesSavedInfo;
+    private TextView avoidedCigarettesInfo, moneySavedInfo, lifeMinutesSavedInfo, daysWithoutSmokingInfo;
     private Button btnAtualizar;
     private ImageView imgVoltar;
     private int idUser;
@@ -53,6 +53,7 @@ public class stopSmokingHomeActivity extends AppCompatActivity {
         lifeMinutesSavedInfo = findViewById(R.id.lifeMinutesSavedInfo);
         imgVoltar = findViewById(R.id.imgVoltar);
         btnAtualizar = findViewById(R.id.btnAtualizar);
+        daysWithoutSmokingInfo = findViewById(R.id.daysWithoutSmokingInfo);
 
         // Ações dos botões
         btnAtualizar.setOnClickListener(view -> {
