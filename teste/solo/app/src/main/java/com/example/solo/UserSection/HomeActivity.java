@@ -22,6 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.solo.AgendaSection.AgendaHomeActivity;
 import com.example.solo.DietSection.DietHomeActivity;
@@ -98,6 +99,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void popUpHumor() {
+        // Recupera o idUser do SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
+        int idUser = sharedPreferences.getInt("idUser", -1); // Recupera o id do usuário
+
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         dialog.setContentView(R.layout.activity_popup_humor);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
@@ -123,8 +128,48 @@ public class HomeActivity extends AppCompatActivity {
                 mood = "veryhappy";
             }
 
-            // Envia o humor para a API
-            sendMoodToAPI(mood);
+            if (idUser == -1) {
+                Toast.makeText(this, "Usuário inválido. Não foi possível enviar o humor.", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                return;
+            }
+
+            String url = BASE_URL + "/user/mood/" + idUser;
+
+            // Cria o JSON para enviar
+            JSONObject payload = new JSONObject();
+            try {
+                payload.put("mood", mood);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Erro ao preparar os dados para envio.", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                return;
+            }
+
+            // Requisição POST usando StringRequest
+            StringRequest request = new StringRequest(Request.Method.POST, url,
+                    response -> {
+                        Toast.makeText(this, "Resposta da API: " + response, Toast.LENGTH_SHORT).show();
+                        Log.d("PopUpHumor", "Resposta da API: " + response);
+                    },
+                    error -> {
+                        Toast.makeText(this, "Erro ao enviar humor. Tente novamente.", Toast.LENGTH_SHORT).show();
+                        Log.e("PopUpHumor", "Erro: " + error.toString());
+                    }) {
+                @Override
+                public byte[] getBody() {
+                    return payload.toString().getBytes();
+                }
+
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+            };
+
+            // Adiciona a requisição à fila
+            requestQueue.add(request);
 
             // Fecha o diálogo após a seleção
             dialog.dismiss();
@@ -140,38 +185,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void sendMoodToAPI(String mood) {
-        if (idUser == -1) {
-            Toast.makeText(this, "Usuário inválido. Não foi possível enviar o humor.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String url = BASE_URL + "/user/mood/" + idUser;
-
-        // Cria o JSON para enviar
-        JSONObject payload = new JSONObject();
-        try {
-            payload.put("mood", mood); // Adiciona o humor como dado no JSON
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Erro ao preparar os dados para envio.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Requisição POST
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, payload,
-                response -> {
-                    Toast.makeText(this, "Humor enviado com sucesso: " + mood, Toast.LENGTH_SHORT).show();
-                    Log.d("PopUpHumor", "Resposta da API: " + response.toString());
-                },
-                error -> {
-                    Toast.makeText(this, "Erro ao enviar humor. Tente novamente.", Toast.LENGTH_SHORT).show();
-                    Log.e("PopUpHumor", "Erro: " + error.toString());
-                });
-
-        // Adiciona a requisição à fila
-        requestQueue.add(request);
-    }
 
     private void checkAndShowDailyPopup() {
         SharedPreferences preferences = getSharedPreferences("daily_popup", MODE_PRIVATE);
