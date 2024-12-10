@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.solo.UserSection.HomeActivity;
 import com.example.solo.R;
+import com.example.solo.UserSection.RecoverPwdActivity;
 import com.example.solo.Util.URL;
 
 import org.json.JSONObject;
@@ -30,7 +31,7 @@ import java.io.UnsupportedEncodingException;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextView btnCreateAccount;
+    private TextView btnCreateAccount, btnEsqueci;
     private Button btnLogin;
     private EditText nickname_input, pwd_input;
     private RequestQueue requestQueue;
@@ -50,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         nickname_input = findViewById(R.id.nickname_input);
         pwd_input = findViewById(R.id.pwd_input);
 
+
         // Clique para autenticar o usuário
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +66,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterUserActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnEsqueci = findViewById(R.id.btnEsqueci);
+        btnEsqueci.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RecoverPwdActivity.class);
                 startActivity(intent);
             }
         });

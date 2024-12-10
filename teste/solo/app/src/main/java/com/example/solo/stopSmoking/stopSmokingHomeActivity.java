@@ -55,6 +55,7 @@ public class stopSmokingHomeActivity extends AppCompatActivity {
         btnAtualizar = findViewById(R.id.btnAtualizar);
         daysWithoutSmokingInfo = findViewById(R.id.daysWithoutSmokingInfo);
 
+
         // Ações dos botões
         btnAtualizar.setOnClickListener(view -> {
             Intent intent = new Intent(stopSmokingHomeActivity.this, StopSmokingNewActivity.class);
@@ -77,6 +78,8 @@ public class stopSmokingHomeActivity extends AppCompatActivity {
                         try {
                             // Lê os valores retornados pela API
                             JSONObject daysWithoutSmoking = response.getJSONObject("daysWithoutSmoking");
+
+
                             JSONObject lifeMinutesSaved = response.getJSONObject("lifeMinutesSaved");
 
                             int days = daysWithoutSmoking.getInt("days");
@@ -93,6 +96,7 @@ public class stopSmokingHomeActivity extends AppCompatActivity {
 
                             // Atualiza as TextViews com os dados
                             daysWithoutSmokingInfoDay.setText(String.format("%d", days));
+                            daysWithoutSmokingInfo.setText(String.format("%d", days));
                             daysWithoutSmokingHora.setText(String.format("%d", hours));
                             daysWithoutSmokingMinutos.setText(String.format("%d", lifeMinutes));
                             avoidedCigarettesInfo.setText(avoidedCigarettes);

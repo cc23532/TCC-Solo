@@ -114,6 +114,7 @@ public class MuscleNewActivity extends AppCompatActivity {
                 handler.removeCallbacks(runnable);
                 btnStop.setEnabled(false);
                 btnStart.setEnabled(true);
+                btnStop.setEnabled(true);
 
             }
         });

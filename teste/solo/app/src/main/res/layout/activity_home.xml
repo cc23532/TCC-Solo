@@ -17,6 +17,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/fundo_home" />
 
+    <ImageView
+        android:id="@+id/fotoHumor"
+        android:layout_width="27dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/veryhappy_emoji" />
+
     <ScrollView
         android:id="@+id/scrollViewTarefas"
         android:layout_width="match_parent"

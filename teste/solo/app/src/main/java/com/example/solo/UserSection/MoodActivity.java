@@ -1,10 +1,18 @@
+package com.example.solo.UserSection;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,8 +27,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class HumorActivity extends AppCompatActivity {
+public class MoodActivity extends AppCompatActivity {
 
+    private ImageView imgBack;
     private TextView veryhappy, happy, normal, unhappy, sad;
     private RequestQueue requestQueue;
     private int idUser;
@@ -30,7 +39,7 @@ public class HumorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_humor);
+        setContentView(R.layout.activity_mood);
 
         veryhappy = findViewById(R.id.veryhappyText);
         happy = findViewById(R.id.happyText);
@@ -43,6 +52,14 @@ public class HumorActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("mood_session", MODE_PRIVATE);
         idUser = sharedPreferences.getInt("idUser", -1); // Recupera o id do usuário
+
+        imgBack =findViewById(R.id.imgBack);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     public void exibirInfoNaTela() {
@@ -108,17 +125,17 @@ public class HumorActivity extends AppCompatActivity {
                                     sad.setText(sadCount);
                                 } catch (JSONException e) {
                                     Log.e("MoodActivity", "Erro ao processar a resposta JSON", e);
-                                    Toast.makeText(HumorActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MoodActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(HumorActivity.this, "Nenhum item encontrado.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MoodActivity.this, "Nenhum item encontrado.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e("MoodActivity", "Erro na requisição: " + error.toString());
-                    Toast.makeText(HumorActivity.this, "Erro ao obter as informações.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MoodActivity.this, "Erro ao obter as informações.", Toast.LENGTH_SHORT).show();
                 }
             });
 
