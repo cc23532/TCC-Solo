@@ -20,6 +20,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".UserSection.RecoverPwdActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserSection.MoodActivity"
+            android:exported="false" />
+        <activity
             android:name=".Login_Register.LoginActivity"
             android:exported="true">
             <intent-filter>

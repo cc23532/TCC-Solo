@@ -43,7 +43,7 @@ import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
     private Button btnPopUpWorkout;
-    private ImageView btnProfileIcon, personIcon, dietIcon, financeIcon, calendarIcon;
+    private ImageView btnProfileIcon, personIcon, dietIcon, financeIcon, calendarIcon, fotoHumor;
     private static final String BASE_URL = new URL().getURL();
     private FrameLayout frameWorkout, frameSmoking;
     private LinearLayout containerCompromissos;
@@ -63,7 +63,8 @@ public class HomeActivity extends AppCompatActivity {
         calendarIcon = findViewById(R.id.calendarIcon);
         frameSmoking = findViewById(R.id.frameSmoking);
         frameWorkout = findViewById(R.id.frameWorkout);
-        containerCompromissos = findViewById(R.id.containerTarefas);  // Inicialização corrigida
+        containerCompromissos = findViewById(R.id.containerTarefas);
+        fotoHumor = findViewById(R.id.fotoHumor);
 
         // Configurando o requestQueue
         requestQueue = Volley.newRequestQueue(this);
@@ -79,6 +80,7 @@ public class HomeActivity extends AppCompatActivity {
             financeIcon.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, FinanceHomeActivity.class)));
             frameSmoking.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, stopSmokingHomeActivity.class)));
             calendarIcon.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, AgendaHomeActivity.class)));
+            fotoHumor.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, MoodActivity.class)));
 
             // Carregar compromissos do dia
             fetchCompromissos();

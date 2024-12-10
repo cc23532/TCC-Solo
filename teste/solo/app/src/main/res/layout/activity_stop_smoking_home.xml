@@ -148,7 +148,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-     <TextView
+    <TextView
         android:id="@+id/daysWithoutSmokingInfoHora"
         android:layout_width="68dp"
         android:layout_height="wrap_content"
@@ -156,7 +156,7 @@
         android:layout_marginTop="172dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
-        android:text="12"
+        android:text="0"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -169,7 +169,7 @@
         android:layout_marginTop="172dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
-        android:text="38"
+        android:text="0"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -182,7 +182,7 @@
         android:layout_marginTop="282dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
-        android:text="29"
+        android:text="0"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
