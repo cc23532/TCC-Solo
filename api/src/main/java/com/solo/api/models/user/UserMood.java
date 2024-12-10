@@ -1,28 +1,21 @@
 package com.solo.api.models.user;
 
-import java.sql.Date;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "UserMood", schema = "appSolo")
 public class UserMood {
     
     @Id
-    private Integer idUser;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idMood;
 
-    @OneToOne
-    @MapsId
+    @ManyToOne
     @JoinColumn(name = "idUser", referencedColumnName = "id")
-    @JsonIgnore
     private SoloUser user;
 
     @Column(nullable = false)
@@ -31,12 +24,12 @@ public class UserMood {
     @Column(nullable = false, length = 15)
     private String mood;
 
-    public Integer getIdUser() {
-        return idUser;
+    public Integer getIdMood() {
+        return idMood;
     }
     
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setIdMood(Integer idMood) {
+        this.idMood = idMood;
     }
 
     public SoloUser getUser() {
