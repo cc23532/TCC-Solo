@@ -39,6 +39,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
@@ -136,10 +137,15 @@ public class HomeActivity extends AppCompatActivity {
 
             String url = BASE_URL + "/user/mood/" + idUser;
 
+            // Obtém a data atual
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()); // Formato de data no padrão ISO
+            String currentDate = sdf.format(new Date()); // Data formatada para o padrão yyyy-MM-dd
+
             // Cria o JSON para enviar
             JSONObject payload = new JSONObject();
             try {
                 payload.put("mood", mood);
+                payload.put("moodDate", currentDate); // Adiciona a data atual no campo moodDate
             } catch (JSONException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Erro ao preparar os dados para envio.", Toast.LENGTH_SHORT).show();
@@ -183,6 +189,7 @@ public class HomeActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
 
 
 

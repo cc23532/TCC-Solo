@@ -101,11 +101,11 @@ public class HumorActivity extends AppCompatActivity {
                                     }
 
                                     // Atualizando os TextViews com as contagens
-                                    veryhappy.setText("Very Happy: " + veryhappyCount);
-                                    happy.setText("Happy: " + happyCount);
-                                    normal.setText("Normal: " + normalCount);
-                                    unhappy.setText("Unhappy: " + unhappyCount);
-                                    sad.setText("Sad: " + sadCount);
+                                    veryhappy.setText(veryhappyCount);
+                                    happy.setText(happyCount);
+                                    normal.setText(normalCount);
+                                    unhappy.setText(unhappyCount);
+                                    sad.setText(sadCount);
                                 } catch (JSONException e) {
                                     Log.e("MoodActivity", "Erro ao processar a resposta JSON", e);
                                     Toast.makeText(HumorActivity.this, "Erro ao processar a resposta do servidor.", Toast.LENGTH_SHORT).show();
