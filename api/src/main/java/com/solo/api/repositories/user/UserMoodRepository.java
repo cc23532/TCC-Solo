@@ -9,13 +9,12 @@ import com.solo.api.models.user.UserMood;
 
 import jakarta.transaction.Transactional;
 
+import java.util.Date;
+import java.util.List;
+
 public interface UserMoodRepository extends JpaRepository<UserMood, Integer>{
 
-    @Transactional
-    @Modifying
-    @Query(value = "INSERT INTO appSolo.UserMood(idUser, mood)"+
-                    "VALUES (:idUser, :mood)", nativeQuery = true)
-    public int registerMood(@Param("idUser") Integer idUser,
-                            @Param("mood") String mood);
+    @Query(value = "SELECT * FROM appSolo.UserMood WHERE idUser = :idUser", nativeQuery = true)
+    public List<UserMood> findMoodByIdUser(@Param("idUser") Integer idUser);
                             
 }
