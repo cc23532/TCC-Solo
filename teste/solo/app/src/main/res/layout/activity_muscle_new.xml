@@ -8,173 +8,209 @@
     tools:context=".WorkoutSection.MuscleNewActivity">
 
 
-    <TextView
-        android:id="@+id/duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="Duração"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/fundo_tarefas2"
+        android:layout_width="298dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="520dp"
+        android:background="@drawable/fundo_tarefas_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/fundo_tarefas2"
+        android:layout_width="298dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="280dp"
+        android:background="@drawable/fundo_tarefas_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/fundo_tarefas2"
+        android:layout_width="298dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="360dp"
+        android:background="@drawable/fundo_tarefas_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/fundo_tarefas2"
+        android:layout_width="298dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="440dp"
+        android:background="@drawable/fundo_tarefas_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="188dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginBottom="190dp"
         android:fontFamily="@font/inter_bold"
         android:text="Carga"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnPause"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="232dp"
-        android:layout_marginTop="188dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginBottom="1dp"
         android:fontFamily="@font/inter_bold"
         android:text="Repetições"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/repetition"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginBottom="344dp"
         android:fontFamily="@font/inter_bold"
         android:text="Tipo exercício"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnPause"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="336dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginBottom="262dp"
         android:fontFamily="@font/inter_bold"
         android:text="Nome"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnPause"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="116dp"
         android:fontFamily="@font/inter_bold"
-        android:text="00:00:00"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="0:00:00"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/fundo_tarefas2"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="216dp"
+        android:layout_width="298dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="190dp"
         android:fontFamily="@font/inter_bold"
-        android:text="120kg"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:gravity="center|top"
+        android:text="00kg"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPause"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/repetition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="216dp"
+        android:layout_width="301dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="60dp"
         android:fontFamily="@font/inter_bold"
-        android:text="12"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:gravity="center|top"
+        android:text="0"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnPause"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/typeExercise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="188dp"
-        android:layout_marginTop="96dp"
+        android:layout_width="297dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="300dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Gluteo"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:gravity="center"
+        android:text="Nenhum"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnPause"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="344dp"
-        android:layout_marginTop="92dp"
+        android:layout_width="302dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="220dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Smith"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:gravity="center|top"
+        android:text="Nenhum"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnPause"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
-        android:layout_marginEnd="308dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="256dp"
         android:text="Iniciar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/duration" />
+        app:layout_constraintTop_toBottomOf="@+id/fundo_tarefas2" />
 
     <Button
         android:id="@+id/btnNovoTreino"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="360dp"
-        android:layout_marginEnd="232dp"
+        android:layout_marginTop="328dp"
+        android:layout_marginEnd="124dp"
         android:text="Adicionar Treino"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/duration" />
-
-    <Button
-        android:id="@+id/btnMeusTreinos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="360dp"
-        android:layout_marginEnd="56dp"
-        android:text="Meus Treinos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/duration" />
+        app:layout_constraintTop_toBottomOf="@+id/fundo_tarefas2" />
 
     <Button
         android:id="@+id/btnPause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
-        android:layout_marginEnd="172dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="148dp"
         android:text="Pausar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/duration" />
+        app:layout_constraintTop_toBottomOf="@+id/fundo_tarefas2" />
 
     <Button
         android:id="@+id/btnStop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="32dp"
         android:text="Finalizar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/duration" />
+        app:layout_constraintTop_toBottomOf="@+id/fundo_tarefas2" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="180dp"
+        android:layout_height="84dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/timer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/muscle" />
 </androidx.constraintlayout.widget.ConstraintLayout>
