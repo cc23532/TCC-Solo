@@ -100,9 +100,9 @@
         android:id="@+id/dataMovimentacao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:hint="2024-10-10"
-        android:inputType="date"
-        android:layout_marginBottom="20dp" />
+        android:inputType="text" />
 
     <!-- Rótulo -->
     <TextView
