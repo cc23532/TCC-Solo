@@ -33,10 +33,11 @@ public class FinanceHomeActivity extends AppCompatActivity {
     private static final String BASE_URL = new URL().getURL() + "/finances";
 
     private ImageView btnVoltar;
-    private TextView totalSpentInfo;
+    private TextView totalSpentInfo, totalEconomizeInfo;
     private TextView expensesList;
     private RequestQueue requestQueue;
     private double totalSpent = 0;
+    private double totalEconomize = 0;
 
     private Button btnEnviar, btnAdicionar;
     private EditText valorMovimentacao, dataMovimentacao, descricaoEditText, rotuloEditText;
@@ -57,6 +58,7 @@ public class FinanceHomeActivity extends AppCompatActivity {
 
         // Inicializando componentes da interface
         totalSpentInfo = findViewById(R.id.totalSpentInfo);
+        totalEconomizeInfo = findViewById(R.id.totalEconomizeInfo);
         btnVoltar = findViewById(R.id.imgBack);
         expensesList = findViewById(R.id.expensesList);
         btnAdicionar = findViewById(R.id.btnAdicionar);
@@ -80,8 +82,10 @@ public class FinanceHomeActivity extends AppCompatActivity {
                         Log.d(TAG, "Resposta recebida: " + response.toString());
 
                         // Verificando e processando a resposta JSON
+                        // Dentro do método carregarDespesas(), onde o cálculo é feito
                         if (response.length() > 0) {
                             totalSpent = 0;
+                            totalEconomize = 0;
                             StringBuilder expensesBuilder = new StringBuilder();
 
                             for (int i = 0; i < response.length(); i++) {
@@ -89,8 +93,14 @@ public class FinanceHomeActivity extends AppCompatActivity {
                                     JSONObject expense = response.getJSONObject(i);
                                     double moneyValue = expense.getDouble("moneyValue");
                                     String description = expense.optString("description", "Sem descrição");
+                                    String transactionType = expense.optString("transactionType", "expense");
 
-                                    totalSpent += moneyValue;
+                                    if ("income".equals(transactionType)) {
+                                        totalEconomize += moneyValue;
+                                    } else {
+                                        totalSpent += moneyValue;
+                                    }
+
                                     expensesBuilder.append(description)
                                             .append(", Valor: R$ ").append(moneyValue)
                                             .append("\n");
@@ -100,12 +110,20 @@ public class FinanceHomeActivity extends AppCompatActivity {
                                 }
                             }
 
+                            // Ajuste para garantir que totalEconomize não seja negativo
+                            totalEconomize = totalEconomize - totalSpent; // Economias totais = entradas - saídas
+                            if (totalEconomize < 0) {
+                                totalEconomize = 0; // Se o valor for negativo, definimos como zero
+                            }
+
                             totalSpentInfo.setText("R$" + totalSpent);
+                            totalEconomizeInfo.setText("R$" + String.format("%.2f", totalEconomize)); // Formatar com 2 casas decimais
                             expensesList.setText(expensesBuilder.toString());
                         } else {
                             Toast.makeText(FinanceHomeActivity.this, "Nenhuma despesa registrada.", Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "Nenhuma despesa registrada.");
                         }
+
                     }, error -> {
                 Log.e(TAG, "Erro na requisição: " + error.toString());
 
@@ -123,6 +141,7 @@ public class FinanceHomeActivity extends AppCompatActivity {
             Log.e(TAG, "ID do usuário não encontrado.");
         }
     }
+
 
     private void popUpAddRegister() {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
