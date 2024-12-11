@@ -158,7 +158,6 @@ public class HomeActivity extends AppCompatActivity {
             // Requisição POST usando StringRequest
             StringRequest request = new StringRequest(Request.Method.POST, url,
                     response -> {
-                        Toast.makeText(this, "Resposta da API: " + response, Toast.LENGTH_SHORT).show();
                         Log.d("PopUpHumor", "Resposta da API: " + response);
                     },
                     error -> {
@@ -221,6 +220,18 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    private boolean compromissosCarregados = false;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!compromissosCarregados) {
+            fetchCompromissos(); // Recarrega os compromissos se ainda não foram carregados
+            compromissosCarregados = true; // Marca como carregado
+        }
+    }
+
+
     private void fetchCompromissos() {
         // Limpar os compromissos antes de adicionar novos
         containerCompromissos.removeAllViews();
@@ -275,11 +286,12 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 },
                 error -> {
-                    Toast.makeText(HomeActivity.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
+                    // Log de erro se necessário
                 });
 
         requestQueue.add(request);
     }
+
 
     private void showDialog() {
         Dialog dialog = new Dialog(this, R.style.DialogStyle);

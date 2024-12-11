@@ -132,7 +132,6 @@ public class FinanceHomeActivity extends AppCompatActivity {
                     Log.e(TAG, "Resposta do servidor: " + new String(error.networkResponse.data));
                 }
 
-                Toast.makeText(FinanceHomeActivity.this, "Erro ao obter as informações.", Toast.LENGTH_SHORT).show();
             });
 
             requestQueue.add(jsonArrayRequest);

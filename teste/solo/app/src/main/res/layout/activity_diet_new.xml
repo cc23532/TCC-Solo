@@ -53,8 +53,8 @@
             android:id="@+id/data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ex: Almoço"
-            android:inputType="text"/>
+            android:hint="2024-09-20"
+            android:inputType="text" />
 
         <!-- Alimentos Consumidos -->
         <TextView

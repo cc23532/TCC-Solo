@@ -89,6 +89,13 @@ public class DietHomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnVoltar = findViewById(R.id.imgVoltar);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void exibirRefeicoes() {
